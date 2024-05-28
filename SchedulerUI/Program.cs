@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace CustomerAppointmentManagementSystem
+namespace SchedulerUI
 {
     internal static class Program
     {

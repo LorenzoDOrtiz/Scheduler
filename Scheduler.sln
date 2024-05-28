@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerUI", "CustomerAppointmentManagementSystem\SchedulerUI.csproj", "{8FD1B100-E204-4DDD-9B2A-308736F3575E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelsClassLibrary", "ModelsClassLibrary\ModelsClassLibrary.csproj", "{75D0A25C-E9FA-407E-8CEF-F31B51BA83AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccesssClassLibrary", "DataAccesssClassLibrary\DataAccesssClassLibrary.csproj", "{D8D8D2B1-9733-4947-94E5-09E189593FE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuisnessLogicClassLibrary", "BuisnessLogicClassLibrary\BuisnessLogicClassLibrary.csproj", "{EFAC483C-ADD5-4233-9C7F-8519D043F50E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicClassLibrary", "BuisnessLogicClassLibrary\BusinessLogicClassLibrary.csproj", "{EFAC483C-ADD5-4233-9C7F-8519D043F50E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerUI", "SchedulerUI\SchedulerUI.csproj", "{36BE1F66-B0E1-45DC-920B-9986ECD0FEF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8FD1B100-E204-4DDD-9B2A-308736F3575E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FD1B100-E204-4DDD-9B2A-308736F3575E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FD1B100-E204-4DDD-9B2A-308736F3575E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FD1B100-E204-4DDD-9B2A-308736F3575E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75D0A25C-E9FA-407E-8CEF-F31B51BA83AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75D0A25C-E9FA-407E-8CEF-F31B51BA83AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75D0A25C-E9FA-407E-8CEF-F31B51BA83AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{EFAC483C-ADD5-4233-9C7F-8519D043F50E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFAC483C-ADD5-4233-9C7F-8519D043F50E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFAC483C-ADD5-4233-9C7F-8519D043F50E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36BE1F66-B0E1-45DC-920B-9986ECD0FEF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36BE1F66-B0E1-45DC-920B-9986ECD0FEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36BE1F66-B0E1-45DC-920B-9986ECD0FEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36BE1F66-B0E1-45DC-920B-9986ECD0FEF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
