@@ -72,9 +72,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\BuisnessLogicClassLibrary\BuisnessLogicClassLibrary.csproj">
+    <ProjectReference Include="..\BuisnessLogicClassLibrary\BusinessLogicClassLibrary.csproj">
       <Project>{efac483c-add5-4233-9c7f-8519d043f50e}</Project>
-      <Name>BuisnessLogicClassLibrary</Name>
+      <Name>BusinessLogicClassLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataAccesssClassLibrary\DataAccesssClassLibrary.csproj">
       <Project>{d8d8d2b1-9733-4947-94e5-09e189593fe4}</Project>
