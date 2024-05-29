@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D8D8D2B1-9733-4947-94E5-09E189593FE4}</ProjectGuid>
+    <ProjectGuid>{EFAC483C-ADD5-4233-9C7F-8519D043F50E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataAccesssClassLibrary</RootNamespace>
-    <AssemblyName>DataAccesssClassLibrary</AssemblyName>
+    <RootNamespace>BuisnessLogicLibrary</RootNamespace>
+    <AssemblyName>BuisnessLogicLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,10 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\AddressLogic.cs" />
+    <Compile Include="BusinessLogic\CityLogic.cs" />
+    <Compile Include="BusinessLogic\CountryLogic.cs" />
+    <Compile Include="BusinessLogic\CustomerLogic.cs" />
+    <Compile Include="LoginValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataAccess\" />
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
