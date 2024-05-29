@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SchedulerUI.Properties {
+namespace Scheduler.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SchedulerUI.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SchedulerUI.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Scheduler.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CustomerAppointmentManagementSystem")]
+[assembly: AssemblyTitle("SchedulerUI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CustomerAppointmentManagementSystem")]
+[assembly: AssemblyProduct("SchedulerUI")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8fd1b100-e204-4ddd-9b2a-308736f3575e")]
+[assembly: Guid("36be1f66-b0e1-45dc-920b-9986ecd0fef2")]
 
 // Version information for an assembly consists of the following four values:
 //

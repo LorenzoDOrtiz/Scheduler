@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SchedulerUI.Properties {
+namespace Scheduler.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
