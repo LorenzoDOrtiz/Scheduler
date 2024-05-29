@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 /SchedulerUI/App.config
+/Scheduler/App.config
