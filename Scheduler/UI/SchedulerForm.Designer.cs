@@ -74,6 +74,7 @@
             this.CustomerAddButton.TabIndex = 0;
             this.CustomerAddButton.Text = "Add";
             this.CustomerAddButton.UseVisualStyleBackColor = false;
+            this.CustomerAddButton.Click += new System.EventHandler(this.CustomerAddButton_Click);
             // 
             // CustomerDeleteButton
             // 
@@ -234,6 +235,7 @@
             this.AppointmentAddButton.TabIndex = 0;
             this.AppointmentAddButton.Text = "Add";
             this.AppointmentAddButton.UseVisualStyleBackColor = false;
+            this.AppointmentAddButton.Click += new System.EventHandler(this.AppointmentAddButton_Click);
             // 
             // flowLayoutPanel2
             // 

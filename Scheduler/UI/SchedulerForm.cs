@@ -8,5 +8,16 @@ namespace Scheduler.UI
         {
             InitializeComponent();
         }
+
+        private void AppointmentAddButton_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void CustomerAddButton_Click(object sender, System.EventArgs e)
+        {
+            var CustomerAddForm = new CustomerAddForm();
+            CustomerAddForm.Show();
+        }
     }
 }

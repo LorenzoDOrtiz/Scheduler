@@ -107,11 +107,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\CustomerService.cs" />
     <Compile Include="BusinessLogic\LoginValidation.cs" />
     <Compile Include="BusinessLogic\UserManager.cs" />
+    <Compile Include="DataAccess\DataService.cs" />
     <Compile Include="DataAccess\DBConnection.cs" />
     <Compile Include="DataAccess\MySQLCRUD.cs" />
     <Compile Include="DataAccess\UserRepository.cs" />
+    <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\AppointmentModel.cs" />
+    <Compile Include="Models\CityModel.cs" />
+    <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="UI\AppointmentAddForm.cs">
       <SubType>Form</SubType>
@@ -179,6 +186,7 @@
     <EmbeddedResource Include="UI\SchedulerForm.resx">
       <DependentUpon>SchedulerForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

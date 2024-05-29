@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using Scheduler.BusinessLogic;
+using System.Windows.Forms;
 
 namespace Scheduler.UI
 {
@@ -11,9 +12,14 @@ namespace Scheduler.UI
 
         private void CustomerAddSaveButton_Click(object sender, System.EventArgs e)
         {
-            // Input values 
+            var customerName = CustomerAddNameTextBox.Text;
+            var address1 = CustomerAddAddressTextBox.Text;
+            var cityName = CustomerAddCityComboxBox.Text;
+            var postalCode = CustomerAddPostalCodeTextBox.Text;
+            var countryName = CustomerAddPostalCodeTextBox.Text;
+            var phone = CustomerAddPhoneTextBox.Text;
 
-            // Create Customer Model
+            CustomerService.CreateCustomer(countryName, cityName, address1, postalCode, phone, customerName);
         }
     }
 }

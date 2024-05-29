@@ -1,6 +1,6 @@
 ﻿using Scheduler.DataAccess;
 
-namespace Scheduler.BuisnessLogic
+namespace Scheduler.BusinessLogic
 {
     public static class LoginValidation
     {
