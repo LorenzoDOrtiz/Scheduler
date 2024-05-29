@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+/DataAccesssLibrary/database.config
+/SchedulerUI/App.config
