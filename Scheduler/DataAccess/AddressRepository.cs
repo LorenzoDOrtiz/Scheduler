@@ -42,5 +42,33 @@ namespace Scheduler.DataAccess
 
             return addressDataTable;
         }
+
+        public static DataTable GetAddressDataTable(int addressId, MySqlTransaction transaction)
+        {
+            string query = "SELECT * FROM address WHERE addressId = @AddressId";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@AddressId", addressId }
+            };
+
+            return MySQLCRUD.GetDataTable(query, parameters, transaction);
+        }
+
+        internal static void UpdateAddress(AddressModel address, MySqlTransaction transaction)
+        {
+            string query = "UPDATE address SET address = @AddressLine, postalCode = @PostalCode, phone = @PhoneNumber, lastUpdateBy = @LastUpdateBy WHERE cityId = @CityId";
+            var cmd = MySQLCRUD.CreateCommand(query, transaction);
+            var parameters = new Dictionary<string, object>
+            {
+                    { "@AddressLine", address.Address },
+                    { "@PostalCode", address.PostalCode },
+                    { "@PhoneNumber", address.Phone },
+                    { "@LastUpdateBy", address.LastUpdateBy },
+                    { "@CityId", address.CityId },
+            };
+            MySQLCRUD.AddParameters(parameters, cmd);
+            cmd.ExecuteNonQuery();
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace Scheduler.BusinessLogic
                         Name = countryName
 
                     };
-                    int countryId = CityRepository.InsertCountry(country, transaction);
+                    int countryId = CountryRepository.InsertCountry(country, transaction);
                     country.CountryId = countryId;
 
                     // Insert City
@@ -87,6 +87,31 @@ namespace Scheduler.BusinessLogic
             return customer;
         }
 
+        public static CustomerModel GetCustomer(int customerId, MySqlTransaction transaction)
+        {
+            var customerDataTable = CustomerRepository.GetCustomerDataTable(customerId, transaction);
+
+            if (customerDataTable.Rows.Count == 0)
+            {
+                throw new Exception("Customer not found.");
+            }
+
+            var customerRow = customerDataTable.Rows[0];
+
+            var customer = new CustomerModel
+            {
+                CustomerId = Convert.ToInt32(customerRow["customerId"]),
+                CustomerName = customerRow["customerName"].ToString(),
+                AddressId = Convert.ToInt32(customerRow["addressId"]),
+                Active = Convert.ToInt32(customerRow["active"]),
+                CreateDate = Convert.ToDateTime(customerRow["createDate"]),
+                CreatedBy = customerRow["createdBy"].ToString(),
+                LastUpdateBy = customerRow["lastUpdateBy"].ToString()
+            };
+
+            return customer;
+        }
+
 
         public static List<string> GetCustomerTable()
         {
@@ -98,8 +123,70 @@ namespace Scheduler.BusinessLogic
             {
                 customerList.Add(row["customerName"].ToString());
             }
-
             return customerList;
         }
+
+        public static void ModifyCustomer(int customerId, string customerName, string addressLine, string cityName, string postalCode, string countryName, string phoneNumber)
+        {
+            // Begin the transaction
+            using (var transaction = DBConnection.Conn.BeginTransaction())
+            {
+                try
+                {
+                    // Get existing customer data
+                    var customer = GetCustomer(customerId, transaction);
+                    var address = AddressService.GetAddress(customer.AddressId, transaction);
+                    var city = CityService.GetCity(address.CityId, transaction);
+                    var country = CountryService.GetCountry(city.CountryId, transaction);
+
+
+                    // Update Country if necessary
+                    if (country.Name != countryName)
+                    {
+                        country.Name = countryName;
+                        country.CountryId = city.CountryId;
+                        CountryRepository.UpdateCountry(country, city, transaction);
+                    }
+
+                    // Update City if necessary
+                    if (city.CityName != cityName)
+                    {
+                        city.CityName = cityName;
+                        city.CountryId = country.CountryId;
+                        CityRepository.UpdateCity(city, transaction);
+                    }
+
+                    // Update Address if necessary
+                    if (address.Address != addressLine || address.PostalCode != postalCode || address.Phone != phoneNumber)
+                    {
+                        address.Address = addressLine;
+                        address.PostalCode = postalCode;
+                        address.Phone = phoneNumber;
+                        address.CityId = city.CityId;
+                        AddressRepository.UpdateAddress(address, transaction);
+                    }
+
+                    // Update Customer
+                    if (customer.CustomerName != customerName)
+                    {
+                        customer.CustomerName = customerName;
+                        customer.AddressId = address.AddressId;
+                        CustomerRepository.UpdateCustomer(customer, transaction);
+                    }
+
+                    // Commit the transaction
+                    transaction.Commit();
+                    MessageBox.Show("Customer record modified successfully!");
+                }
+                catch (MySqlException ex)
+                {
+                    // Rollback the transaction if any operation fails
+                    transaction.Rollback();
+                    MessageBox.Show("Transaction Failed: " + ex.Message);
+                }
+            }
+        }
+
+
     }
 }

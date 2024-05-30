@@ -44,6 +44,23 @@ namespace Scheduler.DataAccess
 
             return dt;
         }
+        public static DataTable GetDataTable(string query, Dictionary<string, object> parameters, MySqlTransaction transaction)
+        {
+            using (var cmd = new MySqlCommand(query, transaction.Connection, transaction))
+            {
+                foreach (var param in parameters)
+                {
+                    cmd.Parameters.AddWithValue(param.Key, param.Value);
+                }
+
+                using (var adapter = new MySqlDataAdapter(cmd))
+                {
+                    var dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+                    return dataTable;
+                }
+            }
+        }
 
 
     }

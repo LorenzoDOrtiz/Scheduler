@@ -17,6 +17,7 @@ namespace SchedulerUI.UI
             AppointmentAddContactComboxBox.DataSource = CustomerService.GetCustomerTable();
             AppointmentAddTypeComboxBox.DataSource = AppointmentService.GetAppointmentTypeTable();
         }
+
         private void AppointmentAddSaveButton_Click(object sender, EventArgs e)
         {
             var customerId = AppointmentService.GetContactCustomerId(AppointmentAddContactComboxBox.Text);

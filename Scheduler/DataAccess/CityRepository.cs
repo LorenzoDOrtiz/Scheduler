@@ -26,22 +26,6 @@ namespace Scheduler.DataAccess
             MySQLCRUD.AddParameters(parameters, cmd);
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
-        public static int InsertCountry(CountryModel country, MySqlTransaction transaction)
-        {
-            string query = "INSERT INTO country (country, createDate, createdBy, lastUpdateBy) " +
-                           "VALUES (@CountryName, @CreateDate, @CreatedBy, @LastUpdateBy); " +
-                           "SELECT LAST_INSERT_ID();";
-            var cmd = MySQLCRUD.CreateCommand(query, transaction);
-            var parameters = new Dictionary<string, object>
-                {
-                    { "@CountryName", country.Name },
-                    { "@CreateDate", country.CreateDate },
-                    { "@CreatedBy", country.CreatedBy },
-                    { "@LastUpdateBy", country.LastUpdateBy }
-                };
-            MySQLCRUD.AddParameters(parameters, cmd);
-            return Convert.ToInt32(cmd.ExecuteScalar());
-        }
 
         internal static DataTable GetCityDataTable(int cityId)
         {
@@ -55,6 +39,42 @@ namespace Scheduler.DataAccess
             var cityDataTable = MySQLCRUD.GetDataTable(query, parameters);
 
             return cityDataTable;
+        }
+
+        public static DataTable GetCityDataTable(int cityId, MySqlTransaction transaction)
+        {
+            string query = "SELECT * FROM city WHERE cityId = @CityId";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@CityId", cityId }
+            };
+
+            return MySQLCRUD.GetDataTable(query, parameters, transaction);
+        }
+
+        internal static DataTable GetCityDataTable()
+        {
+            var query = "SELECT DISTINCT city FROM city";
+
+            var cityDataTable = MySQLCRUD.GetDataTable(query);
+
+            return cityDataTable;
+        }
+
+
+        internal static void UpdateCity(CityModel city, MySqlTransaction transaction)
+        {
+            string query = "UPDATE city SET city = @CityName, countryId = @CountryId, lastUpdateBy = @LastUpdateBy WHERE countryID = @CountryId";
+            var cmd = MySQLCRUD.CreateCommand(query, transaction);
+            var parameters = new Dictionary<string, object>
+            {
+                    { "@CityName", city.CityName },
+                    { "@CountryId", city.CountryId },
+                    { "@LastUpdateBy", city.LastUpdateBy }
+                };
+            MySQLCRUD.AddParameters(parameters, cmd);
+            cmd.ExecuteNonQuery();
         }
     }
 }

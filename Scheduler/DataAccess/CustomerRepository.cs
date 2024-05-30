@@ -32,12 +32,32 @@ namespace Scheduler.DataAccess
 
         internal static DataTable GetCustomerDataTable()
         {
-            var query = "SELECT customerId, customerName, address, phone FROM customer INNER JOIN address on customer.addressId = address.addressId";
+            var query = "SELECT customer.customerId, customer.customerName, address.address, city.city, address.postalCode, country.country, address.phone " +
+                              "FROM customer " +
+                                "INNER JOIN address " +
+                                    "ON customer.addressId = address.addressId " +
+                                "INNER JOIN city " +
+                                    "ON address.cityId = city.cityId " +
+                                "INNER JOIN country " +
+                                    "ON city.countryId = country.countryId";
+
 
             // Load data from database
             var customerDataTable = MySQLCRUD.GetDataTable(query);
 
             return customerDataTable;
+        }
+
+        public static DataTable GetCustomerDataTable(int customerId, MySqlTransaction transaction)
+        {
+            string query = "SELECT * FROM customer WHERE customerId = @CustomerId";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@CustomerId", customerId }
+            };
+
+            return MySQLCRUD.GetDataTable(query, parameters, transaction);
         }
 
         internal static DataTable GetCustomerDataTable(int selectedCustomerRowCustomerId)
@@ -67,6 +87,20 @@ namespace Scheduler.DataAccess
             var customerDataTable = MySQLCRUD.GetDataTable(query, parameters);
 
             return customerDataTable;
+        }
+
+        internal static void UpdateCustomer(CustomerModel customer, MySqlTransaction transaction)
+        {
+            string query = "UPDATE customer SET customerName = @CustomerName, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
+            var cmd = MySQLCRUD.CreateCommand(query, transaction);
+            var parameters = new Dictionary<string, object>
+            {
+                    { "@CustomerName", customer.CustomerName },
+                    { "@LastUpdateBy", customer.LastUpdateBy },
+                    { "@AddressId", customer.AddressId }
+                };
+            MySQLCRUD.AddParameters(parameters, cmd);
+            cmd.ExecuteNonQuery();
         }
     }
 }

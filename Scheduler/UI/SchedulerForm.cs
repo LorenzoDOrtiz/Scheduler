@@ -20,6 +20,9 @@ namespace Scheduler.UI
             DGVCustomers.Columns["customerId"].Visible = false;
             DGVCustomers.Columns["customerName"].HeaderText = "Customer Name";
             DGVCustomers.Columns["address"].HeaderText = "Address";
+            DGVCustomers.Columns["city"].HeaderText = "City";
+            DGVCustomers.Columns["postalCode"].HeaderText = "Postal Code";
+            DGVCustomers.Columns["country"].HeaderText = "Country";
             DGVCustomers.Columns["phone"].HeaderText = "Phone Number";
         }
         private void AppointmentAddButton_Click(object sender, System.EventArgs e)

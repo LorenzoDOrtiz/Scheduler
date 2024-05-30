@@ -108,6 +108,7 @@
             this.CustomerModifySaveButton.TabIndex = 63;
             this.CustomerModifySaveButton.Text = "Save";
             this.CustomerModifySaveButton.UseVisualStyleBackColor = false;
+            this.CustomerModifySaveButton.Click += new System.EventHandler(this.CustomerModifySaveButton_Click);
             // 
             // label5
             // 
