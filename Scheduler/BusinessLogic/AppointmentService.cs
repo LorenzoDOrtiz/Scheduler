@@ -30,7 +30,7 @@ namespace Scheduler.BusinessLogic
 
         internal static int GetContactCustomerId(string contactComboBoxText)
         {
-            var customerDataTable = CustomerRepository.GetCustomerDataTable(contactComboBoxText);
+            var customerDataTable = CustomerRepository.GetCustomerIdDataTable(contactComboBoxText);
             var customerDataRow = customerDataTable.AsEnumerable().First();
             var customerId = customerDataRow.Field<int>("customerId");
             return customerId;

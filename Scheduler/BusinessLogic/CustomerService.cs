@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Scheduler.DataAccess;
 using Scheduler.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
@@ -11,12 +12,6 @@ namespace Scheduler.BusinessLogic
     {
         public static void CreateCustomer(string customerName, string address1, string cityName, string postalCode, string countryName, string phone)
         {
-            // Open the static connection if it's not already open
-            if (DBConnection.Conn.State == System.Data.ConnectionState.Closed)
-            {
-                DBConnection.OpenConnection();
-            }
-
             // Begin the transaction
             using (var transaction = DBConnection.Conn.BeginTransaction())
             {
@@ -28,7 +23,7 @@ namespace Scheduler.BusinessLogic
                         Name = countryName
 
                     };
-                    int countryId = DataService.InsertCountry(country, transaction);
+                    int countryId = CityRepository.InsertCountry(country, transaction);
                     country.CountryId = countryId;
 
                     // Insert City
@@ -37,7 +32,7 @@ namespace Scheduler.BusinessLogic
                         CityName = cityName,
                         CountryId = country.CountryId
                     };
-                    int cityId = DataService.InsertCity(city, transaction);
+                    int cityId = CityRepository.InsertCity(city, transaction);
                     city.CityId = cityId;
 
                     // Insert Address
@@ -48,7 +43,7 @@ namespace Scheduler.BusinessLogic
                         PostalCode = postalCode,
                         Phone = phone
                     };
-                    int addressId = DataService.InsertAddress(address, transaction);
+                    int addressId = AddressRepository.InsertAddress(address, transaction);
                     address.AddressId = addressId;
 
                     // Insert Customer
@@ -57,7 +52,7 @@ namespace Scheduler.BusinessLogic
                         CustomerName = customerName,
                         AddressId = address.AddressId
                     };
-                    DataService.InsertCustomer(customer, transaction);
+                    CustomerRepository.InsertCustomer(customer, transaction);
 
                     // Commit the transaction
                     transaction.Commit();
@@ -71,6 +66,27 @@ namespace Scheduler.BusinessLogic
                 }
             }
         }
+
+        public static CustomerModel GetCustomer(int customerId)
+
+        {
+            var customerDataTable = CustomerRepository.GetCustomerDataTable(customerId);
+            var customerRow = customerDataTable.Rows[0];
+
+            // Create customer model
+            var customer = new CustomerModel
+            {
+                CustomerId = customerId,
+                CustomerName = customerRow["customerName"].ToString(),
+                AddressId = Convert.ToInt32(customerRow["addressId"]),
+                Active = Convert.ToInt32(customerRow["active"]),
+                CreateDate = Convert.ToDateTime(customerRow["createDate"]),
+                CreatedBy = customerRow["createdBy"].ToString(),
+                LastUpdateBy = customerRow["lastUpdateBy"].ToString()
+            };
+            return customer;
+        }
+
 
         public static List<string> GetCustomerTable()
         {

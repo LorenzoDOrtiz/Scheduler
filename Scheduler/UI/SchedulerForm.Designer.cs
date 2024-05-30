@@ -201,6 +201,7 @@
             this.CustomerModifyButton.TabIndex = 1;
             this.CustomerModifyButton.Text = "Modify";
             this.CustomerModifyButton.UseVisualStyleBackColor = false;
+            this.CustomerModifyButton.Click += new System.EventHandler(this.CustomerModifyButton_Click);
             // 
             // CustomerLabel
             // 

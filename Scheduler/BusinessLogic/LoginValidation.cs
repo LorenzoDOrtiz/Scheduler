@@ -1,4 +1,6 @@
 ﻿using Scheduler.DataAccess;
+using System.Data;
+using System.Linq;
 
 namespace Scheduler.BusinessLogic
 {
@@ -6,9 +8,10 @@ namespace Scheduler.BusinessLogic
     {
         public static bool IsValidLogin(string username, string password)
         {
-            return UserRepository.CredentialsInUserTable(username, password);
+            var userDataTable = UserRepository.CredentialsInUserTable(username, password);
+            // If our query had a matching user (any DataRows from our DataTable), we use Any() to return true.
+
+            return userDataTable.AsEnumerable().Any();
         }
-
-
     }
 }

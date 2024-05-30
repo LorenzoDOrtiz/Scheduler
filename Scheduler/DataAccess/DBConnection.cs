@@ -41,5 +41,13 @@ namespace Scheduler.DataAccess
             }
 
         }
+
+        public static void ConfirmDataBaseConnection()
+        {
+            if (DBConnection.Conn.State == System.Data.ConnectionState.Closed)
+            {
+                DBConnection.OpenConnection();
+            }
+        }
     }
 }

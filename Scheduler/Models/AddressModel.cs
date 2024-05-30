@@ -3,7 +3,7 @@ using System;
 
 namespace Scheduler.Models
 {
-    internal class AddressModel
+    public class AddressModel
     {
         public int AddressId { get; set; }
         public string Address { get; set; }
