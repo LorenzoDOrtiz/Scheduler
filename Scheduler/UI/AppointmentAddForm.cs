@@ -27,15 +27,16 @@ namespace SchedulerUI.UI
             var contact = AppointmentAddContactComboxBox.Text;
             var type = AppointmentAddTypeComboxBox.Text;
             var url = AppointmentAddURLTextBox.Text;
-            var startDate = AppointmentAddStartDatePicker.Value;
-            var startTime = AppointmentAddStartTimePicker.Value;
+            var startDate = AppointmentAddStartDatePicker.Value.ToUniversalTime();
+            var startTime = AppointmentAddStartTimePicker.Value.ToUniversalTime();
             var start = TimeManager.GetStartTime(startDate, startTime);
             var endDate = AppointmentAddEndDatePicker.Value;
             var endTime = AppointmentAddEndTimePicker.Value;
             var end = TimeManager.GetEndTime(endDate, endTime);
 
             AppointmentService.CreateApointment(customerId, userId, title, description, location, contact, type, url, start, end);
-            // this.close
+
+            this.Close();
         }
     }
 }

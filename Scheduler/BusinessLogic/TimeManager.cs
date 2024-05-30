@@ -4,15 +4,15 @@ namespace Scheduler.BusinessLogic
 {
     internal class TimeManager
     {
-        internal static DateTime GetStartTime(DateTime startDate, DateTime startTime)
+        internal static string GetStartTime(DateTime startDate, DateTime startTime)
         {
-            DateTime.TryParse(startDate.ToString("yyyy-MM-DD") + " " + startTime.ToString("HH:mm:ss"), out DateTime start);
+            var start = startDate.ToString("yyyy-MM-dd") + " " + startTime.ToString("HH:mm:ss");
             return start;
         }
 
-        internal static DateTime GetEndTime(DateTime endDate, DateTime endTime)
+        internal static string GetEndTime(DateTime endDate, DateTime endTime)
         {
-            DateTime.TryParse(endDate.ToString("yyyy-MM-DD") + " " + endTime.ToString("HH:mm:ss"), out DateTime end);
+            var end = endDate.ToString("yyyy-MM-dd") + " " + endTime.ToString("HH:mm:ss");
             return end;
         }
     }
