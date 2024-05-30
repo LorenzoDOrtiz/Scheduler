@@ -16,10 +16,10 @@ namespace Scheduler.UI
             var address1 = CustomerAddAddressTextBox.Text;
             var cityName = CustomerAddCityComboxBox.Text;
             var postalCode = CustomerAddPostalCodeTextBox.Text;
-            var countryName = CustomerAddPostalCodeTextBox.Text;
+            var countryName = CustomerAddCountryComboBox.Text;
             var phone = CustomerAddPhoneTextBox.Text;
 
-            CustomerService.CreateCustomer(countryName, cityName, address1, postalCode, phone, customerName);
+            CustomerService.CreateCustomer(customerName, address1, cityName, postalCode, countryName, phone);
         }
     }
 }

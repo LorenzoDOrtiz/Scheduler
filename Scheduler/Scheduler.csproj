@@ -107,9 +107,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\AppointmentService.cs" />
     <Compile Include="BusinessLogic\CustomerService.cs" />
     <Compile Include="BusinessLogic\LoginValidation.cs" />
+    <Compile Include="BusinessLogic\TimeManager.cs" />
     <Compile Include="BusinessLogic\UserManager.cs" />
+    <Compile Include="DataAccess\AppointmentRepository.cs" />
+    <Compile Include="DataAccess\CustomerRepository.cs" />
     <Compile Include="DataAccess\DataService.cs" />
     <Compile Include="DataAccess\DBConnection.cs" />
     <Compile Include="DataAccess\MySQLCRUD.cs" />

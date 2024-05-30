@@ -84,6 +84,7 @@
             this.AppointmentAddSaveButton.TabIndex = 63;
             this.AppointmentAddSaveButton.Text = "Save";
             this.AppointmentAddSaveButton.UseVisualStyleBackColor = false;
+            this.AppointmentAddSaveButton.Click += new System.EventHandler(this.AppointmentAddSaveButton_Click);
             // 
             // label8
             // 

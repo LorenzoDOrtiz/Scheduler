@@ -6,9 +6,9 @@ namespace Scheduler.Models
     internal class AppointmentModel
     {
         public int AppointmentId { get; set; }
-        public string CustomerId { get; set; }
-        public string UserId { get; set; }
-        public int Title { get; set; }
+        public int CustomerId { get; set; }
+        public int UserId { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
         public string Contact { get; set; }
