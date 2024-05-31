@@ -38,6 +38,21 @@ namespace Scheduler.UI
             DGVAppointments.Columns["start"].HeaderText = "Start";
             DGVAppointments.Columns["end"].HeaderText = "End";
         }
+
+        private bool ConfirmCustomerDelete()
+        {
+            string message = $"Are you sure you want to delete this customer? This will Delete all associated appointments.";
+            DialogResult result = MessageBox.Show(message, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            return result == DialogResult.Yes;
+        }
+
+        private bool ConfirmAppointmentDelete()
+        {
+            string message = $"Are you sure you want to delete this appointments?";
+            DialogResult result = MessageBox.Show(message, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            return result == DialogResult.Yes;
+        }
+
         private void AppointmentAddButton_Click(object sender, System.EventArgs e)
         {
             var appointmentAddForm = new AppointmentAddForm();
@@ -56,21 +71,14 @@ namespace Scheduler.UI
 
             if (selectedCustomerRow != null)
             {
-                try
-                {
-                    var selectedCustomerRowCustomerId = Convert.ToInt32(selectedCustomerRow.Cells["customerId"].Value);
-                    var customer = CustomerService.GetCustomer(selectedCustomerRowCustomerId);
-                    var address = AddressService.GetAddress(customer.AddressId);
-                    var city = CityService.GetCity(address.CityId);
-                    var country = CountryService.GetCountry(city.CountryId);
+                var selectedCustomerRowCustomerId = Convert.ToInt32(selectedCustomerRow.Cells["customerId"].Value);
+                var customer = CustomerService.GetCustomer(selectedCustomerRowCustomerId);
+                var address = AddressService.GetAddress(customer.AddressId);
+                var city = CityService.GetCity(address.CityId);
+                var country = CountryService.GetCountry(city.CountryId);
 
-                    var customerModifyForm = new CustomerModifyForm(customer, address, city, country);
-                    customerModifyForm.Show();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred while fetching customer details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                var customerModifyForm = new CustomerModifyForm(customer, address, city, country);
+                customerModifyForm.Show();
             }
             else
             {
@@ -84,17 +92,29 @@ namespace Scheduler.UI
 
             if (selectedAppointmentRow != null)
             {
-                try
-                {
-                    var selectedAppointmentRowId = Convert.ToInt32(selectedAppointmentRow.Cells["appointmentId"].Value);
-                    var appointment = AppointmentService.GetAppointment(selectedAppointmentRowId);
+                var selectedAppointmentRowId = Convert.ToInt32(selectedAppointmentRow.Cells["appointmentId"].Value);
+                var appointment = AppointmentService.GetAppointment(selectedAppointmentRowId);
 
-                    var appointmentModifyForm = new AppointmentModifyForm(appointment);
-                    appointmentModifyForm.Show();
-                }
-                catch (Exception ex)
+                var appointmentModifyForm = new AppointmentModifyForm(appointment);
+                appointmentModifyForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("No row is selected. Please select a row first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AppointmentDeleteButton_Click(object sender, EventArgs e)
+        {
+            var selectedAppointmentRow = DGVAppointments.CurrentRow;
+
+            if (selectedAppointmentRow != null)
+            {
+                var selectedAppointmentId = Convert.ToInt32(selectedAppointmentRow.Cells["appointmentId"].Value);
+                if (ConfirmCustomerDelete())
                 {
-                    MessageBox.Show($"An error occurred while fetching appointment details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    AppointmentRepository.DeleteAppointment(selectedAppointmentId);
+                    DGVAppointments.DataSource = AppointmentRepository.GetAppointmentDataTable();
                 }
             }
             else
@@ -102,13 +122,32 @@ namespace Scheduler.UI
                 MessageBox.Show("No row is selected. Please select a row first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-
-
         }
-
-        private void AppointmentDeleteButton_Click(object sender, EventArgs e)
+        private void CustomerDeleteButton_Click(object sender, EventArgs e)
         {
+            var selectedCustomerRow = DGVCustomers.CurrentRow;
 
+            if (selectedCustomerRow != null)
+            {
+                var selectedcustomerId = Convert.ToInt32(selectedCustomerRow.Cells["customerId"].Value);
+                if (ConfirmAppointmentDelete())
+                {
+                    CustomerRepository.DeleteCustomer(selectedcustomerId);
+                    DGVCustomers.DataSource = CustomerRepository.GetCustomerDataTable();
+                }
+            }
+            else
+            {
+                MessageBox.Show("No row is selected. Please select a row first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+        private void SchedulerForm_Activated(object sender, EventArgs e)
+        {
+            DGVAppointments.DataSource = AppointmentRepository.GetAppointmentDataTable();
+            DGVCustomers.DataSource = CustomerRepository.GetCustomerDataTable();
+        }
+
+
     }
 }

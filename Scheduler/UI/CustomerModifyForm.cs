@@ -58,6 +58,7 @@ namespace Scheduler.UI
             var phoneNumber = CustomerModifyPhoneTextBox.Text;
 
             CustomerService.ModifyCustomer(customerId, customerName, addressLine, postalCode, phoneNumber, cityId, countryId);
+            this.Close();
         }
 
         private void button2_Click(object sender, System.EventArgs e)

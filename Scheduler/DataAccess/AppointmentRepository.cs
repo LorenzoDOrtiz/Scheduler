@@ -102,5 +102,32 @@ namespace Scheduler.DataAccess
                 MessageBox.Show("Adding customer failed: " + ex.Message);
             }
         }
+
+        public static void DeleteAppointment(int selectedAppointmentId)
+        {
+            try
+            {
+                string query = "DELETE FROM appointment WHERE appointmentId = @AppointmentId";
+                var cmd = MySQLCRUD.CreateCommand(query);
+                Dictionary<string, object> parameters = new Dictionary<string, object>()
+                    {
+                        { "@AppointmentId", selectedAppointmentId }
+                    };
+
+                MySQLCRUD.AddParameters(parameters, cmd);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Appointment deleted successfully!");
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Appointment deletion failed: " + ex.Message);
+            }
+        }
+
+
+
+
+
     }
 }
+

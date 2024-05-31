@@ -159,7 +159,12 @@ namespace Scheduler.BusinessLogic
             }
         }
 
-        internal static List<CustomerModel> GetContactList()
+        public static void DeleteCustomer(int selectedAppointmentRowId)
+        {
+
+        }
+
+        public static List<CustomerModel> GetContactList()
         {
             var contactDataTable = CustomerRepository.GetAllContacts();
 
@@ -174,6 +179,11 @@ namespace Scheduler.BusinessLogic
                 });
             }
             return contactList;
+        }
+
+        internal static void DeleteCustomer(object selectedAppointmentRowId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Scheduler.BusinessLogic;
+using Scheduler.Localization;
 using System;
 using System.Windows.Forms;
 
@@ -9,6 +10,13 @@ namespace Scheduler.UI
         public LoginForm()
         {
             InitializeComponent();
+            InitializeLocalization();
+        }
+
+        private void InitializeLocalization()
+        {
+            var twoLetterISO = LocalizationManager.GetUserTwoLetterISOLanguageName();
+            LocalizationManager.SetCulture(twoLetterISO);
         }
 
         private string username;
@@ -22,7 +30,7 @@ namespace Scheduler.UI
             // Input validation: check if username or password fields are empty
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Username and password fields cannot be empty. Please enter your credentials.");
+                MessageBox.Show(LocalizationManager.GetString("UsernamePasswordPrompt"));
                 return;
             }
 
@@ -48,7 +56,7 @@ namespace Scheduler.UI
             else
             {
                 // Failed login
-                MessageBox.Show("Invalid username or password. Please try again.");
+                MessageBox.Show(LocalizationManager.GetString("InvalidLogin"));
             }
         }
     }

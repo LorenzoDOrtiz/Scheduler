@@ -87,6 +87,7 @@
             this.CustomerDeleteButton.TabIndex = 2;
             this.CustomerDeleteButton.Text = "Delete";
             this.CustomerDeleteButton.UseVisualStyleBackColor = false;
+            this.CustomerDeleteButton.Click += new System.EventHandler(this.CustomerDeleteButton_Click);
             // 
             // SearchPlaceholderLabel2
             // 
@@ -400,6 +401,7 @@
             this.Name = "SchedulerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SchedulerForm";
+            this.Activated += new System.EventHandler(this.SchedulerForm_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.DGVCustomers)).EndInit();
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);

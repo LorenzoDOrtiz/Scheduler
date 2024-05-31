@@ -73,7 +73,7 @@ namespace Scheduler.BusinessLogic
             return appointment;
         }
 
-        internal static void ModifyAppointment(AppointmentModel appointmentModel)
+        public static void ModifyAppointment(AppointmentModel appointmentModel)
         {
             AppointmentRepository.UpdateAppointment(appointmentModel);
         }

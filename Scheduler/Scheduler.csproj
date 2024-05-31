@@ -123,6 +123,12 @@
     <Compile Include="DataAccess\DBConnection.cs" />
     <Compile Include="DataAccess\MySQLCRUD.cs" />
     <Compile Include="DataAccess\UserRepository.cs" />
+    <Compile Include="Localization\Localization.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localization.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\AppointmentModel.cs" />
     <Compile Include="Models\CityModel.cs" />
@@ -167,6 +173,11 @@
     <Compile Include="UI\SchedulerForm.Designer.cs">
       <DependentUpon>SchedulerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UIMethods.cs" />
+    <EmbeddedResource Include="Localization\Localization.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AppointmentAddForm.resx">
       <DependentUpon>AppointmentAddForm.cs</DependentUpon>
       <SubType>Designer</SubType>
