@@ -1,5 +1,6 @@
 ﻿using Scheduler.DataAccess;
 using Scheduler.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace Scheduler.BusinessLogic
 {
     internal class AppointmentService
     {
-        public static void CreateApointment(int customerId, int userId, string title, string description, string location, string contact, string type, string url, string start, string end)
+        public static void CreateApointment(int customerId, int userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end)
         {
             // Create Appointment
             AppointmentModel appointment = new AppointmentModel
@@ -48,6 +49,25 @@ namespace Scheduler.BusinessLogic
             }
 
             return appointmentTypeList;
+        }
+        internal static AppointmentModel GetAppointment(int selectedAppointmentRowId)
+        {
+            var appointmentDataTable = AppointmentRepository.GetAppointmentDataTable(selectedAppointmentRowId);
+            var appointmentRow = appointmentDataTable.Rows[0];
+
+            var appointment = new AppointmentModel
+            {
+                Title = appointmentRow["title"].ToString(),
+                Description = appointmentRow["description"].ToString(),
+                Location = appointmentRow["location"].ToString(),
+                Contact = appointmentRow["contact"].ToString(),
+                Type = appointmentRow["type"].ToString(),
+                URL = appointmentRow["url"].ToString(),
+                Start = Convert.ToDateTime(appointmentRow["start"]),
+                End = Convert.ToDateTime(appointmentRow["end"])
+
+            };
+            return appointment;
         }
     }
 }

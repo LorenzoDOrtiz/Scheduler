@@ -11,6 +11,7 @@ namespace Scheduler.UI
         public SchedulerForm()
         {
             InitializeComponent();
+            PopulateAllAppointmentsDataGridView();
             PopulateCustomerDataGridView();
         }
 
@@ -24,6 +25,17 @@ namespace Scheduler.UI
             DGVCustomers.Columns["postalCode"].HeaderText = "Postal Code";
             DGVCustomers.Columns["country"].HeaderText = "Country";
             DGVCustomers.Columns["phone"].HeaderText = "Phone Number";
+        }
+
+        private void PopulateAllAppointmentsDataGridView()
+        {
+            DGVAppointments.DataSource = AppointmentRepository.GetAppointmentDataTable();
+            DGVAppointments.Columns["appointmentId"].Visible = false;
+            DGVAppointments.Columns["title"].HeaderText = "Title";
+            DGVAppointments.Columns["location"].HeaderText = "Location";
+            DGVAppointments.Columns["contact"].HeaderText = "Contact";
+            DGVAppointments.Columns["start"].HeaderText = "Start";
+            DGVAppointments.Columns["end"].HeaderText = "End";
         }
         private void AppointmentAddButton_Click(object sender, System.EventArgs e)
         {
@@ -65,5 +77,32 @@ namespace Scheduler.UI
             }
         }
 
+        private void AppointmentModifyButton_Click(object sender, EventArgs e)
+        {
+            var selectedAppointmentRow = DGVAppointments.CurrentRow;
+
+            if (selectedAppointmentRow != null)
+            {
+                try
+                {
+                    var selectedAppointmentRowId = Convert.ToInt32(selectedAppointmentRow.Cells["appointmentId"].Value);
+                    var appointment = AppointmentService.GetAppointment(selectedAppointmentRowId);
+
+                    var appointmentModifyForm = new AppointmentModifyForm(appointment);
+                    appointmentModifyForm.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while fetching appointment details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No row is selected. Please select a row first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+
+        }
     }
 }

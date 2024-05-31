@@ -59,5 +59,10 @@ namespace Scheduler.UI
 
             CustomerService.ModifyCustomer(customerId, customerName, addressLine, postalCode, phoneNumber, cityId, countryId);
         }
+
+        private void button2_Click(object sender, System.EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

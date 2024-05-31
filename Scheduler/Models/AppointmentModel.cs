@@ -14,8 +14,8 @@ namespace Scheduler.Models
         public string Contact { get; set; }
         public string Type { get; set; }
         public string URL { get; set; }
-        public string Start { get; set; }
-        public string End { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now.ToUniversalTime();
         public string CreatedBy { get; set; } = UserManager.GetCurrentUser().UserName;
         public string LastUpdateBy { get; set; } = UserManager.GetCurrentUser().UserName;

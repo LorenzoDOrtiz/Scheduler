@@ -8,16 +8,6 @@ namespace Scheduler.DataAccess
 {
     internal class AppointmentRepository
     {
-
-        public static DataTable GetAppointmentTypeDataTable()
-        {
-            var query = "SELECT DISTINCT type FROM appointment";
-
-            var customerDataTable = MySQLCRUD.GetDataTable(query);
-
-            return customerDataTable;
-        }
-
         public static void InsertAppointment(AppointmentModel appointment)
         {
             try
@@ -50,6 +40,36 @@ namespace Scheduler.DataAccess
                 MessageBox.Show("Adding customer failed: " + ex.Message);
             }
 
+        }
+
+        public static DataTable GetAppointmentTypeDataTable()
+        {
+            var query = "SELECT DISTINCT type FROM appointment";
+
+            var customerDataTable = MySQLCRUD.GetDataTable(query);
+
+            return customerDataTable;
+        }
+
+        internal static DataTable GetAppointmentDataTable()
+        {
+            var query = "SELECT appointmentId, title, location, contact, start, end FROM appointment";
+
+            var appointmentDataTable = MySQLCRUD.GetDataTable(query);
+
+            return appointmentDataTable;
+        }
+
+        internal static DataTable GetAppointmentDataTable(int appointmentId)
+        {
+            var query = "SELECT * FROM appointment WHERE appointmentId = @AppointmentId";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@AppointmentId", appointmentId }
+            };
+            var appointmentDataTable = MySQLCRUD.GetDataTable(query, parameters);
+
+            return appointmentDataTable;
         }
     }
 }

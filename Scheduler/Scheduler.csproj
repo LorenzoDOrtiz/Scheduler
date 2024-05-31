@@ -169,6 +169,7 @@
     </Compile>
     <EmbeddedResource Include="UI\AppointmentAddForm.resx">
       <DependentUpon>AppointmentAddForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AppointmentModifyForm.resx">
       <DependentUpon>AppointmentModifyForm.cs</DependentUpon>

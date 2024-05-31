@@ -259,6 +259,7 @@
             this.AppointmentModifyButton.TabIndex = 1;
             this.AppointmentModifyButton.Text = "Modify";
             this.AppointmentModifyButton.UseVisualStyleBackColor = false;
+            this.AppointmentModifyButton.Click += new System.EventHandler(this.AppointmentModifyButton_Click);
             // 
             // AppointmentDeleteButton
             // 

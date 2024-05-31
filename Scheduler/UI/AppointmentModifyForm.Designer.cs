@@ -72,6 +72,7 @@
             this.AppointmentModifyCancelButton.TabIndex = 43;
             this.AppointmentModifyCancelButton.Text = "Cancel";
             this.AppointmentModifyCancelButton.UseVisualStyleBackColor = false;
+            this.AppointmentModifyCancelButton.Click += new System.EventHandler(this.AppointmentModifyCancelButton_Click);
             // 
             // AppointmentModifySaveButton
             // 
@@ -84,6 +85,7 @@
             this.AppointmentModifySaveButton.TabIndex = 42;
             this.AppointmentModifySaveButton.Text = "Save";
             this.AppointmentModifySaveButton.UseVisualStyleBackColor = false;
+            this.AppointmentModifySaveButton.Click += new System.EventHandler(this.AppointmentModifySaveButton_Click);
             // 
             // label8
             // 
@@ -237,7 +239,6 @@
             // 
             // AppointmentModifyTypeComboxBox
             // 
-            this.AppointmentModifyTypeComboxBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AppointmentModifyTypeComboxBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AppointmentModifyTypeComboxBox.FormattingEnabled = true;
             this.AppointmentModifyTypeComboxBox.Location = new System.Drawing.Point(143, 212);
@@ -325,7 +326,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button AppointmentModifyAddCustomerButton;
         private System.Windows.Forms.DateTimePicker AppointmentModifyEndTimePicker;
-        private System.Windows.Forms.DateTimePicker AppointmentModifyEndDatePicker;
         private System.Windows.Forms.DateTimePicker AppointmentModifyStartTimePicker;
         private System.Windows.Forms.DateTimePicker AppointmentModifyStartDatePicker;
         private System.Windows.Forms.TextBox AppointmentModifyURLTextBox;
@@ -333,5 +333,6 @@
         private System.Windows.Forms.ComboBox AppointmentModifyContactComboxBox;
         private System.Windows.Forms.TextBox AppointmentModifyLocationTextBox;
         private System.Windows.Forms.TextBox AppointmentModifyTitleTextBox;
+        private System.Windows.Forms.DateTimePicker AppointmentModifyEndDatePicker;
     }
 }

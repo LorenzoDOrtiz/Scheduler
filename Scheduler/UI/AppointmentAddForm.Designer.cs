@@ -72,6 +72,7 @@
             this.AppointmentAddCancelButton.TabIndex = 64;
             this.AppointmentAddCancelButton.Text = "Cancel";
             this.AppointmentAddCancelButton.UseVisualStyleBackColor = false;
+            this.AppointmentAddCancelButton.Click += new System.EventHandler(this.AppointmentAddCancelButton_Click);
             // 
             // AppointmentAddSaveButton
             // 
@@ -238,7 +239,6 @@
             // 
             // AppointmentAddTypeComboxBox
             // 
-            this.AppointmentAddTypeComboxBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AppointmentAddTypeComboxBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AppointmentAddTypeComboxBox.FormattingEnabled = true;
             this.AppointmentAddTypeComboxBox.Location = new System.Drawing.Point(145, 214);

@@ -10,6 +10,7 @@ namespace SchedulerUI.UI
         {
             InitializeComponent();
             PopulateComboBoxes();
+            ClearComboBoxSelection();
         }
 
         private void PopulateComboBoxes()
@@ -17,7 +18,11 @@ namespace SchedulerUI.UI
             AppointmentAddContactComboxBox.DataSource = CustomerService.GetCustomerTable();
             AppointmentAddTypeComboxBox.DataSource = AppointmentService.GetAppointmentTypeTable();
         }
-
+        private void ClearComboBoxSelection()
+        {
+            AppointmentAddContactComboxBox.SelectedIndex = -1;
+            AppointmentAddTypeComboxBox.SelectedIndex = -1;
+        }
         private void AppointmentAddSaveButton_Click(object sender, EventArgs e)
         {
             var customerId = AppointmentService.GetContactCustomerId(AppointmentAddContactComboxBox.Text);
@@ -29,14 +34,19 @@ namespace SchedulerUI.UI
             var type = AppointmentAddTypeComboxBox.Text;
             var url = AppointmentAddURLTextBox.Text;
             var startDate = AppointmentAddStartDatePicker.Value.ToUniversalTime();
-            var startTime = AppointmentAddStartTimePicker.Value.ToUniversalTime();
-            var start = TimeManager.GetStartTime(startDate, startTime);
-            var endDate = AppointmentAddEndDatePicker.Value;
-            var endTime = AppointmentAddEndTimePicker.Value;
-            var end = TimeManager.GetEndTime(endDate, endTime);
+            DateTime startTime = AppointmentAddStartTimePicker.Value.ToUniversalTime();
+            DateTime start = DateTime.Parse(TimeManager.GetStartTime(startDate, startTime));
+            DateTime endDate = AppointmentAddEndDatePicker.Value;
+            DateTime endTime = AppointmentAddEndTimePicker.Value;
+            var end = DateTime.Parse(TimeManager.GetEndTime(endDate, endTime));
 
             AppointmentService.CreateApointment(customerId, userId, title, description, location, contact, type, url, start, end);
 
+            this.Close();
+        }
+
+        private void AppointmentAddCancelButton_Click(object sender, EventArgs e)
+        {
             this.Close();
         }
     }

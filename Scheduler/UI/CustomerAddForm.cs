@@ -48,5 +48,10 @@ namespace Scheduler.UI
             // Optionally, you can close the form after saving
             this.Close();
         }
+
+        private void button2_Click(object sender, System.EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
