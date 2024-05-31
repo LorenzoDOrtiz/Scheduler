@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerAddForm));
             this.label7 = new System.Windows.Forms.Label();
-            this.CustomerAddPhoneTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.CustomerAddCountryComboBox = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -39,10 +38,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.CustomerAddPostalCodeTextBox = new System.Windows.Forms.TextBox();
             this.CustomerAddCityComboBox = new System.Windows.Forms.ComboBox();
             this.CustomerAddAddressTextBox = new System.Windows.Forms.TextBox();
             this.CustomerAddNameTextBox = new System.Windows.Forms.TextBox();
+            this.CustomerAddPhoneTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.CustomerAddPostalCodeTextBox = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // label7
@@ -55,15 +55,6 @@
             this.label7.Size = new System.Drawing.Size(74, 25);
             this.label7.TabIndex = 54;
             this.label7.Text = "Phone";
-            // 
-            // CustomerAddPhoneTextBox
-            // 
-            this.CustomerAddPhoneTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CustomerAddPhoneTextBox.Location = new System.Drawing.Point(148, 240);
-            this.CustomerAddPhoneTextBox.Multiline = true;
-            this.CustomerAddPhoneTextBox.Name = "CustomerAddPhoneTextBox";
-            this.CustomerAddPhoneTextBox.Size = new System.Drawing.Size(225, 33);
-            this.CustomerAddPhoneTextBox.TabIndex = 53;
             // 
             // label6
             // 
@@ -81,7 +72,7 @@
             this.CustomerAddCountryComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CustomerAddCountryComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CustomerAddCountryComboBox.FormattingEnabled = true;
-            this.CustomerAddCountryComboBox.Location = new System.Drawing.Point(148, 201);
+            this.CustomerAddCountryComboBox.Location = new System.Drawing.Point(148, 199);
             this.CustomerAddCountryComboBox.Name = "CustomerAddCountryComboBox";
             this.CustomerAddCountryComboBox.Size = new System.Drawing.Size(225, 33);
             this.CustomerAddCountryComboBox.TabIndex = 51;
@@ -156,15 +147,6 @@
             this.label1.TabIndex = 45;
             this.label1.Text = "Name";
             // 
-            // CustomerAddPostalCodeTextBox
-            // 
-            this.CustomerAddPostalCodeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CustomerAddPostalCodeTextBox.Location = new System.Drawing.Point(148, 162);
-            this.CustomerAddPostalCodeTextBox.Multiline = true;
-            this.CustomerAddPostalCodeTextBox.Name = "CustomerAddPostalCodeTextBox";
-            this.CustomerAddPostalCodeTextBox.Size = new System.Drawing.Size(225, 33);
-            this.CustomerAddPostalCodeTextBox.TabIndex = 44;
-            // 
             // CustomerAddCityComboBox
             // 
             this.CustomerAddCityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -183,6 +165,7 @@
             this.CustomerAddAddressTextBox.Name = "CustomerAddAddressTextBox";
             this.CustomerAddAddressTextBox.Size = new System.Drawing.Size(225, 33);
             this.CustomerAddAddressTextBox.TabIndex = 42;
+            this.CustomerAddAddressTextBox.Leave += new System.EventHandler(this.CustomerAddAddressTextBox_Leave);
             // 
             // CustomerAddNameTextBox
             // 
@@ -192,6 +175,30 @@
             this.CustomerAddNameTextBox.Name = "CustomerAddNameTextBox";
             this.CustomerAddNameTextBox.Size = new System.Drawing.Size(225, 33);
             this.CustomerAddNameTextBox.TabIndex = 41;
+            this.CustomerAddNameTextBox.TextChanged += new System.EventHandler(this.CustomerAddNameTextBox_TextChanged);
+            // 
+            // CustomerAddPhoneTextBox
+            // 
+            this.CustomerAddPhoneTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomerAddPhoneTextBox.Location = new System.Drawing.Point(148, 238);
+            this.CustomerAddPhoneTextBox.Mask = "000-0000";
+            this.CustomerAddPhoneTextBox.Name = "CustomerAddPhoneTextBox";
+            this.CustomerAddPhoneTextBox.Size = new System.Drawing.Size(225, 31);
+            this.CustomerAddPhoneTextBox.TabIndex = 55;
+            this.CustomerAddPhoneTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.CustomerAddPhoneTextBox_MaskInputRejected);
+            this.CustomerAddPhoneTextBox.Enter += new System.EventHandler(this.CustomerAddPhoneTextBox_Enter);
+            // 
+            // CustomerAddPostalCodeTextBox
+            // 
+            this.CustomerAddPostalCodeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomerAddPostalCodeTextBox.Location = new System.Drawing.Point(148, 162);
+            this.CustomerAddPostalCodeTextBox.Mask = "00000";
+            this.CustomerAddPostalCodeTextBox.Name = "CustomerAddPostalCodeTextBox";
+            this.CustomerAddPostalCodeTextBox.Size = new System.Drawing.Size(225, 31);
+            this.CustomerAddPostalCodeTextBox.TabIndex = 56;
+            this.CustomerAddPostalCodeTextBox.ValidatingType = typeof(int);
+            this.CustomerAddPostalCodeTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.CustomerAddPostalCodeTextBox_MaskInputRejected);
+            this.CustomerAddPostalCodeTextBox.Enter += new System.EventHandler(this.CustomerAddPostalCodeTextBox_Enter);
             // 
             // CustomerAddForm
             // 
@@ -199,8 +206,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(17)))), ((int)(((byte)(23)))));
             this.ClientSize = new System.Drawing.Size(397, 387);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.CustomerAddPostalCodeTextBox);
             this.Controls.Add(this.CustomerAddPhoneTextBox);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.CustomerAddCountryComboBox);
             this.Controls.Add(this.button2);
@@ -209,7 +217,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.CustomerAddPostalCodeTextBox);
             this.Controls.Add(this.CustomerAddCityComboBox);
             this.Controls.Add(this.CustomerAddAddressTextBox);
             this.Controls.Add(this.CustomerAddNameTextBox);
@@ -226,7 +233,6 @@
         #endregion
 
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox CustomerAddPhoneTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox CustomerAddCountryComboBox;
         private System.Windows.Forms.Button button2;
@@ -235,9 +241,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox CustomerAddPostalCodeTextBox;
         private System.Windows.Forms.ComboBox CustomerAddCityComboBox;
         private System.Windows.Forms.TextBox CustomerAddAddressTextBox;
         private System.Windows.Forms.TextBox CustomerAddNameTextBox;
+        private System.Windows.Forms.MaskedTextBox CustomerAddPhoneTextBox;
+        private System.Windows.Forms.MaskedTextBox CustomerAddPostalCodeTextBox;
     }
 }

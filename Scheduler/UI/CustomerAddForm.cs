@@ -1,4 +1,7 @@
 ﻿using Scheduler.BusinessLogic;
+using System;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Scheduler.UI
@@ -14,12 +17,10 @@ namespace Scheduler.UI
 
         private void PopulateComboBoxes()
         {
-            // Populate City combo box
             CustomerAddCityComboBox.DataSource = CityService.GetCityList();
             CustomerAddCityComboBox.DisplayMember = "CityName";
             CustomerAddCityComboBox.ValueMember = "CityId";
 
-            // Populate Country combo box
             CustomerAddCountryComboBox.DataSource = CountryService.GetCountryList();
             CustomerAddCountryComboBox.DisplayMember = "Name";
             CustomerAddCountryComboBox.ValueMember = "CountryId";
@@ -27,31 +28,112 @@ namespace Scheduler.UI
 
         private void ClearComboBoxSelection()
         {
-            // Clear City and Country combo box selection
             CustomerAddCityComboBox.SelectedIndex = -1;
             CustomerAddCountryComboBox.SelectedIndex = -1;
         }
 
-        private void CustomerAddSaveButton_Click(object sender, System.EventArgs e)
+        private bool ValidateFormInputs()
         {
-            // Retrieve input values from the form
-            var customerName = CustomerAddNameTextBox.Text;
-            var address = CustomerAddAddressTextBox.Text;
-            var cityId = (int)CustomerAddCityComboBox.SelectedValue;
-            var postalCode = CustomerAddPostalCodeTextBox.Text;
-            var countryId = (int)CustomerAddCountryComboBox.SelectedValue;
-            var phone = CustomerAddPhoneTextBox.Text;
+            if (string.IsNullOrEmpty(CustomerAddNameTextBox.Text) || CustomerAddNameTextBox.Text.Any(Char.IsDigit))
+            {
+                MessageBox.Show(this, "Please enter a valid customer name.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (!InputValidation.IsAddressValid(CustomerAddAddressTextBox.Text))
+            {
+                MessageBox.Show(this, "Please enter a valid address.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (!CustomerAddPostalCodeTextBox.MaskFull)
+            {
+                MessageBox.Show(this, "Please enter a valid postal code.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (!CustomerAddPhoneTextBox.MaskFull)
+            {
+                MessageBox.Show(this, "Please enter a valid phone number.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (CustomerAddCityComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show(this, "Please select a city.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (CustomerAddCountryComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show(this, "Please select a country.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
 
-            // Call the CustomerService method to create a new customer
+        private void CustomerAddSaveButton_Click(object sender, EventArgs e)
+        {
+            if (!ValidateFormInputs())
+            {
+                return; // Stop execution if validation fails
+            }
+
+            var customerName = CustomerAddNameTextBox.Text.Trim();
+            var address = CustomerAddAddressTextBox.Text.Trim();
+            var cityId = (int)CustomerAddCityComboBox.SelectedValue;
+            var postalCode = CustomerAddPostalCodeTextBox.Text.Trim();
+            var countryId = (int)CustomerAddCountryComboBox.SelectedValue;
+            var phone = CustomerAddPhoneTextBox.Text.Trim();
+
             CustomerService.CreateCustomer(customerName, address, cityId, postalCode, countryId, phone);
 
-            // Optionally, you can close the form after saving
             this.Close();
         }
 
-        private void button2_Click(object sender, System.EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void CustomerAddPhoneTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            MessageBox.Show(this, "Please enter a phone number with the correct format.", "Invalid form field format", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void CustomerAddPostalCodeTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            MessageBox.Show(this, "Please enter a postal code with the correct format.", "Invalid form field format", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        private void CustomerAddNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (CustomerAddNameTextBox.Text.Any(Char.IsDigit))
+            {
+                CustomerAddNameTextBox.BackColor = Color.DarkRed;
+            }
+            else
+            {
+                CustomerAddNameTextBox.BackColor = SystemColors.Window;
+            }
+        }
+
+        private void CustomerAddAddressTextBox_Leave(object sender, EventArgs e)
+        {
+            if (!InputValidation.IsAddressValid(CustomerAddAddressTextBox.Text))
+            {
+                CustomerAddAddressTextBox.BackColor = Color.DarkRed;
+            }
+            else
+            {
+                CustomerAddAddressTextBox.BackColor = SystemColors.Window;
+            }
+        }
+
+        private void CustomerAddPostalCodeTextBox_Enter(object sender, EventArgs e)
+        {
+            MaskedTextBoxBehavior.ModifyMaskedTextBoxBehavior(this, sender);
+        }
+
+        private void CustomerAddPhoneTextBox_Enter(object sender, EventArgs e)
+        {
+            MaskedTextBoxBehavior.ModifyMaskedTextBoxBehavior(this, sender);
         }
     }
 }

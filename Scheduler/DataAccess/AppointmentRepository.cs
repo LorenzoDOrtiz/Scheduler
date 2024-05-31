@@ -12,6 +12,8 @@ namespace Scheduler.DataAccess
         {
             try
             {
+                DBConnection.ConfirmDataBaseConnection();
+
                 string query = "INSERT INTO appointment (customerId, userId, title, description, location, contact, type, url, start, end, createDate, createdBy, lastUpdateBy) " +
                                            "VALUES (@CustomerId, @UserId, @Title, @Description, @Location, @Contact, @Type, @Url, @Start, @End, @CreateDate, @CreatedBy, @LastUpdateBy)";
                 var cmd = MySQLCRUD.CreateCommand(query);
@@ -33,49 +35,19 @@ namespace Scheduler.DataAccess
                 };
                 MySQLCRUD.AddParameters(parameters, cmd);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Appointment created successfully!");
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show("Adding appointment failed: " + ex.Message);
+                throw new DataAccessException("Inserting appointment failed", ex);
             }
-
         }
 
-        public static DataTable GetAppointmentTypeDataTable()
-        {
-            var query = "SELECT DISTINCT type FROM appointment";
-
-            var customerDataTable = MySQLCRUD.GetDataTable(query);
-
-            return customerDataTable;
-        }
-
-        internal static DataTable GetAppointmentDataTable()
-        {
-            var query = "SELECT appointmentId, title, location, contact, type, start, end FROM appointment";
-
-            var appointmentDataTable = MySQLCRUD.GetDataTable(query);
-
-            return appointmentDataTable;
-        }
-
-        internal static DataTable GetAppointmentDataTable(int appointmentId)
-        {
-            var query = "SELECT * FROM appointment WHERE appointmentId = @AppointmentId";
-            var parameters = new Dictionary<string, object>
-            {
-                { "@AppointmentId", appointmentId }
-            };
-            var appointmentDataTable = MySQLCRUD.GetDataTable(query, parameters);
-
-            return appointmentDataTable;
-        }
-
-        internal static void UpdateAppointment(AppointmentModel appointmentModel)
+        public static void UpdateAppointment(AppointmentModel appointmentModel)
         {
             try
             {
+                DBConnection.ConfirmDataBaseConnection();
+
                 string query = "UPDATE appointment SET customerId = @CustomerId, title = @Title, description = @Description, location = @Location, contact = @Contact, type = @Type, url = @URL, start = @Start, end = @End " +
                                            "WHERE appointmentId = @AppointmentId";
                 var cmd = MySQLCRUD.CreateCommand(query);
@@ -94,12 +66,12 @@ namespace Scheduler.DataAccess
             };
                 MySQLCRUD.AddParameters(parameters, cmd);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Appointment record modified successfully!");
+                MessageBox.Show("Appointment record modified successfully!", "Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             catch (MySqlException ex)
             {
-                MessageBox.Show("Adding customer failed: " + ex.Message);
+                throw new DataAccessException("Updating appointment failed", ex);
             }
         }
 
@@ -107,6 +79,8 @@ namespace Scheduler.DataAccess
         {
             try
             {
+                DBConnection.ConfirmDataBaseConnection();
+
                 string query = "DELETE FROM appointment WHERE appointmentId = @AppointmentId";
                 var cmd = MySQLCRUD.CreateCommand(query);
                 Dictionary<string, object> parameters = new Dictionary<string, object>()
@@ -116,13 +90,44 @@ namespace Scheduler.DataAccess
 
                 MySQLCRUD.AddParameters(parameters, cmd);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Appointment deleted successfully!");
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show("Appointment deletion failed: " + ex.Message);
+                throw new DataAccessException("Deleting appointment failed", ex);
             }
         }
+
+        public static DataTable GetAppointmentTypeDataTable()
+        {
+            var query = "SELECT DISTINCT type FROM appointment";
+
+            var customerDataTable = MySQLCRUD.GetDataTable(query);
+
+            return customerDataTable;
+        }
+
+        public static DataTable GetAppointmentDataTable()
+        {
+            var query = "SELECT appointmentId, title, location, contact, type, start, end FROM appointment";
+
+            var appointmentDataTable = MySQLCRUD.GetDataTable(query);
+
+            return appointmentDataTable;
+        }
+
+        public static DataTable GetAppointmentDataTable(int appointmentId)
+        {
+            var query = "SELECT * FROM appointment WHERE appointmentId = @AppointmentId";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@AppointmentId", appointmentId }
+            };
+            var appointmentDataTable = MySQLCRUD.GetDataTable(query, parameters);
+
+            return appointmentDataTable;
+        }
+
+
 
 
 

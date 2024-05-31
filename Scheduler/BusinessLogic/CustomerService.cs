@@ -38,77 +38,22 @@ namespace Scheduler.BusinessLogic
 
                     // Commit the transaction
                     transaction.Commit();
-                    MessageBox.Show("Customer record created successfully!");
+
+                    MessageBox.Show("Customer created successfully!", "Customer", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (MySqlException ex)
+                catch (DataAccessException ex)
                 {
                     // Rollback the transaction if any operation fails
                     transaction.Rollback();
-                    MessageBox.Show("Transaction Failed: " + ex.Message);
+                    MessageBox.Show("Customer creation failed!: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    // Rollback the transaction if any operation fails
+                    transaction.Rollback();
+                    MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-
-
-
-        public static CustomerModel GetCustomer(int customerId)
-
-        {
-            var customerDataTable = CustomerRepository.GetCustomerDataTable(customerId);
-            var customerRow = customerDataTable.Rows[0];
-
-            // Create customer model
-            var customer = new CustomerModel
-            {
-                CustomerId = customerId,
-                CustomerName = customerRow["customerName"].ToString(),
-                AddressId = Convert.ToInt32(customerRow["addressId"]),
-                Active = Convert.ToInt32(customerRow["active"]),
-                CreateDate = Convert.ToDateTime(customerRow["createDate"]),
-                CreatedBy = customerRow["createdBy"].ToString(),
-                LastUpdateBy = customerRow["lastUpdateBy"].ToString()
-            };
-            return customer;
-        }
-
-        public static CustomerModel GetCustomer(int customerId, MySqlTransaction transaction)
-        {
-            var customerDataTable = CustomerRepository.GetCustomerDataTable(customerId, transaction);
-
-            if (customerDataTable.Rows.Count == 0)
-            {
-                throw new Exception("Customer not found.");
-            }
-
-            var customerRow = customerDataTable.Rows[0];
-
-            var customer = new CustomerModel
-            {
-                CustomerId = Convert.ToInt32(customerRow["customerId"]),
-                CustomerName = customerRow["customerName"].ToString(),
-                AddressId = Convert.ToInt32(customerRow["addressId"]),
-                Active = Convert.ToInt32(customerRow["active"]),
-                CreateDate = Convert.ToDateTime(customerRow["createDate"]),
-                CreatedBy = customerRow["createdBy"].ToString(),
-                LastUpdateBy = customerRow["lastUpdateBy"].ToString()
-            };
-
-            return customer;
-        }
-
-
-        public static List<string> GetCustomerTable()
-        {
-            var customerDataTable = CustomerRepository.GetContactNamesDataTable();
-
-            var customerList = new List<string>();
-
-            foreach (DataRow row in customerDataTable.Rows)
-            {
-                customerList.Add(row["customerName"].ToString());
-            }
-            return customerList;
         }
 
         public static void ModifyCustomer(int customerId, string customerName, string addressLine,
@@ -149,19 +94,72 @@ namespace Scheduler.BusinessLogic
                     }
 
                     transaction.Commit();
-                    MessageBox.Show("Customer record modified successfully!");
+                    MessageBox.Show("Customer modified successfully!", "Customer", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (MySqlException ex)
+                catch (DataAccessException ex)
                 {
                     transaction.Rollback();
-                    MessageBox.Show("Transaction Failed: " + ex.Message);
+                    MessageBox.Show("Customer deletion failed!: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    // Rollback the transaction if any operation fails
+                    transaction.Rollback();
+                    MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        public static void DeleteCustomer(int selectedAppointmentRowId)
+        public static CustomerModel GetCustomer(int customerId)
         {
+            var customerDataTable = CustomerRepository.GetCustomerDataTable(customerId);
+            var customerRow = customerDataTable.Rows[0];
 
+            // Create customer model
+            var customer = new CustomerModel
+            {
+                CustomerId = customerId,
+                CustomerName = customerRow["customerName"].ToString(),
+                AddressId = Convert.ToInt32(customerRow["addressId"]),
+                Active = Convert.ToInt32(customerRow["active"]),
+                CreateDate = Convert.ToDateTime(customerRow["createDate"]),
+                CreatedBy = customerRow["createdBy"].ToString(),
+                LastUpdateBy = customerRow["lastUpdateBy"].ToString()
+            };
+            return customer;
+        }
+
+        public static CustomerModel GetCustomer(int customerId, MySqlTransaction transaction)
+        {
+            var customerDataTable = CustomerRepository.GetCustomerDataTable(customerId, transaction);
+
+            var customerRow = customerDataTable.Rows[0];
+
+            var customer = new CustomerModel
+            {
+                CustomerId = Convert.ToInt32(customerRow["customerId"]),
+                CustomerName = customerRow["customerName"].ToString(),
+                AddressId = Convert.ToInt32(customerRow["addressId"]),
+                Active = Convert.ToInt32(customerRow["active"]),
+                CreateDate = Convert.ToDateTime(customerRow["createDate"]),
+                CreatedBy = customerRow["createdBy"].ToString(),
+                LastUpdateBy = customerRow["lastUpdateBy"].ToString()
+            };
+
+            return customer;
+        }
+
+        public static List<string> GetCustomerTable()
+        {
+            var customerDataTable = CustomerRepository.GetContactNamesDataTable();
+
+            var customerList = new List<string>();
+
+            foreach (DataRow row in customerDataTable.Rows)
+            {
+                customerList.Add(row["customerName"].ToString());
+            }
+            return customerList;
         }
 
         public static List<CustomerModel> GetContactList()
@@ -179,11 +177,6 @@ namespace Scheduler.BusinessLogic
                 });
             }
             return contactList;
-        }
-
-        internal static void DeleteCustomer(object selectedAppointmentRowId)
-        {
-            throw new NotImplementedException();
         }
     }
 }

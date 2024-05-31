@@ -61,11 +61,20 @@ namespace Scheduler.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username and password fields cannot be empty. Please enter your credentials..
+        /// </summary>
+        internal static string EmptyUsernameOrPasswordPrompt {
+            get {
+                return ResourceManager.GetString("EmptyUsernameOrPasswordPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password. Please try again..
         /// </summary>
-        internal static string InvalidLogin {
+        internal static string InvalidLoginPrompt {
             get {
-                return ResourceManager.GetString("InvalidLogin", resourceCulture);
+                return ResourceManager.GetString("InvalidLoginPrompt", resourceCulture);
             }
         }
         
@@ -75,15 +84,6 @@ namespace Scheduler.Localization {
         internal static string UnableToOpenLink {
             get {
                 return ResourceManager.GetString("UnableToOpenLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Username and password fields cannot be empty. Please enter your credentials..
-        /// </summary>
-        internal static string UsernamePasswordPrompt {
-            get {
-                return ResourceManager.GetString("UsernamePasswordPrompt", resourceCulture);
             }
         }
     }

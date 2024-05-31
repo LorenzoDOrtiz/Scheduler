@@ -40,7 +40,7 @@ namespace SchedulerUI.UI
             DateTime endTime = AppointmentAddEndTimePicker.Value;
             var end = DateTime.Parse(TimeManager.GetEndTime(endDate, endTime));
 
-            AppointmentService.CreateApointment(customerId, userId, title, description, location, contact, type, url, start, end);
+            AppointmentService.CreateAppointment(customerId, userId, title, description, location, contact, type, url, start, end);
 
             this.Close();
         }

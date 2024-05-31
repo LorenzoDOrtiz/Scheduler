@@ -59,6 +59,7 @@ namespace Scheduler.UI
 
             // Modify the appointment
             AppointmentService.ModifyAppointment(_appointmentModel);
+            this.Close();
         }
 
 

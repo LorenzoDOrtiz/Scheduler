@@ -120,6 +120,7 @@
     <Compile Include="DataAccess\CityRepository.cs" />
     <Compile Include="DataAccess\CountryRepository.cs" />
     <Compile Include="DataAccess\CustomerRepository.cs" />
+    <Compile Include="DataAccess\DataAccessException.cs" />
     <Compile Include="DataAccess\DBConnection.cs" />
     <Compile Include="DataAccess\MySQLCRUD.cs" />
     <Compile Include="DataAccess\UserRepository.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="UI\CustomerModifyForm.Designer.cs">
       <DependentUpon>CustomerModifyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InputValidation.cs" />
     <Compile Include="UI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,13 +169,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\MaskedTextBoxBehavior.cs" />
     <Compile Include="UI\SchedulerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\SchedulerForm.Designer.cs">
       <DependentUpon>SchedulerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UIMethods.cs" />
     <EmbeddedResource Include="Localization\Localization.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Localization.Designer.cs</LastGenOutput>

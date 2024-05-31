@@ -106,48 +106,69 @@ namespace Scheduler.UI
 
         private void AppointmentDeleteButton_Click(object sender, EventArgs e)
         {
-            var selectedAppointmentRow = DGVAppointments.CurrentRow;
-
-            if (selectedAppointmentRow != null)
+            try
             {
-                var selectedAppointmentId = Convert.ToInt32(selectedAppointmentRow.Cells["appointmentId"].Value);
-                if (ConfirmCustomerDelete())
+                var selectedAppointmentRow = DGVAppointments.CurrentRow;
+
+                if (selectedAppointmentRow != null)
                 {
-                    AppointmentRepository.DeleteAppointment(selectedAppointmentId);
-                    DGVAppointments.DataSource = AppointmentRepository.GetAppointmentDataTable();
+                    var selectedAppointmentId = Convert.ToInt32(selectedAppointmentRow.Cells["appointmentId"].Value);
+                    if (ConfirmAppointmentDelete())
+                    {
+                        AppointmentRepository.DeleteAppointment(selectedAppointmentId);
+                        DGVAppointments.DataSource = AppointmentRepository.GetAppointmentDataTable();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No row is selected. Please select a row first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (DataAccessException ex)
             {
-                MessageBox.Show("No row is selected. Please select a row first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Deleting appointment failed: " + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
         private void CustomerDeleteButton_Click(object sender, EventArgs e)
         {
-            var selectedCustomerRow = DGVCustomers.CurrentRow;
-
-            if (selectedCustomerRow != null)
+            try
             {
-                var selectedcustomerId = Convert.ToInt32(selectedCustomerRow.Cells["customerId"].Value);
-                if (ConfirmAppointmentDelete())
+                var selectedCustomerRow = DGVCustomers.CurrentRow;
+
+                if (selectedCustomerRow != null)
                 {
-                    CustomerRepository.DeleteCustomer(selectedcustomerId);
-                    DGVCustomers.DataSource = CustomerRepository.GetCustomerDataTable();
+                    var selectedcustomerId = Convert.ToInt32(selectedCustomerRow.Cells["customerId"].Value);
+                    if (ConfirmCustomerDelete())
+                    {
+                        CustomerRepository.DeleteCustomer(selectedcustomerId);
+                        DGVCustomers.DataSource = CustomerRepository.GetCustomerDataTable();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No row is selected. Please select a row first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (DataAccessException ex)
             {
-                MessageBox.Show("No row is selected. Please select a row first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Deleting customer failed: " + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        // Refresh the data grid views any time the form is entered
         private void SchedulerForm_Activated(object sender, EventArgs e)
         {
             DGVAppointments.DataSource = AppointmentRepository.GetAppointmentDataTable();
             DGVCustomers.DataSource = CustomerRepository.GetCustomerDataTable();
         }
-
-
     }
 }

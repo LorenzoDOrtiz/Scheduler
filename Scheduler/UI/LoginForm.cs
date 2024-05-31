@@ -30,33 +30,24 @@ namespace Scheduler.UI
             // Input validation: check if username or password fields are empty
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show(LocalizationManager.GetString("UsernamePasswordPrompt"));
+                MessageBox.Show(this, LocalizationManager.GetString("EmptyUsernameOrPasswordPrompt"), "Invalid Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             // Perform login validation
             if (LoginValidation.IsValidLogin(username, password))
             {
-                try
-                {
+                // Set the dialog result to OK to indicate successful login
+                DialogResult = DialogResult.OK;
 
-
-                    // Set the dialog result to OK to indicate successful login
-                    DialogResult = DialogResult.OK;
-
-                    // Proceed with other post-login actions
-                    UserManager.CreateUser(username, password);
-                    UserManager.SetCurrentUserId(username, password);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Login failed: " + ex.Message);
-                }
+                // Proceed with other post-login actions
+                UserManager.CreateUser(username, password);
+                UserManager.SetCurrentUserId(username, password);
             }
             else
             {
                 // Failed login
-                MessageBox.Show(LocalizationManager.GetString("InvalidLogin"));
+                MessageBox.Show(this, LocalizationManager.GetString("InvalidLoginPrompt"), "Invalid Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

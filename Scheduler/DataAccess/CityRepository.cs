@@ -7,6 +7,30 @@ namespace Scheduler.DataAccess
 {
     internal class CityRepository
     {
+        public static void UpdateCity(CityModel city, MySqlTransaction transaction)
+        {
+            try
+            {
+                DBConnection.ConfirmDataBaseConnection();
+
+                string query = "UPDATE city SET countryId = @CountryId, lastUpdateBy = @LastUpdateBy WHERE cityId = @CityId";
+                var cmd = MySQLCRUD.CreateCommand(query, transaction);
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@CountryId", city.CountryId },
+                    { "@LastUpdateBy", city.LastUpdateBy },
+                    { "@CityId", city.CityId }
+                };
+                MySQLCRUD.AddParameters(parameters, cmd);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                throw new DataAccessException("Updating city failed", ex);
+
+            }
+
+        }
         public static DataTable GetCityDataTable(int cityId)
         {
             var query = "SELECT * FROM city WHERE cityId = @CityId";
@@ -39,20 +63,6 @@ namespace Scheduler.DataAccess
             var cityDataTable = MySQLCRUD.GetDataTable(query);
 
             return cityDataTable;
-        }
-
-        public static void UpdateCity(CityModel city, MySqlTransaction transaction)
-        {
-            string query = "UPDATE city SET countryId = @CountryId, lastUpdateBy = @LastUpdateBy WHERE cityId = @CityId";
-            var cmd = MySQLCRUD.CreateCommand(query, transaction);
-            var parameters = new Dictionary<string, object>
-            {
-                { "@CountryId", city.CountryId },
-                { "@LastUpdateBy", city.LastUpdateBy },
-                { "@CityId", city.CityId }
-            };
-            MySQLCRUD.AddParameters(parameters, cmd);
-            cmd.ExecuteNonQuery();
         }
     }
 }

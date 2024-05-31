@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="InvalidLogin" xml:space="preserve">
+  <data name="EmptyUsernameOrPasswordPrompt" xml:space="preserve">
+    <value>Username and password fields cannot be empty. Please enter your credentials.</value>
+  </data>
+  <data name="InvalidLoginPrompt" xml:space="preserve">
     <value>Invalid username or password. Please try again.</value>
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Unable to open the link: {0}</value>
-  </data>
-  <data name="UsernamePasswordPrompt" xml:space="preserve">
-    <value>Username and password fields cannot be empty. Please enter your credentials.</value>
   </data>
 </root>

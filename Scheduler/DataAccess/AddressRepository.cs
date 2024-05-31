@@ -10,11 +10,15 @@ namespace Scheduler.DataAccess
     {
         public static int InsertAddress(AddressModel address, MySqlTransaction transaction)
         {
-            string query = "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdateBy) " +
-                           "VALUES (@Address, @Address2, @CityId, @PostalCode, @Phone, @CreateDate, @CreatedBy, @LastUpdateBy); " +
-                           "SELECT LAST_INSERT_ID();";
-            var cmd = MySQLCRUD.CreateCommand(query, transaction);
-            var parameters = new Dictionary<string, object>
+            try
+            {
+                DBConnection.ConfirmDataBaseConnection();
+
+                string query = "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdateBy) " +
+                               "VALUES (@Address, @Address2, @CityId, @PostalCode, @Phone, @CreateDate, @CreatedBy, @LastUpdateBy); " +
+                               "SELECT LAST_INSERT_ID();";
+                var cmd = MySQLCRUD.CreateCommand(query, transaction);
+                var parameters = new Dictionary<string, object>
                 {
                     { "@Address", address.Address },
                     { "@Address2", address.Address2 },
@@ -25,8 +29,40 @@ namespace Scheduler.DataAccess
                     { "@CreatedBy", address.CreatedBy },
                     { "@LastUpdateBy", address.LastUpdateBy }
                 };
-            MySQLCRUD.AddParameters(parameters, cmd);
-            return Convert.ToInt32(cmd.ExecuteScalar());
+                MySQLCRUD.AddParameters(parameters, cmd);
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (MySqlException ex)
+            {
+                throw new DataAccessException("Inserting address failed", ex);
+            }
+        }
+
+        public static void UpdateAddress(AddressModel address, MySqlTransaction transaction)
+        {
+            try
+            {
+                DBConnection.ConfirmDataBaseConnection();
+
+                string query = "UPDATE address SET address = @AddressLine, postalCode = @PostalCode, phone = @PhoneNumber, cityId = @CityId, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
+                var cmd = MySQLCRUD.CreateCommand(query, transaction);
+                var parameters = new Dictionary<string, object>
+            {
+                { "@AddressLine", address.Address },
+                { "@PostalCode", address.PostalCode },
+                { "@PhoneNumber", address.Phone },
+                { "@CityId", address.CityId },
+                { "@LastUpdateBy", address.LastUpdateBy },
+                { "@AddressId", address.AddressId }
+            };
+                MySQLCRUD.AddParameters(parameters, cmd);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                throw new DataAccessException("Updating address failed", ex);
+            }
+
         }
 
         public static DataTable GetAddressDataTable(int addressId)
@@ -55,22 +91,7 @@ namespace Scheduler.DataAccess
             return MySQLCRUD.GetDataTable(query, parameters, transaction);
         }
 
-        public static void UpdateAddress(AddressModel address, MySqlTransaction transaction)
-        {
-            string query = "UPDATE address SET address = @AddressLine, postalCode = @PostalCode, phone = @PhoneNumber, cityId = @CityId, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
-            var cmd = MySQLCRUD.CreateCommand(query, transaction);
-            var parameters = new Dictionary<string, object>
-            {
-                { "@AddressLine", address.Address },
-                { "@PostalCode", address.PostalCode },
-                { "@PhoneNumber", address.Phone },
-                { "@CityId", address.CityId },
-                { "@LastUpdateBy", address.LastUpdateBy },
-                { "@AddressId", address.AddressId }
-            };
-            MySQLCRUD.AddParameters(parameters, cmd);
-            cmd.ExecuteNonQuery();
-        }
+
 
     }
 }

@@ -20,7 +20,7 @@ namespace Scheduler.DataAccess
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show($"SQL Exception: {ex.Message}");
+                MessageBox.Show($"Connection failure: {ex.Message}", "Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -37,7 +37,7 @@ namespace Scheduler.DataAccess
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show($"SQL Exception: {ex.Message}");
+                MessageBox.Show($"Connection failure: {ex.Message}", "Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }

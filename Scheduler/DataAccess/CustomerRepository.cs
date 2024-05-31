@@ -2,7 +2,6 @@
 using Scheduler.Models;
 using System.Collections.Generic;
 using System.Data;
-using System.Windows.Forms;
 
 namespace Scheduler.DataAccess
 {
@@ -11,20 +10,86 @@ namespace Scheduler.DataAccess
 
         public static void InsertCustomer(CustomerModel customer, MySqlTransaction transaction)
         {
-            string query = "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdateBy) " +
-                           "VALUES (@CustomerName, @AddressId, @Active, @CreateDate, @CreatedBy, @LastUpdateBy);";
-            var cmd = MySQLCRUD.CreateCommand(query, transaction);
-            var parameters = new Dictionary<string, object>
+            try
             {
-                { "@CustomerName", customer.CustomerName },
-                { "@AddressId", customer.AddressId },
-                { "@Active", customer.Active },
-                { "@CreateDate", customer.CreateDate },
-                { "@CreatedBy", customer.CreatedBy },
-                { "@LastUpdateBy", customer.LastUpdateBy },
-            };
-            MySQLCRUD.AddParameters(parameters, cmd);
-            cmd.ExecuteNonQuery();
+                DBConnection.ConfirmDataBaseConnection();
+
+                string query = "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdateBy) " +
+                           "VALUES (@CustomerName, @AddressId, @Active, @CreateDate, @CreatedBy, @LastUpdateBy);";
+                var cmd = MySQLCRUD.CreateCommand(query, transaction);
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@CustomerName", customer.CustomerName },
+                    { "@AddressId", customer.AddressId },
+                    { "@Active", customer.Active },
+                    { "@CreateDate", customer.CreateDate },
+                    { "@CreatedBy", customer.CreatedBy },
+                    { "@LastUpdateBy", customer.LastUpdateBy },
+                };
+                MySQLCRUD.AddParameters(parameters, cmd);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                throw new DataAccessException("Inserting customer failed", ex);
+            }
+        }
+
+        public static void UpdateCustomer(CustomerModel customer, MySqlTransaction transaction)
+        {
+            try
+            {
+                DBConnection.ConfirmDataBaseConnection();
+
+                string query = "UPDATE customer SET customerName = @CustomerName, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
+                var cmd = MySQLCRUD.CreateCommand(query, transaction);
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@CustomerName", customer.CustomerName },
+                    { "@LastUpdateBy", customer.LastUpdateBy },
+                    { "@AddressId", customer.AddressId }
+                };
+                MySQLCRUD.AddParameters(parameters, cmd);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                throw new DataAccessException("Updating customer failed", ex);
+            }
+
+        }
+        public static void DeleteCustomer(int selectedcustomerId)
+        {
+            try
+            {
+                DBConnection.ConfirmDataBaseConnection();
+
+                // Delete customers associated appointments
+                string deleteAssociatedAppointmentsQuery = "DELETE FROM appointment WHERE customerId = @CustomerId";
+                var deleteAssociatedAppointmentsCMD = MySQLCRUD.CreateCommand(deleteAssociatedAppointmentsQuery);
+                Dictionary<string, object> deleteAssociatedAppointmentsParameters = new Dictionary<string, object>()
+                    {
+                        { "@CustomerId", selectedcustomerId }
+                    };
+
+                MySQLCRUD.AddParameters(deleteAssociatedAppointmentsParameters, deleteAssociatedAppointmentsCMD);
+                deleteAssociatedAppointmentsCMD.ExecuteNonQuery();
+
+                // Delete customer
+                string deleteCustomerQuery = "DELETE FROM customer WHERE customerId = @CustomerId";
+                var deleteCustomerCMD = MySQLCRUD.CreateCommand(deleteCustomerQuery);
+                Dictionary<string, object> deleteCustomerParameters = new Dictionary<string, object>()
+                    {
+                        { "@CustomerId", selectedcustomerId }
+                    };
+
+                MySQLCRUD.AddParameters(deleteCustomerParameters, deleteCustomerCMD);
+                deleteCustomerCMD.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                throw new DataAccessException("Deleting customer failed", ex);
+            }
         }
 
         public static DataTable GetContactNamesDataTable()
@@ -91,60 +156,12 @@ namespace Scheduler.DataAccess
             return customerDataTable;
         }
 
-        public static void UpdateCustomer(CustomerModel customer, MySqlTransaction transaction)
-        {
-            string query = "UPDATE customer SET customerName = @CustomerName, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
-            var cmd = MySQLCRUD.CreateCommand(query, transaction);
-            var parameters = new Dictionary<string, object>
-            {
-                    { "@CustomerName", customer.CustomerName },
-                    { "@LastUpdateBy", customer.LastUpdateBy },
-                    { "@AddressId", customer.AddressId }
-                };
-            MySQLCRUD.AddParameters(parameters, cmd);
-            cmd.ExecuteNonQuery();
-        }
-
         public static DataTable GetAllContacts()
         {
             var query = "SELECT customerId, customerName FROM customer";
             var customerDataTable = MySQLCRUD.GetDataTable(query);
 
             return customerDataTable;
-        }
-
-        public static void DeleteCustomer(int selectedcustomerId)
-        {
-            try
-            {
-                // Delete customers associated appointments
-                string deleteAssociatedAppointmentsQuery = "DELETE FROM appointment WHERE customerId = @CustomerId";
-                var deleteAssociatedAppointmentsCMD = MySQLCRUD.CreateCommand(deleteAssociatedAppointmentsQuery);
-                Dictionary<string, object> deleteAssociatedAppointmentsParameters = new Dictionary<string, object>()
-                    {
-                        { "@CustomerId", selectedcustomerId }
-                    };
-
-                MySQLCRUD.AddParameters(deleteAssociatedAppointmentsParameters, deleteAssociatedAppointmentsCMD);
-                deleteAssociatedAppointmentsCMD.ExecuteNonQuery();
-
-                // Delete customer
-                string deleteCustomerQuery = "DELETE FROM customer WHERE customerId = @CustomerId";
-                var deleteCustomerCMD = MySQLCRUD.CreateCommand(deleteCustomerQuery);
-                Dictionary<string, object> deleteCustomerParameters = new Dictionary<string, object>()
-                    {
-                        { "@CustomerId", selectedcustomerId }
-                    };
-
-                MySQLCRUD.AddParameters(deleteCustomerParameters, deleteCustomerCMD);
-                deleteCustomerCMD.ExecuteNonQuery();
-
-                MessageBox.Show("Appointment deleted successfully!");
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show("Appointment deletion failed: " + ex.Message);
-            }
         }
     }
 }

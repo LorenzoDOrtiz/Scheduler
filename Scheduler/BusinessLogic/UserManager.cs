@@ -1,6 +1,5 @@
 ﻿using Scheduler.DataAccess;
 using Scheduler.Models;
-using System;
 using System.Data;
 using System.Linq;
 
@@ -15,11 +14,6 @@ namespace Scheduler.BusinessLogic
         {
             var userDataTable = UserRepository.GetUserDataTable(username, password);
 
-            if (userDataTable.Rows.Count == 0)
-            {
-                throw new Exception("User not found or invalid credentials.");
-            }
-
             var userDataRow = userDataTable.AsEnumerable().First();
 
             var currentUser = new UserModel
@@ -33,16 +27,9 @@ namespace Scheduler.BusinessLogic
             _currentUser = currentUser;
         }
 
-
-
         public static void SetCurrentUserId(string username, string password)
         {
             var userDataTable = UserRepository.GetUserDataTable(username, password);
-
-            if (userDataTable.Rows.Count == 0)
-            {
-                throw new Exception("User not found or invalid credentials.");
-            }
 
             var userDataRow = userDataTable.AsEnumerable().First();
 

@@ -4,29 +4,62 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Scheduler.BusinessLogic
 {
     internal class AppointmentService
     {
-        public static void CreateApointment(int customerId, int userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end)
+        public static void CreateAppointment(int customerId, int userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end)
         {
-            // Create Appointment
-            AppointmentModel appointment = new AppointmentModel
+            try
             {
-                CustomerId = customerId,
-                UserId = userId,
-                Title = title,
-                Description = description,
-                Location = location,
-                Contact = contact,
-                Type = type,
-                URL = url,
-                Start = start,
-                End = end
-            };
-            // Insert Appointment
-            AppointmentRepository.InsertAppointment(appointment);
+                // Create Appointment
+                AppointmentModel appointment = new AppointmentModel
+                {
+                    CustomerId = customerId,
+                    UserId = userId,
+                    Title = title,
+                    Description = description,
+                    Location = location,
+                    Contact = contact,
+                    Type = type,
+                    URL = url,
+                    Start = start,
+                    End = end
+                };
+                // Insert Appointment
+                AppointmentRepository.InsertAppointment(appointment);
+                MessageBox.Show("Appointment created successfully!", "Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (DataAccessException ex)
+            {
+                MessageBox.Show("Adding appointment failed: " + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        public static void ModifyAppointment(AppointmentModel appointmentModel)
+        {
+            try
+            {
+                AppointmentRepository.UpdateAppointment(appointmentModel);
+                MessageBox.Show("Appointment modified successfully!", "Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (DataAccessException ex)
+            {
+                MessageBox.Show("Appointment modification failed: " + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public static int GetContactCustomerId(string contactComboBoxText)
@@ -71,11 +104,6 @@ namespace Scheduler.BusinessLogic
 
             };
             return appointment;
-        }
-
-        public static void ModifyAppointment(AppointmentModel appointmentModel)
-        {
-            AppointmentRepository.UpdateAppointment(appointmentModel);
         }
     }
 }
