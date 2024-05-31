@@ -57,6 +57,9 @@ namespace Scheduler.BusinessLogic
 
             var appointment = new AppointmentModel
             {
+                AppointmentId = Convert.ToInt32(appointmentRow["appointmentId"]),
+                CustomerId = Convert.ToInt32(appointmentRow["customerId"]),
+                UserId = Convert.ToInt32(appointmentRow["userId"]),
                 Title = appointmentRow["title"].ToString(),
                 Description = appointmentRow["description"].ToString(),
                 Location = appointmentRow["location"].ToString(),
@@ -68,6 +71,11 @@ namespace Scheduler.BusinessLogic
 
             };
             return appointment;
+        }
+
+        internal static void ModifyAppointment(AppointmentModel appointmentModel)
+        {
+            AppointmentRepository.UpdateAppointment(appointmentModel);
         }
     }
 }

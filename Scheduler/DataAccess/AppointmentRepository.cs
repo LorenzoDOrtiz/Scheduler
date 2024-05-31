@@ -33,11 +33,11 @@ namespace Scheduler.DataAccess
                 };
                 MySQLCRUD.AddParameters(parameters, cmd);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Customer record created successfully!");
+                MessageBox.Show("Appointment created successfully!");
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show("Adding customer failed: " + ex.Message);
+                MessageBox.Show("Adding appointment failed: " + ex.Message);
             }
 
         }
@@ -53,7 +53,7 @@ namespace Scheduler.DataAccess
 
         internal static DataTable GetAppointmentDataTable()
         {
-            var query = "SELECT appointmentId, title, location, contact, start, end FROM appointment";
+            var query = "SELECT appointmentId, title, location, contact, type, start, end FROM appointment";
 
             var appointmentDataTable = MySQLCRUD.GetDataTable(query);
 
@@ -70,6 +70,37 @@ namespace Scheduler.DataAccess
             var appointmentDataTable = MySQLCRUD.GetDataTable(query, parameters);
 
             return appointmentDataTable;
+        }
+
+        internal static void UpdateAppointment(AppointmentModel appointmentModel)
+        {
+            try
+            {
+                string query = "UPDATE appointment SET customerId = @CustomerId, title = @Title, description = @Description, location = @Location, contact = @Contact, type = @Type, url = @URL, start = @Start, end = @End " +
+                                           "WHERE appointmentId = @AppointmentId";
+                var cmd = MySQLCRUD.CreateCommand(query);
+                var parameters = new Dictionary<string, object>
+            {
+                    { "@AppointmentId", appointmentModel.AppointmentId },
+                    { "@CustomerId", appointmentModel.CustomerId },
+                    { "@Title", appointmentModel.Title },
+                    { "@Description", appointmentModel.Description },
+                    { "@Location", appointmentModel.Location },
+                    { "@Contact", appointmentModel.Contact },
+                    { "@Type", appointmentModel.Type },
+                    { "@URL", appointmentModel.URL },
+                    { "@Start", appointmentModel.Start },
+                    { "@End", appointmentModel.End }
+            };
+                MySQLCRUD.AddParameters(parameters, cmd);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Appointment record modified successfully!");
+            }
+
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Adding customer failed: " + ex.Message);
+            }
         }
     }
 }

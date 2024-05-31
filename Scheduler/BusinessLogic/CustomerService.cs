@@ -159,9 +159,21 @@ namespace Scheduler.BusinessLogic
             }
         }
 
+        internal static List<CustomerModel> GetContactList()
+        {
+            var contactDataTable = CustomerRepository.GetAllContacts();
 
+            var contactList = new List<CustomerModel>();
 
-
-
+            foreach (DataRow row in contactDataTable.Rows)
+            {
+                contactList.Add(new CustomerModel
+                {
+                    CustomerId = Convert.ToInt32(row["customerId"]),
+                    CustomerName = row["customerName"].ToString()
+                });
+            }
+            return contactList;
+        }
     }
 }

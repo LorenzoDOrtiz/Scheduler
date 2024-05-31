@@ -90,7 +90,7 @@ namespace Scheduler.DataAccess
             return customerDataTable;
         }
 
-        internal static void UpdateCustomer(CustomerModel customer, MySqlTransaction transaction)
+        public static void UpdateCustomer(CustomerModel customer, MySqlTransaction transaction)
         {
             string query = "UPDATE customer SET customerName = @CustomerName, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
             var cmd = MySQLCRUD.CreateCommand(query, transaction);
@@ -102,6 +102,14 @@ namespace Scheduler.DataAccess
                 };
             MySQLCRUD.AddParameters(parameters, cmd);
             cmd.ExecuteNonQuery();
+        }
+
+        internal static DataTable GetAllContacts()
+        {
+            var query = "SELECT customerId, customerName FROM customer";
+            var customerDataTable = MySQLCRUD.GetDataTable(query);
+
+            return customerDataTable;
         }
     }
 }

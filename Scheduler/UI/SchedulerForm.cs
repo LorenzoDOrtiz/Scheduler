@@ -34,6 +34,7 @@ namespace Scheduler.UI
             DGVAppointments.Columns["title"].HeaderText = "Title";
             DGVAppointments.Columns["location"].HeaderText = "Location";
             DGVAppointments.Columns["contact"].HeaderText = "Contact";
+            DGVAppointments.Columns["type"].HeaderText = "Type";
             DGVAppointments.Columns["start"].HeaderText = "Start";
             DGVAppointments.Columns["end"].HeaderText = "End";
         }
@@ -102,6 +103,11 @@ namespace Scheduler.UI
             }
 
 
+
+        }
+
+        private void AppointmentDeleteButton_Click(object sender, EventArgs e)
+        {
 
         }
     }

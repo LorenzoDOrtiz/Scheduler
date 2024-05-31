@@ -272,6 +272,7 @@
             this.AppointmentDeleteButton.TabIndex = 2;
             this.AppointmentDeleteButton.Text = "Delete";
             this.AppointmentDeleteButton.UseVisualStyleBackColor = false;
+            this.AppointmentDeleteButton.Click += new System.EventHandler(this.AppointmentDeleteButton_Click);
             // 
             // DGVCalendarandRadio
             // 
