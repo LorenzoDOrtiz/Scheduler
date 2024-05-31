@@ -9,7 +9,7 @@ namespace Scheduler.DataAccess
     internal class AppointmentRepository
     {
 
-        internal static DataTable GetAppointmentTypeDataTable()
+        public static DataTable GetAppointmentTypeDataTable()
         {
             var query = "SELECT DISTINCT type FROM appointment";
 
@@ -18,7 +18,7 @@ namespace Scheduler.DataAccess
             return customerDataTable;
         }
 
-        internal static void InsertAppointment(AppointmentModel appointment)
+        public static void InsertAppointment(AppointmentModel appointment)
         {
             try
             {

@@ -24,29 +24,40 @@ namespace Scheduler.UI
 
         private void PopulateComboBoxes()
         {
-            CustomerModifyCityComboxBox.DataSource = CityService.GetCityList();
-            CustomerModifyCountryComboBox.DataSource = CountryService.GetCountryList();
+            var cityList = CityService.GetCityList();
+            CustomerModifyCityComboBox.DataSource = cityList;
+            CustomerModifyCityComboBox.DisplayMember = "CityName";
+            CustomerModifyCityComboBox.ValueMember = "CityId";
+
+            var countryList = CountryService.GetCountryList();
+            CustomerModifyCountryComboBox.DataSource = countryList;
+            CustomerModifyCountryComboBox.DisplayMember = "Name";
+            CustomerModifyCountryComboBox.ValueMember = "CountryId";
         }
+
+
         private void PopulateModifyFormFields()
         {
             CustomerModifyNameTextBox.Text = customerModel.CustomerName;
             CustomerModifyAddressTextBox.Text = addressModel.Address;
-            CustomerModifyCityComboxBox.Text = cityModel.CityName;
+            CustomerModifyCityComboBox.SelectedValue = addressModel.CityId; // Bind to address.CityId
             CustomerModifyPostalCodeTextBox.Text = addressModel.PostalCode;
-            CustomerModifyCountryComboBox.Text = countryModel.Name;
+            CustomerModifyCountryComboBox.SelectedValue = cityModel.CountryId;
             CustomerModifyPhoneTextBox.Text = addressModel.Phone;
         }
 
+
         private void CustomerModifySaveButton_Click(object sender, System.EventArgs e)
         {
+            var customerId = customerModel.CustomerId;
             var customerName = CustomerModifyNameTextBox.Text;
             var addressLine = CustomerModifyAddressTextBox.Text;
-            var cityName = CustomerModifyCityComboxBox.Text;
+            var cityId = (int)CustomerModifyCityComboBox.SelectedValue;
             var postalCode = CustomerModifyPostalCodeTextBox.Text;
-            var countryName = CustomerModifyCountryComboBox.Text;
+            var countryId = (int)CustomerModifyCountryComboBox.SelectedValue;
             var phoneNumber = CustomerModifyPhoneTextBox.Text;
 
-            CustomerService.ModifyCustomer(customerModel.CustomerId, customerName, addressLine, cityName, postalCode, countryName, phoneNumber);
+            CustomerService.ModifyCustomer(customerId, customerName, addressLine, postalCode, phoneNumber, cityId, countryId);
         }
     }
 }

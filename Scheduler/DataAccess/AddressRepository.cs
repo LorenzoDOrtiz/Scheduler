@@ -29,7 +29,7 @@ namespace Scheduler.DataAccess
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
 
-        internal static DataTable GetAddressDataTable(int addressId)
+        public static DataTable GetAddressDataTable(int addressId)
         {
             var query = "SELECT * FROM address WHERE addressId = @AddressId";
 
@@ -55,20 +55,22 @@ namespace Scheduler.DataAccess
             return MySQLCRUD.GetDataTable(query, parameters, transaction);
         }
 
-        internal static void UpdateAddress(AddressModel address, MySqlTransaction transaction)
+        public static void UpdateAddress(AddressModel address, MySqlTransaction transaction)
         {
-            string query = "UPDATE address SET address = @AddressLine, postalCode = @PostalCode, phone = @PhoneNumber, lastUpdateBy = @LastUpdateBy WHERE cityId = @CityId";
+            string query = "UPDATE address SET address = @AddressLine, postalCode = @PostalCode, phone = @PhoneNumber, cityId = @CityId, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
             var cmd = MySQLCRUD.CreateCommand(query, transaction);
             var parameters = new Dictionary<string, object>
             {
-                    { "@AddressLine", address.Address },
-                    { "@PostalCode", address.PostalCode },
-                    { "@PhoneNumber", address.Phone },
-                    { "@LastUpdateBy", address.LastUpdateBy },
-                    { "@CityId", address.CityId },
+                { "@AddressLine", address.Address },
+                { "@PostalCode", address.PostalCode },
+                { "@PhoneNumber", address.Phone },
+                { "@CityId", address.CityId },
+                { "@LastUpdateBy", address.LastUpdateBy },
+                { "@AddressId", address.AddressId }
             };
             MySQLCRUD.AddParameters(parameters, cmd);
             cmd.ExecuteNonQuery();
         }
+
     }
 }

@@ -28,7 +28,7 @@ namespace Scheduler.BusinessLogic
             AppointmentRepository.InsertAppointment(appointment);
         }
 
-        internal static int GetContactCustomerId(string contactComboBoxText)
+        public static int GetContactCustomerId(string contactComboBoxText)
         {
             var customerDataTable = CustomerRepository.GetCustomerIdDataTable(contactComboBoxText);
             var customerDataRow = customerDataTable.AsEnumerable().First();

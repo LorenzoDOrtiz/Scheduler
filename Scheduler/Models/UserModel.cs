@@ -2,7 +2,7 @@
 
 namespace Scheduler.Models
 {
-    internal class UserModel
+    public class UserModel
     {
         public int UserId { get; set; }
         public string UserName { get; set; }

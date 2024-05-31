@@ -46,8 +46,8 @@ namespace Scheduler.UI
                 try
                 {
                     var selectedCustomerRowCustomerId = Convert.ToInt32(selectedCustomerRow.Cells["customerId"].Value);
-                    var customer = CustomerService.GetCustomer(selectedCustomerRowCustomerId);//
-                    var address = AddressService.GetAddress(customer.AddressId); //
+                    var customer = CustomerService.GetCustomer(selectedCustomerRowCustomerId);
+                    var address = AddressService.GetAddress(customer.AddressId);
                     var city = CityService.GetCity(address.CityId);
                     var country = CountryService.GetCountry(city.CountryId);
 

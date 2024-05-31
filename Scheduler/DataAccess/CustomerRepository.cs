@@ -14,23 +14,24 @@ namespace Scheduler.DataAccess
                            "VALUES (@CustomerName, @AddressId, @Active, @CreateDate, @CreatedBy, @LastUpdateBy);";
             var cmd = MySQLCRUD.CreateCommand(query, transaction);
             var parameters = new Dictionary<string, object>
-                {
-                    {"@CustomerName", customer.CustomerName},
-                    {"@AddressId", customer.AddressId},
-                    {"@Active", customer.Active},
-                    {"@CreateDate", customer.CreateDate},
-                    {"@CreatedBy", customer.CreatedBy},
-                    {"@LastUpdateBy", customer.LastUpdateBy},
-                };
+            {
+                { "@CustomerName", customer.CustomerName },
+                { "@AddressId", customer.AddressId },
+                { "@Active", customer.Active },
+                { "@CreateDate", customer.CreateDate },
+                { "@CreatedBy", customer.CreatedBy },
+                { "@LastUpdateBy", customer.LastUpdateBy },
+            };
             MySQLCRUD.AddParameters(parameters, cmd);
             cmd.ExecuteNonQuery();
         }
-        internal static DataTable GetContactNamesDataTable()
+
+        public static DataTable GetContactNamesDataTable()
         {
             return MySQLCRUD.GetDataTable("SELECT customerName FROM customer");
         }
 
-        internal static DataTable GetCustomerDataTable()
+        public static DataTable GetCustomerDataTable()
         {
             var query = "SELECT customer.customerId, customer.customerName, address.address, city.city, address.postalCode, country.country, address.phone " +
                               "FROM customer " +
@@ -60,7 +61,7 @@ namespace Scheduler.DataAccess
             return MySQLCRUD.GetDataTable(query, parameters, transaction);
         }
 
-        internal static DataTable GetCustomerDataTable(int selectedCustomerRowCustomerId)
+        public static DataTable GetCustomerDataTable(int selectedCustomerRowCustomerId)
         {
             var query = "SELECT * FROM customer WHERE customerId = @CustomerId";
 
@@ -74,7 +75,7 @@ namespace Scheduler.DataAccess
             return customerDataTable;
         }
 
-        internal static DataTable GetCustomerIdDataTable(string contactComboBoxText)
+        public static DataTable GetCustomerIdDataTable(string contactComboBoxText)
         {
             var query = "SELECT customerId FROM customer WHERE customerName = @ContactUserName";
 
@@ -89,7 +90,7 @@ namespace Scheduler.DataAccess
             return customerDataTable;
         }
 
-        internal static void UpdateCustomer(CustomerModel customer, MySqlTransaction transaction)
+        public static void UpdateCustomer(CustomerModel customer, MySqlTransaction transaction)
         {
             string query = "UPDATE customer SET customerName = @CustomerName, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
             var cmd = MySQLCRUD.CreateCommand(query, transaction);

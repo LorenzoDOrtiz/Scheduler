@@ -40,7 +40,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.CustomerModifyPostalCodeTextBox = new System.Windows.Forms.TextBox();
-            this.CustomerModifyCityComboxBox = new System.Windows.Forms.ComboBox();
+            this.CustomerModifyCityComboBox = new System.Windows.Forms.ComboBox();
             this.CustomerModifyAddressTextBox = new System.Windows.Forms.TextBox();
             this.CustomerModifyNameTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -78,6 +78,7 @@
             // 
             // CustomerModifyCountryComboBox
             // 
+            this.CustomerModifyCountryComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CustomerModifyCountryComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CustomerModifyCountryComboBox.FormattingEnabled = true;
             this.CustomerModifyCountryComboBox.Location = new System.Drawing.Point(148, 201);
@@ -163,14 +164,15 @@
             this.CustomerModifyPostalCodeTextBox.Size = new System.Drawing.Size(225, 33);
             this.CustomerModifyPostalCodeTextBox.TabIndex = 58;
             // 
-            // CustomerModifyCityComboxBox
+            // CustomerModifyCityComboBox
             // 
-            this.CustomerModifyCityComboxBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CustomerModifyCityComboxBox.FormattingEnabled = true;
-            this.CustomerModifyCityComboxBox.Location = new System.Drawing.Point(148, 123);
-            this.CustomerModifyCityComboxBox.Name = "CustomerModifyCityComboxBox";
-            this.CustomerModifyCityComboxBox.Size = new System.Drawing.Size(225, 33);
-            this.CustomerModifyCityComboxBox.TabIndex = 57;
+            this.CustomerModifyCityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CustomerModifyCityComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomerModifyCityComboBox.FormattingEnabled = true;
+            this.CustomerModifyCityComboBox.Location = new System.Drawing.Point(148, 123);
+            this.CustomerModifyCityComboBox.Name = "CustomerModifyCityComboBox";
+            this.CustomerModifyCityComboBox.Size = new System.Drawing.Size(225, 33);
+            this.CustomerModifyCityComboBox.TabIndex = 57;
             // 
             // CustomerModifyAddressTextBox
             // 
@@ -207,7 +209,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CustomerModifyPostalCodeTextBox);
-            this.Controls.Add(this.CustomerModifyCityComboxBox);
+            this.Controls.Add(this.CustomerModifyCityComboBox);
             this.Controls.Add(this.CustomerModifyAddressTextBox);
             this.Controls.Add(this.CustomerModifyNameTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -233,7 +235,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox CustomerModifyPostalCodeTextBox;
-        private System.Windows.Forms.ComboBox CustomerModifyCityComboxBox;
+        private System.Windows.Forms.ComboBox CustomerModifyCityComboBox;
         private System.Windows.Forms.TextBox CustomerModifyAddressTextBox;
         private System.Windows.Forms.TextBox CustomerModifyNameTextBox;
     }

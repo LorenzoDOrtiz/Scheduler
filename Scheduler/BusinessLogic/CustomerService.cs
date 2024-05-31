@@ -10,47 +10,29 @@ namespace Scheduler.BusinessLogic
 {
     internal class CustomerService
     {
-        public static void CreateCustomer(string customerName, string address1, string cityName, string postalCode, string countryName, string phone)
+        public static void CreateCustomer(string customerName, string address, int cityId, string postalCode, int countryId, string phone)
         {
             // Begin the transaction
             using (var transaction = DBConnection.Conn.BeginTransaction())
             {
                 try
                 {
-                    // Insert Country
-                    CountryModel country = new CountryModel
-                    {
-                        Name = countryName
-
-                    };
-                    int countryId = CountryRepository.InsertCountry(country, transaction);
-                    country.CountryId = countryId;
-
-                    // Insert City
-                    CityModel city = new CityModel
-                    {
-                        CityName = cityName,
-                        CountryId = country.CountryId
-                    };
-                    int cityId = CityRepository.InsertCity(city, transaction);
-                    city.CityId = cityId;
-
                     // Insert Address
-                    AddressModel address = new AddressModel
+                    AddressModel addressModel = new AddressModel
                     {
-                        Address = address1,
-                        CityId = city.CityId,
+                        Address = address,
+                        CityId = cityId,
                         PostalCode = postalCode,
-                        Phone = phone
+                        Phone = phone,
                     };
-                    int addressId = AddressRepository.InsertAddress(address, transaction);
-                    address.AddressId = addressId;
+                    int addressId = AddressRepository.InsertAddress(addressModel, transaction);
+                    addressModel.AddressId = addressId;
 
                     // Insert Customer
                     CustomerModel customer = new CustomerModel
                     {
                         CustomerName = customerName,
-                        AddressId = address.AddressId
+                        AddressId = addressModel.AddressId,
                     };
                     CustomerRepository.InsertCustomer(customer, transaction);
 
@@ -66,6 +48,9 @@ namespace Scheduler.BusinessLogic
                 }
             }
         }
+
+
+
 
         public static CustomerModel GetCustomer(int customerId)
 
@@ -126,43 +111,32 @@ namespace Scheduler.BusinessLogic
             return customerList;
         }
 
-        public static void ModifyCustomer(int customerId, string customerName, string addressLine, string cityName, string postalCode, string countryName, string phoneNumber)
+        public static void ModifyCustomer(int customerId, string customerName, string addressLine,
+            string postalCode, string phoneNumber, int cityId, int countryId)
         {
-            // Begin the transaction
             using (var transaction = DBConnection.Conn.BeginTransaction())
             {
                 try
                 {
-                    // Get existing customer data
                     var customer = GetCustomer(customerId, transaction);
                     var address = AddressService.GetAddress(customer.AddressId, transaction);
                     var city = CityService.GetCity(address.CityId, transaction);
                     var country = CountryService.GetCountry(city.CountryId, transaction);
 
-
                     // Update Country if necessary
-                    if (country.Name != countryName)
+                    if (city.CountryId != countryId)
                     {
-                        country.Name = countryName;
-                        country.CountryId = city.CountryId;
-                        CountryRepository.UpdateCountry(country, city, transaction);
-                    }
-
-                    // Update City if necessary
-                    if (city.CityName != cityName)
-                    {
-                        city.CityName = cityName;
-                        city.CountryId = country.CountryId;
+                        city.CountryId = countryId; // Update city.CountryId if countryId changed
                         CityRepository.UpdateCity(city, transaction);
                     }
 
                     // Update Address if necessary
-                    if (address.Address != addressLine || address.PostalCode != postalCode || address.Phone != phoneNumber)
+                    if (address.Address != addressLine || address.PostalCode != postalCode || address.Phone != phoneNumber || address.CityId != cityId)
                     {
                         address.Address = addressLine;
                         address.PostalCode = postalCode;
                         address.Phone = phoneNumber;
-                        address.CityId = city.CityId;
+                        address.CityId = cityId; // Only update CityId in the Address table
                         AddressRepository.UpdateAddress(address, transaction);
                     }
 
@@ -174,18 +148,19 @@ namespace Scheduler.BusinessLogic
                         CustomerRepository.UpdateCustomer(customer, transaction);
                     }
 
-                    // Commit the transaction
                     transaction.Commit();
                     MessageBox.Show("Customer record modified successfully!");
                 }
                 catch (MySqlException ex)
                 {
-                    // Rollback the transaction if any operation fails
                     transaction.Rollback();
                     MessageBox.Show("Transaction Failed: " + ex.Message);
                 }
             }
         }
+
+
+
 
 
     }

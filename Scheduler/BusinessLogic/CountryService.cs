@@ -7,7 +7,7 @@ using System.Data;
 
 namespace Scheduler.BusinessLogic
 {
-    internal class CountryService
+    public class CountryService
     {
         public static CountryModel GetCountry(int countryId)
         {
@@ -41,18 +41,26 @@ namespace Scheduler.BusinessLogic
             return country;
         }
 
-        internal static List<string> GetCountryList()
+        internal static List<CountryModel> GetCountryList()
         {
-            var countryDataTable = CountryRepository.GetCountryDataTable();
+            var countryDataTable = CountryRepository.GetAllCountries();
 
-            var countryList = new List<string>();
+            var countryList = new List<CountryModel>();
 
             foreach (DataRow row in countryDataTable.Rows)
             {
-                countryList.Add(row["country"].ToString());
+                var country = new CountryModel
+                {
+                    CountryId = Convert.ToInt32(row["countryId"]),
+                    Name = row["country"].ToString()
+                };
+                countryList.Add(country);
             }
-
             return countryList;
         }
+
+
+
+
     }
 }

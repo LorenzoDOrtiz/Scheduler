@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Scheduler.BusinessLogic
 {
-    internal class UserManager
+    public class UserManager
     {
         private static UserModel _currentUser;
 
