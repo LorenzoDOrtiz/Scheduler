@@ -9,44 +9,64 @@ namespace Scheduler.UI
 {
     public partial class CustomerModifyForm : Form
     {
-        private CustomerModel customerModel;
-        private AddressModel addressModel;
-        private CityModel cityModel;
-        private CountryModel countryModel;
+        private readonly CustomerModel existingCustomerModel;
+        private readonly AddressModel existingAddressModel;
+        private readonly CityModel existingCityModel;
+        private readonly CountryModel existingCountryModel;
 
         public CustomerModifyForm(CustomerModel customer, AddressModel address, CityModel city, CountryModel country)
         {
-            customerModel = customer;
-            addressModel = address;
-            cityModel = city;
-            countryModel = country;
+            existingCustomerModel = customer;
+            existingAddressModel = address;
+            existingCityModel = city;
+            existingCountryModel = country;
             InitializeComponent();
-            PopulateComboBoxes();
+            PopulateCountryComboBox();
             PopulateModifyFormFields();
         }
 
-        private void PopulateComboBoxes()
+        private void CustomerModifyForm_Load(object sender, EventArgs e)
         {
-            //var cityList = CityService.GetCityList();
-            //CustomerModifyCityComboBox.DataSource = cityList;
-            CustomerModifyCityComboBox.DisplayMember = "CityName";
-            CustomerModifyCityComboBox.ValueMember = "CityId";
-
-            //var countryList = CountryService.GetCountryList(countryId);
-            //CustomerModifyCountryComboBox.DataSource = countryList;
+            PopulateCityComboBox();
+        }
+        private void PopulateCountryComboBox()
+        {
+            var countryList = CountryService.GetCountryList();
+            CustomerModifyCountryComboBox.DataSource = countryList;
             CustomerModifyCountryComboBox.DisplayMember = "Name";
             CustomerModifyCountryComboBox.ValueMember = "CountryId";
         }
 
+        private void CustomerModifyCountryComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var countryId = (int)CustomerModifyCountryComboBox.SelectedValue;
+
+            var cityList = CityService.GetCityList(countryId);
+            CustomerModifyCityComboBox.DataSource = cityList;
+            CustomerModifyCityComboBox.DisplayMember = "CityName";
+            CustomerModifyCityComboBox.ValueMember = "CityId";
+        }
+        private void PopulateCityComboBox()
+        {
+            var countryId = (int)CustomerModifyCountryComboBox.SelectedValue;
+
+            var cityList = CityService.GetCityList(countryId);
+            CustomerModifyCityComboBox.DataSource = cityList;
+            CustomerModifyCityComboBox.DisplayMember = "CityName";
+            CustomerModifyCityComboBox.ValueMember = "CityId";
+
+            // Select the appropriate city
+            CustomerModifyCityComboBox.SelectedValue = existingAddressModel.CityId;
+        }
 
         private void PopulateModifyFormFields()
         {
-            CustomerModifyNameTextBox.Text = customerModel.CustomerName;
-            CustomerModifyAddressTextBox.Text = addressModel.Address;
-            CustomerModifyCityComboBox.SelectedValue = addressModel.CityId; // Bind to address.CityId
-            CustomerModifyPostalCodeTextBox.Text = addressModel.PostalCode;
-            CustomerModifyCountryComboBox.SelectedValue = cityModel.CountryId;
-            CustomerModifyPhoneTextBox.Text = addressModel.Phone;
+            CustomerModifyNameTextBox.Text = existingCustomerModel.CustomerName;
+            CustomerModifyAddressTextBox.Text = existingAddressModel.Address;
+            CustomerModifyCityComboBox.SelectedValue = existingAddressModel.CityId;
+            CustomerModifyPostalCodeTextBox.Text = existingAddressModel.PostalCode;
+            CustomerModifyCountryComboBox.SelectedValue = existingCityModel.CountryId;
+            CustomerModifyPhoneTextBox.Text = existingAddressModel.Phone;
         }
 
         private bool ValidateFormInputs()
@@ -86,15 +106,21 @@ namespace Scheduler.UI
 
         private void CustomerModifySaveButton_Click(object sender, System.EventArgs e)
         {
-            var customerId = customerModel.CustomerId;
-            var customerName = CustomerModifyNameTextBox.Text;
-            var addressLine = CustomerModifyAddressTextBox.Text;
-            var cityId = (int)CustomerModifyCityComboBox.SelectedValue;
-            var postalCode = CustomerModifyPostalCodeTextBox.Text;
-            var countryId = (int)CustomerModifyCountryComboBox.SelectedValue;
-            var phoneNumber = CustomerModifyPhoneTextBox.Text;
+            if (!ValidateFormInputs())
+            {
+                return;
+            }
 
-            CustomerService.ModifyCustomer(customerId, customerName, addressLine, postalCode, phoneNumber, cityId, countryId);
+            var existingCustomerId = existingCustomerModel.CustomerId;
+            var newCustomerName = CustomerModifyNameTextBox.Text;
+            var newAddressLine = CustomerModifyAddressTextBox.Text;
+            var newCityId = (int)CustomerModifyCityComboBox.SelectedValue;
+            var newCityName = CustomerModifyCityComboBox.SelectedItem.ToString();
+            var newPostalCode = CustomerModifyPostalCodeTextBox.Text;
+            var newCountryId = (int)CustomerModifyCountryComboBox.SelectedValue;
+            var newPhoneNumber = CustomerModifyPhoneTextBox.Text;
+
+            CustomerService.ModifyCustomer(existingCustomerModel, existingAddressModel, newCustomerName, newAddressLine, newCityId, newCityName, newPostalCode, newCountryId, newPhoneNumber);
             this.Close();
         }
 
@@ -138,7 +164,5 @@ namespace Scheduler.UI
             MaskedTextBoxBehavior.ModifyMaskedTextBoxBehavior(this, sender);
 
         }
-
-
     }
 }

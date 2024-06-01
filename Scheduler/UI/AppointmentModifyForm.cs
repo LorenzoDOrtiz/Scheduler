@@ -25,7 +25,6 @@ namespace Scheduler.UI
 
             // Set the selected value to the contact's CustomerId
             AppointmentModifyContactComboxBox.SelectedValue = _appointmentModel.CustomerId;
-
             AppointmentModifyTypeComboxBox.DataSource = AppointmentService.GetAppointmentTypeTable();
             AppointmentModifyTypeComboxBox.SelectedItem = _appointmentModel.Type;
         }

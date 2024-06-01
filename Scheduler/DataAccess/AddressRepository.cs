@@ -38,23 +38,23 @@ namespace Scheduler.DataAccess
             }
         }
 
-        public static void UpdateAddress(AddressModel address, MySqlTransaction transaction)
+        public static void UpdateAddress(AddressModel newAddressModel, MySqlTransaction transaction)
         {
             try
             {
                 DBConnection.ConfirmDataBaseConnection();
 
-                string query = "UPDATE address SET address = @AddressLine, postalCode = @PostalCode, phone = @PhoneNumber, cityId = @CityId, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
+                string query = "UPDATE address SET cityId = @CityId, address = @Address, postalCode = @PostalCode, phone = @Phone, lastUpdateBy = @LastUpdateBy WHERE addressId = @AddressId";
                 var cmd = MySQLCRUD.CreateCommand(query, transaction);
                 var parameters = new Dictionary<string, object>
-            {
-                { "@AddressLine", address.Address },
-                { "@PostalCode", address.PostalCode },
-                { "@PhoneNumber", address.Phone },
-                { "@CityId", address.CityId },
-                { "@LastUpdateBy", address.LastUpdateBy },
-                { "@AddressId", address.AddressId }
-            };
+                {
+                    { "@CityId", newAddressModel.CityId },
+                    { "@Address", newAddressModel.Address },
+                    { "@PostalCode", newAddressModel.PostalCode },
+                    { "@Phone", newAddressModel.Phone },
+                    { "@LastUpdateBy", newAddressModel.LastUpdateBy },
+                    { "@AddressId", newAddressModel.AddressId }
+                };
                 MySQLCRUD.AddParameters(parameters, cmd);
                 cmd.ExecuteNonQuery();
             }

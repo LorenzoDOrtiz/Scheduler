@@ -56,41 +56,29 @@ namespace Scheduler.BusinessLogic
             }
         }
 
-        public static void ModifyCustomer(int customerId, string customerName, string addressLine,
-            string postalCode, string phoneNumber, int cityId, int countryId)
+        public static void ModifyCustomer(CustomerModel existingCustomerModel, AddressModel existingAddressModel, string newCustomerName, string newAddressLine, int newCityId, string newCityName, string newPostalCode, int newCountryId, string newPhoneNumber)
         {
             using (var transaction = DBConnection.Conn.BeginTransaction())
             {
                 try
                 {
-                    var customer = GetCustomer(customerId, transaction);
-                    var address = AddressService.GetAddress(customer.AddressId, transaction);
-                    var city = CityService.GetCity(address.CityId, transaction);
-                    var country = CountryService.GetCountry(city.CountryId, transaction);
-
-                    // Update Country if necessary
-                    if (city.CountryId != countryId)
+                    if (existingAddressModel.CityId != newCityId)
                     {
-                        city.CountryId = countryId; // Update city.CountryId if countryId changed
-                        CityRepository.UpdateCity(city, transaction);
+                        var newAddressModel = existingAddressModel;
+
+                        newAddressModel.CityId = newCityId;
+                        newAddressModel.Address = newAddressLine;
+                        newAddressModel.PostalCode = newPostalCode;
+                        newAddressModel.Phone = newPhoneNumber;
+                        // Update the address database table and get the new addressId back if there is one
+                        AddressRepository.UpdateAddress(newAddressModel, transaction);
                     }
 
-                    // Update Address if necessary
-                    if (address.Address != addressLine || address.PostalCode != postalCode || address.Phone != phoneNumber || address.CityId != cityId)
+                    if (existingCustomerModel.CustomerName != newCustomerName)
                     {
-                        address.Address = addressLine;
-                        address.PostalCode = postalCode;
-                        address.Phone = phoneNumber;
-                        address.CityId = cityId; // Only update CityId in the Address table
-                        AddressRepository.UpdateAddress(address, transaction);
-                    }
-
-                    // Update Customer
-                    if (customer.CustomerName != customerName)
-                    {
-                        customer.CustomerName = customerName;
-                        customer.AddressId = address.AddressId;
-                        CustomerRepository.UpdateCustomer(customer, transaction);
+                        var newCustomerModel = existingCustomerModel;
+                        newCustomerModel.CustomerName = newCustomerName;
+                        CustomerRepository.UpdateCustomer(newCustomerModel, transaction);
                     }
 
                     transaction.Commit();
@@ -99,16 +87,17 @@ namespace Scheduler.BusinessLogic
                 catch (DataAccessException ex)
                 {
                     transaction.Rollback();
-                    MessageBox.Show("Customer deletion failed!: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Customer modification failed!: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
-                    // Rollback the transaction if any operation fails
                     transaction.Rollback();
                     MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
+
 
         public static CustomerModel GetCustomer(int customerId)
         {

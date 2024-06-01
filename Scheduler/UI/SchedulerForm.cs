@@ -147,6 +147,7 @@ namespace Scheduler.UI
                     {
                         CustomerRepository.DeleteCustomer(selectedcustomerId);
                         DGVCustomers.DataSource = CustomerRepository.GetCustomerDataTable();
+                        DGVAppointments.DataSource = AppointmentRepository.GetAppointmentDataTable();
                     }
                 }
                 else

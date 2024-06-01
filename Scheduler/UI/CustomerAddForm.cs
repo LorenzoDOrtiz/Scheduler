@@ -11,13 +11,14 @@ namespace Scheduler.UI
         public CustomerAddForm()
         {
             InitializeComponent();
-            PopulateComboBoxes();
+            PopulateCountryComboBox();
             ClearComboBoxSelection();
         }
 
-        private void PopulateComboBoxes()
+        private void PopulateCountryComboBox()
         {
-            CustomerAddCountryComboBox.DataSource = CountryService.GetCountryList();
+            var countryList = CountryService.GetCountryList();
+            CustomerAddCountryComboBox.DataSource = countryList;
             CustomerAddCountryComboBox.DisplayMember = "Name";
             CustomerAddCountryComboBox.ValueMember = "CountryId";
         }
