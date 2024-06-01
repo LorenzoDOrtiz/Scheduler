@@ -48,21 +48,33 @@ namespace Scheduler.BusinessLogic
             return city;
         }
 
-        public static List<CityModel> GetCityList()
+        internal static List<CityModel> GetCityList(int countryId)
         {
-            var cityDataTable = CityRepository.GetAllCities();
+            var cityDataTable = CityRepository.GetAllCities(countryId);
 
             var cityList = new List<CityModel>();
 
             foreach (DataRow row in cityDataTable.Rows)
             {
-                cityList.Add(new CityModel
+                var city = new CityModel
                 {
                     CityId = Convert.ToInt32(row["cityId"]),
                     CityName = row["city"].ToString()
-                });
+                };
+                cityList.Add(city);
             }
             return cityList;
+        }
+
+
+        internal static int GetCountryId(int cityId)
+        {
+            var cityDataTable = CityRepository.GetCityDataTable(cityId);
+
+            // Correct the column name to "countryId"
+            var countryId = Convert.ToInt32(cityDataTable.Rows[0]["countryId"]);
+
+            return countryId;
         }
     }
 }

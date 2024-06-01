@@ -36,9 +36,9 @@ namespace Scheduler.DataAccess
             var query = "SELECT * FROM city WHERE cityId = @CityId";
 
             var parameters = new Dictionary<string, object>
-            {
-                { "@CityId", cityId }
-            };
+    {
+        { "@CityId", cityId }
+    };
             // Load data from database
             var cityDataTable = MySQLCRUD.GetDataTable(query, parameters);
 
@@ -57,12 +57,19 @@ namespace Scheduler.DataAccess
             return MySQLCRUD.GetDataTable(query, parameters, transaction);
         }
 
-        public static DataTable GetAllCities()
+        public static DataTable GetAllCities(int countryId)
         {
-            var query = "SELECT cityId, city FROM city";
-            var cityDataTable = MySQLCRUD.GetDataTable(query);
-
+            var query = "SELECT city.cityId, city.city FROM city " +
+                        "INNER JOIN country ON city.countryId = country.countryId " +
+                        "WHERE country.countryId = @CountryId";
+            var parameters = new Dictionary<string, object>
+    {
+        { "@CountryId", countryId }
+    };
+            var cityDataTable = MySQLCRUD.GetDataTable(query, parameters);
             return cityDataTable;
         }
+
+
     }
 }

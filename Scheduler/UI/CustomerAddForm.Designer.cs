@@ -61,7 +61,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label6.Location = new System.Drawing.Point(55, 201);
+            this.label6.Location = new System.Drawing.Point(55, 120);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(87, 25);
             this.label6.TabIndex = 52;
@@ -72,10 +72,11 @@
             this.CustomerAddCountryComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CustomerAddCountryComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CustomerAddCountryComboBox.FormattingEnabled = true;
-            this.CustomerAddCountryComboBox.Location = new System.Drawing.Point(148, 199);
+            this.CustomerAddCountryComboBox.Location = new System.Drawing.Point(148, 123);
             this.CustomerAddCountryComboBox.Name = "CustomerAddCountryComboBox";
             this.CustomerAddCountryComboBox.Size = new System.Drawing.Size(225, 33);
             this.CustomerAddCountryComboBox.TabIndex = 51;
+            this.CustomerAddCountryComboBox.SelectionChangeCommitted += new System.EventHandler(this.CustomerAddCountryComboBox_SelectionChangeCommitted);
             // 
             // button2
             // 
@@ -119,7 +120,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(90, 123);
+            this.label4.Location = new System.Drawing.Point(93, 198);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 25);
             this.label4.TabIndex = 47;
@@ -152,10 +153,11 @@
             this.CustomerAddCityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CustomerAddCityComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CustomerAddCityComboBox.FormattingEnabled = true;
-            this.CustomerAddCityComboBox.Location = new System.Drawing.Point(148, 123);
+            this.CustomerAddCityComboBox.Location = new System.Drawing.Point(148, 198);
             this.CustomerAddCityComboBox.Name = "CustomerAddCityComboBox";
             this.CustomerAddCityComboBox.Size = new System.Drawing.Size(225, 33);
             this.CustomerAddCityComboBox.TabIndex = 43;
+            this.CustomerAddCityComboBox.DropDown += new System.EventHandler(this.CustomerAddCityComboBox_DropDown);
             // 
             // CustomerAddAddressTextBox
             // 
@@ -185,7 +187,6 @@
             this.CustomerAddPhoneTextBox.Name = "CustomerAddPhoneTextBox";
             this.CustomerAddPhoneTextBox.Size = new System.Drawing.Size(225, 31);
             this.CustomerAddPhoneTextBox.TabIndex = 55;
-            this.CustomerAddPhoneTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.CustomerAddPhoneTextBox_MaskInputRejected);
             this.CustomerAddPhoneTextBox.Enter += new System.EventHandler(this.CustomerAddPhoneTextBox_Enter);
             // 
             // CustomerAddPostalCodeTextBox
@@ -197,7 +198,6 @@
             this.CustomerAddPostalCodeTextBox.Size = new System.Drawing.Size(225, 31);
             this.CustomerAddPostalCodeTextBox.TabIndex = 56;
             this.CustomerAddPostalCodeTextBox.ValidatingType = typeof(int);
-            this.CustomerAddPostalCodeTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.CustomerAddPostalCodeTextBox_MaskInputRejected);
             this.CustomerAddPostalCodeTextBox.Enter += new System.EventHandler(this.CustomerAddPostalCodeTextBox_Enter);
             // 
             // CustomerAddForm

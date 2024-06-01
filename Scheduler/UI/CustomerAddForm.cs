@@ -17,14 +17,24 @@ namespace Scheduler.UI
 
         private void PopulateComboBoxes()
         {
-            CustomerAddCityComboBox.DataSource = CityService.GetCityList();
-            CustomerAddCityComboBox.DisplayMember = "CityName";
-            CustomerAddCityComboBox.ValueMember = "CityId";
-
             CustomerAddCountryComboBox.DataSource = CountryService.GetCountryList();
             CustomerAddCountryComboBox.DisplayMember = "Name";
             CustomerAddCountryComboBox.ValueMember = "CountryId";
         }
+
+        private void CustomerAddCountryComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var countryId = (int)CustomerAddCountryComboBox.SelectedValue;
+
+            CustomerAddCityComboBox.DataSource = CityService.GetCityList(countryId);
+            CustomerAddCityComboBox.DisplayMember = "CityName"; // Display city names
+            CustomerAddCityComboBox.ValueMember = "CityId"; // Use city IDs as values
+        }
+        private void CustomerAddCityComboBox_DropDown(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void ClearComboBoxSelection()
         {
@@ -91,17 +101,6 @@ namespace Scheduler.UI
             this.Close();
         }
 
-        private void CustomerAddPhoneTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-            MessageBox.Show(this, "Please enter a phone number with the correct format.", "Invalid form field format", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void CustomerAddPostalCodeTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-            MessageBox.Show(this, "Please enter a postal code with the correct format.", "Invalid form field format", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-        }
-
         private void CustomerAddNameTextBox_TextChanged(object sender, EventArgs e)
         {
             if (CustomerAddNameTextBox.Text.Any(Char.IsDigit))
@@ -135,5 +134,7 @@ namespace Scheduler.UI
         {
             MaskedTextBoxBehavior.ModifyMaskedTextBoxBehavior(this, sender);
         }
+
+
     }
 }
