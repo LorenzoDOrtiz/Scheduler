@@ -31,15 +31,13 @@ namespace Scheduler.UI
             {
                 case "Appointment types by month":
                     UserComboBox.Visible = false;
-                    UserComboBox.SelectedIndex = -1;
                     DGVReport.DataSource = ReportGenerator.GetAppointmentTypesByMonth();
                     break;
                 case "User Schedule":
+                    UserComboBox.SelectedIndex = -1;
                     UserComboBox.Visible = true;
                     DGVReport.DataSource = null;
-
                     break;
-
                 // Handle other report types here
                 default:
                     break;
@@ -56,16 +54,22 @@ namespace Scheduler.UI
 
         private void DGVReport_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Check if the column being formatted is a month column
-            if (e.ColumnIndex == DGVReport.Columns["Month"].Index)
+            // Only do the cell formatting when Appointment types by month is selected
+            if (ReportSelectionComboBox.SelectedItem.ToString() == "Appointment types by month")
             {
-                // Convert the numeric month value to its respective name
-                if (e.Value != null && int.TryParse(e.Value.ToString(), out int monthValue))
+                // Check if the column being formatted is the "Month" column and if it exists (doesn't exist until after datasource is set)
+                var monthColumn = DGVReport.Columns["Month"];
+                if (monthColumn != null && e.ColumnIndex == monthColumn.Index)
                 {
-                    e.Value = DateTimeFormatInfo.CurrentInfo.GetMonthName(monthValue);
-                    e.FormattingApplied = true; // Indicate that the formatting has been applied
+                    // Convert the numeric month value to its respective name
+                    if (e.Value != null && int.TryParse(e.Value.ToString(), out int monthValue))
+                    {
+                        e.Value = DateTimeFormatInfo.CurrentInfo.GetMonthName(monthValue);
+                        e.FormattingApplied = true; // Indicate that the formatting has been applied
+                    }
                 }
             }
         }
+
     }
 }
