@@ -36,7 +36,6 @@ namespace Scheduler.UI
 
         }
 
-
         private void ClearComboBoxSelection()
         {
             CustomerAddCityComboBox.SelectedIndex = -1;

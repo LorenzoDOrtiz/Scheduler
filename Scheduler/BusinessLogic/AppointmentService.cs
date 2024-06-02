@@ -12,35 +12,21 @@ namespace Scheduler.BusinessLogic
     {
         public static void CreateAppointment(int customerId, int userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end)
         {
-            try
+            var appointment = new AppointmentModel
             {
-                // Create Appointment
-                AppointmentModel appointment = new AppointmentModel
-                {
-                    CustomerId = customerId,
-                    UserId = userId,
-                    Title = title,
-                    Description = description,
-                    Location = location,
-                    Contact = contact,
-                    Type = type,
-                    URL = url,
-                    Start = start,
-                    End = end
-                };
-                // Insert Appointment
-                AppointmentRepository.InsertAppointment(appointment);
-                MessageBox.Show("Appointment created successfully!", "Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (DataAccessException ex)
-            {
-                MessageBox.Show("Adding appointment failed: " + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                CustomerId = customerId,
+                UserId = userId,
+                Title = title,
+                Description = description,
+                Location = location,
+                Contact = contact,
+                Type = type,
+                URL = url,
+                Start = start,
+                End = end
+            };
 
+            AppointmentRepository.InsertAppointment(appointment);
         }
 
         public static void ModifyAppointment(AppointmentModel appointmentModel)
@@ -104,6 +90,48 @@ namespace Scheduler.BusinessLogic
 
             };
             return appointment;
+        }
+
+        internal static void AppointmentAlert()
+        {
+            var currentUserId = UserManager.GetCurrentUser().UserId;
+            var upcomingAppointment = AppointmentRepository.GetUpcomingAppointment(currentUserId);
+
+            if (upcomingAppointment != null)
+            {
+                var timeUntilStart = upcomingAppointment.Start.ToLocalTime() - DateTime.Now;
+                var minutesUntilStart = (int)timeUntilStart.TotalMinutes; // Cast to int to remove fractional part 5.53535 minutes
+                MessageBox.Show($"Upcoming appointment: {upcomingAppointment.Title} with {upcomingAppointment.Contact} that starts in {minutesUntilStart} minutes",
+                                "Appointment Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        internal static List<AppointmentModel> GetAppointmentListForReports()
+        {
+            var appointmentDataTable = AppointmentRepository.GetAppointmentDataTableForReports();
+            var appointmentList = new List<AppointmentModel>();
+
+            foreach (DataRow row in appointmentDataTable.Rows)
+            {
+                var appointment = new AppointmentModel
+                {
+                    AppointmentId = Convert.ToInt32(row["AppointmentId"]),
+                    CustomerId = Convert.ToInt32(row["CustomerId"]),
+                    UserId = Convert.ToInt32(row["UserId"]),
+                    Title = row["Title"].ToString(),
+                    Description = row["Description"].ToString(),
+                    Location = row["Location"].ToString(),
+                    Contact = row["Contact"].ToString(),
+                    Type = row["Type"].ToString(),
+                    URL = row["URL"].ToString(),
+                    Start = Convert.ToDateTime(row["Start"]),
+                    End = Convert.ToDateTime(row["End"]),
+                };
+
+                appointmentList.Add(appointment);
+            }
+
+            return appointmentList;
         }
     }
 }

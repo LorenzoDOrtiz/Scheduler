@@ -29,23 +29,49 @@ namespace Scheduler.UI
             AppointmentModifyTypeComboxBox.SelectedItem = _appointmentModel.Type;
         }
 
-
-
-
         private void PopulateModifyFormFields()
         {
             AppointmentModifyTitleTextBox.Text = _appointmentModel.Title;
             AppointmentModifyDescriptionTextBox.Text = _appointmentModel.Description;
             AppointmentModifyLocationTextBox.Text = _appointmentModel.Location;
             AppointmentModifyURLTextBox.Text = _appointmentModel.URL;
-            AppointmentModifyStartDatePicker.Value = _appointmentModel.Start.Date;
-            AppointmentModifyStartTimePicker.Value = _appointmentModel.Start;
-            AppointmentModifyEndDatePicker.Value = _appointmentModel.End.Date;
-            AppointmentModifyEndTimePicker.Value = _appointmentModel.End;
+            AppointmentModifyStartDatePicker.Value = _appointmentModel.Start.Date.ToLocalTime();
+            AppointmentModifyStartTimePicker.Value = _appointmentModel.Start.ToLocalTime();
+            AppointmentModifyEndDatePicker.Value = _appointmentModel.End.Date.ToLocalTime();
+            AppointmentModifyEndTimePicker.Value = _appointmentModel.End.ToLocalTime();
+        }
+
+        private bool ValidateFormInputs()
+        {
+            if (string.IsNullOrEmpty(AppointmentModifyTitleTextBox.Text))
+            {
+                MessageBox.Show(this, "Please enter a valid title.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (AppointmentModifyContactComboxBox.SelectedIndex == -1)
+            {
+                MessageBox.Show(this, "Please select a contact.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (AppointmentModifyTypeComboxBox.SelectedIndex == -1)
+            {
+                MessageBox.Show(this, "Please select an appointment type.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (!TimeManager.ValidAppointmentDateTime(AppointmentModifyStartDatePicker, AppointmentModifyStartTimePicker, AppointmentModifyEndDatePicker, AppointmentModifyEndTimePicker))
+            {
+                return false;
+            }
+            return true;
         }
 
         private void AppointmentModifySaveButton_Click(object sender, EventArgs e)
         {
+            if (!ValidateFormInputs())
+            {
+                return;
+            }
+
             _appointmentModel.Title = AppointmentModifyTitleTextBox.Text;
             _appointmentModel.Description = AppointmentModifyDescriptionTextBox.Text;
             _appointmentModel.Location = AppointmentModifyLocationTextBox.Text;

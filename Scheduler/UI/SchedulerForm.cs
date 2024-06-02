@@ -2,6 +2,7 @@
 using Scheduler.DataAccess;
 using SchedulerUI.UI;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Scheduler.UI
@@ -13,6 +14,13 @@ namespace Scheduler.UI
             InitializeComponent();
             PopulateAllAppointmentsDataGridView();
             PopulateCustomerDataGridView();
+            PopulateDayAppointmentsDataGridView();
+            MonthCalendar_DateSelected(null, null);
+
+        }
+        private void SchedulerForm_Shown(object sender, EventArgs e)
+        {
+            AppointmentService.AppointmentAlert();
         }
 
         private void PopulateCustomerDataGridView()
@@ -33,6 +41,15 @@ namespace Scheduler.UI
             DGVAppointments.Columns["appointmentId"].Visible = false;
             DGVAppointments.Columns["title"].HeaderText = "Title";
             DGVAppointments.Columns["location"].HeaderText = "Location";
+            DGVAppointments.Columns["contact"].HeaderText = "Contact";
+            DGVAppointments.Columns["type"].HeaderText = "Type";
+            DGVAppointments.Columns["start"].HeaderText = "Start";
+            DGVAppointments.Columns["end"].HeaderText = "End";
+        }
+
+        private void PopulateDayAppointmentsDataGridView()
+        {
+            DGVAppointments.Columns["title"].HeaderText = "Title";
             DGVAppointments.Columns["contact"].HeaderText = "Contact";
             DGVAppointments.Columns["type"].HeaderText = "Type";
             DGVAppointments.Columns["start"].HeaderText = "Start";
@@ -170,6 +187,104 @@ namespace Scheduler.UI
         {
             DGVAppointments.DataSource = AppointmentRepository.GetAppointmentDataTable();
             DGVCustomers.DataSource = CustomerRepository.GetCustomerDataTable();
+        }
+
+        private void MonthCalendar_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            // Get the selected date from the MonthCalendar
+            var selectedDate = MonthCalendar.SelectionStart;
+
+            // Format the selected date to a string in the desired format
+            var selectedDateString = selectedDate.ToString("yyyy-MM-dd");
+
+            // Construct the SQL query to get appointments for the selected date
+            var query = "SELECT title, contact, type, start, end FROM appointment WHERE DATE(start) = @SelectedDate";
+
+            // Use a dictionary to pass the parameter to the query for safety
+            var parameters = new Dictionary<string, object>
+            {
+                { "@SelectedDate", selectedDate }
+            };
+
+            // Get the data table from the query and bind it to the DataGridView
+            var dataTableUtcTimes = MySQLCRUD.GetDataTable(query, parameters);
+
+            var dataTableLocalTimes = TimeManager.ConvertDataTableWithUtcTimesToLocalTime(dataTableUtcTimes);
+
+            DGVCalendarandRadio.DataSource = dataTableLocalTimes;
+
+            // Uncheck the WeeklyRadioButton and MonthRadioButton
+            WeeklyRadioButton.Checked = false;
+            MonthRadioButton.Checked = false;
+        }
+
+
+        private void WeeklyRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (WeeklyRadioButton.Checked)
+            {
+                var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+                var endOfWeek = startOfWeek.AddDays(6);
+
+                var query = "SELECT title, contact, type, start, end FROM appointment " +
+                            "WHERE DATE(start) BETWEEN @StartOfWeek AND @EndOfWeek";
+
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@StartOfWeek", startOfWeek },
+                    { "@EndOfWeek", endOfWeek }
+                };
+
+                var dataTableUtcTimes = MySQLCRUD.GetDataTable(query, parameters);
+
+                var dataTableLocalTimes = TimeManager.ConvertDataTableWithUtcTimesToLocalTime(dataTableUtcTimes);
+
+
+                DGVCalendarandRadio.DataSource = dataTableLocalTimes;
+            }
+        }
+
+
+        private void MonthRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MonthRadioButton.Checked)
+            {
+                // Get the current month and year
+                var currentMonth = DateTime.Today.Month;
+                var currentYear = DateTime.Today.Year;
+
+                // Get the first and last days of the current month
+                var firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
+                var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                // Format the dates as strings in the required format
+                var formattedFirstDayOfMonth = firstDayOfMonth.ToString("yyyy-MM-dd");
+                var formattedLastDayOfMonth = lastDayOfMonth.ToString("yyyy-MM-dd");
+
+                // Construct the SQL query string
+                var query = "SELECT title, contact, type, start, end FROM appointment " +
+                            "WHERE DATE(start) BETWEEN @FirstDayOfMonth AND @LastDayOfMonth";
+
+                // Use parameters to pass the dates
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@FirstDayOfMonth", firstDayOfMonth },
+                    { "@LastDayOfMonth", lastDayOfMonth }
+                };
+
+                // Get the data table from the query and bind it to the DataGridView
+                var dataTableUtcTimes = MySQLCRUD.GetDataTable(query, parameters);
+
+                var dataTableLocalTimes = TimeManager.ConvertDataTableWithUtcTimesToLocalTime(dataTableUtcTimes);
+
+                DGVCalendarandRadio.DataSource = dataTableLocalTimes;
+            }
+        }
+
+        private void generateReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var reportForm = new ReportForm();
+            reportForm.Show();
         }
     }
 }

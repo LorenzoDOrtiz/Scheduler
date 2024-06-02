@@ -37,5 +37,14 @@ namespace Scheduler.DataAccess
 
             return userDataTable;
         }
+
+        public static DataTable GetUserDataTableForReports()
+        {
+            var query = "SELECT * FROM user";
+
+            var userDataTable = MySQLCRUD.GetDataTable(query);
+
+            return userDataTable;
+        }
     }
 }

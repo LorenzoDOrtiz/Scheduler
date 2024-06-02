@@ -99,7 +99,7 @@ namespace Scheduler.DataAccess
 
         public static DataTable GetCustomerDataTable()
         {
-            var query = "SELECT customer.customerId, customer.customerName, address.address, city.city, address.postalCode, country.country, address.phone " +
+            var query = "SELECT customer.customerId, customer.customerName, address.address, country.country, city.city, address.postalCode,  address.phone " +
                               "FROM customer " +
                                 "INNER JOIN address " +
                                     "ON customer.addressId = address.addressId " +

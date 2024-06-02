@@ -126,6 +126,7 @@
             this.WeeklyRadioButton.TabStop = true;
             this.WeeklyRadioButton.Text = "This Week\'s Appointments";
             this.WeeklyRadioButton.UseVisualStyleBackColor = true;
+            this.WeeklyRadioButton.CheckedChanged += new System.EventHandler(this.WeeklyRadioButton_CheckedChanged);
             // 
             // MonthRadioButton
             // 
@@ -138,6 +139,7 @@
             this.MonthRadioButton.TabStop = true;
             this.MonthRadioButton.Text = "This Month\'s Appointments";
             this.MonthRadioButton.UseVisualStyleBackColor = true;
+            this.MonthRadioButton.CheckedChanged += new System.EventHandler(this.MonthRadioButton_CheckedChanged);
             // 
             // appointmentSearchTextBox
             // 
@@ -303,6 +305,7 @@
             this.MonthCalendar.Name = "MonthCalendar";
             this.MonthCalendar.ScrollChange = 1;
             this.MonthCalendar.TabIndex = 103;
+            this.MonthCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.MonthCalendar_DateSelected);
             // 
             // CurrentTimeLabel
             // 
@@ -359,19 +362,20 @@
             // generateReportToolStripMenuItem
             // 
             this.generateReportToolStripMenuItem.Name = "generateReportToolStripMenuItem";
-            this.generateReportToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.generateReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.generateReportToolStripMenuItem.Text = "Generate Report";
+            this.generateReportToolStripMenuItem.Click += new System.EventHandler(this.generateReportToolStripMenuItem_Click);
             // 
             // LogoutToolStripMenuItem
             // 
             this.LogoutToolStripMenuItem.Name = "LogoutToolStripMenuItem";
-            this.LogoutToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.LogoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.LogoutToolStripMenuItem.Text = "Logout";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // SchedulerForm
@@ -402,6 +406,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SchedulerForm";
             this.Activated += new System.EventHandler(this.SchedulerForm_Activated);
+            this.Shown += new System.EventHandler(this.SchedulerForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVCustomers)).EndInit();
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
