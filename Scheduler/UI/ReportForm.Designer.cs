@@ -42,6 +42,7 @@
             this.DGVReport.Name = "DGVReport";
             this.DGVReport.Size = new System.Drawing.Size(776, 357);
             this.DGVReport.TabIndex = 0;
+            this.DGVReport.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGVReport_CellFormatting);
             // 
             // ReportSelectionComboBox
             // 
@@ -50,19 +51,20 @@
             this.ReportSelectionComboBox.FormattingEnabled = true;
             this.ReportSelectionComboBox.Location = new System.Drawing.Point(12, 21);
             this.ReportSelectionComboBox.Name = "ReportSelectionComboBox";
-            this.ReportSelectionComboBox.Size = new System.Drawing.Size(409, 37);
+            this.ReportSelectionComboBox.Size = new System.Drawing.Size(338, 37);
             this.ReportSelectionComboBox.TabIndex = 1;
             this.ReportSelectionComboBox.SelectionChangeCommitted += new System.EventHandler(this.ReportSelectionComboBox_SelectionChangeCommitted);
             // 
             // UserComboBox
             // 
             this.UserComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.UserComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserComboBox.FormattingEnabled = true;
-            this.UserComboBox.Location = new System.Drawing.Point(427, 21);
+            this.UserComboBox.Location = new System.Drawing.Point(356, 21);
             this.UserComboBox.Name = "UserComboBox";
-            this.UserComboBox.Size = new System.Drawing.Size(243, 41);
+            this.UserComboBox.Size = new System.Drawing.Size(243, 37);
             this.UserComboBox.TabIndex = 2;
+            this.UserComboBox.SelectionChangeCommitted += new System.EventHandler(this.UserComboBox_SelectionChangeCommitted);
             // 
             // ReportForm
             // 

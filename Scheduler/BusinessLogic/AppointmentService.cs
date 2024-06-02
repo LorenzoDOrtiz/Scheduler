@@ -106,26 +106,22 @@ namespace Scheduler.BusinessLogic
             }
         }
 
-        internal static List<AppointmentModel> GetAppointmentListForReports()
+        internal static List<AppointmentModel> GetUserAppointmentListForReports()
         {
-            var appointmentDataTable = AppointmentRepository.GetAppointmentDataTableForReports();
+            var appointmentDataTable = AppointmentRepository.GetUserAppointmentDataTableForReports();
             var appointmentList = new List<AppointmentModel>();
 
             foreach (DataRow row in appointmentDataTable.Rows)
             {
                 var appointment = new AppointmentModel
                 {
-                    AppointmentId = Convert.ToInt32(row["AppointmentId"]),
-                    CustomerId = Convert.ToInt32(row["CustomerId"]),
-                    UserId = Convert.ToInt32(row["UserId"]),
-                    Title = row["Title"].ToString(),
-                    Description = row["Description"].ToString(),
-                    Location = row["Location"].ToString(),
-                    Contact = row["Contact"].ToString(),
-                    Type = row["Type"].ToString(),
-                    URL = row["URL"].ToString(),
-                    Start = Convert.ToDateTime(row["Start"]),
-                    End = Convert.ToDateTime(row["End"]),
+                    UserId = Convert.ToInt32(row["userId"]),
+                    UserName = row["userName"].ToString(),
+                    Title = row["title"].ToString(),
+                    Contact = row["contact"].ToString(),
+                    Type = row["type"].ToString(),
+                    Start = TimeZoneInfo.ConvertTimeFromUtc(Convert.ToDateTime(row["start"]), TimeZoneInfo.Local),
+                    End = TimeZoneInfo.ConvertTimeFromUtc(Convert.ToDateTime(row["end"]), TimeZoneInfo.Local)
                 };
 
                 appointmentList.Add(appointment);

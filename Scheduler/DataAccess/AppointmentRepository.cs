@@ -139,14 +139,17 @@ namespace Scheduler.DataAccess
             return appointmentDataTable;
         }
 
-        public static DataTable GetAppointmentDataTableForReports()
+        public static DataTable GetUserAppointmentDataTableForReports()
         {
-            var query = "SELECT * FROM appointment";
+            var query = @"SELECT user.userId, user.userName, appointment.title, appointment.contact, appointment.type, appointment.start, appointment.end
+                                FROM appointment
+                                INNER JOIN user ON appointment.userId = user.userId";
 
-            var appointmentDataTable = MySQLCRUD.GetDataTable(query);
+            var userAppointmentDataTable = MySQLCRUD.GetDataTable(query);
 
-            return appointmentDataTable;
+            return userAppointmentDataTable;
         }
+
 
         public static AppointmentModel GetUpcomingAppointment(int currentUserId)
         {

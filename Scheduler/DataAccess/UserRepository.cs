@@ -38,10 +38,11 @@ namespace Scheduler.DataAccess
             return userDataTable;
         }
 
-        public static DataTable GetUserDataTableForReports()
+        public static DataTable GetUserDataTableForComboBox()
         {
-            var query = "SELECT * FROM user";
+            var query = "SELECT userId, userName FROM user";
 
+            // Load data from database
             var userDataTable = MySQLCRUD.GetDataTable(query);
 
             return userDataTable;

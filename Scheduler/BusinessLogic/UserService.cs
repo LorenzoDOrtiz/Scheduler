@@ -8,9 +8,9 @@ namespace Scheduler.BusinessLogic
 {
     internal class UserService
     {
-        internal static List<UserModel> GetUserListForReports()
+        internal static List<UserModel> GetUserListForReportsComboBox()
         {
-            var userDataTable = UserRepository.GetUserDataTableForReports();
+            var userDataTable = UserRepository.GetUserDataTableForComboBox();
             var userList = new List<UserModel>();
 
             foreach (DataRow row in userDataTable.Rows)
@@ -19,6 +19,7 @@ namespace Scheduler.BusinessLogic
                 {
                     UserId = Convert.ToInt32(row["userId"]),
                     UserName = row["userName"].ToString()
+
                 };
 
                 userList.Add(user);

@@ -6,29 +6,41 @@ namespace Scheduler.BusinessLogic
 {
     public class ReportGenerator
     {
-        private List<AppointmentModel> appointments;
-        private List<UserModel> users;
-
-        public ReportGenerator(List<AppointmentModel> appointments, List<UserModel> users)
-        {
-            this.appointments = appointments;
-            this.users = users;
-        }
+        private static List<AppointmentModel> appointments = AppointmentService.GetUserAppointmentListForReports();
+        private static List<AppointmentModel> userAppointments = AppointmentService.GetUserAppointmentListForReports();
 
         // Report: Number of Appointment Types
-        public List<object> GetAppointmentTypesByMonth()
+        public static List<object> GetAppointmentTypesByMonth()
         {
             var report = appointments
                 .GroupBy(a => new { a.Start.Year, a.Start.Month, a.Type })
                 .Select(g => new
                 {
-                    Year = g.Key.Year,
-                    Month = g.Key.Month,
-                    Type = g.Key.Type,
+                    g.Key.Year,
+                    g.Key.Month,
+                    g.Key.Type,
                     Count = g.Count()
                 })
                 .ToList();
 
+            return report.Cast<object>().ToList();
+        }
+
+        public static List<object> GetUserSchedule(int userId)
+        {
+            var report = userAppointments
+                .Where(a => a.UserId == userId)
+                .Select(g => new
+                {
+                    g.UserName,
+                    g.Title,
+                    g.Contact,
+                    g.Type,
+                    g.Start,
+                    g.End
+
+                })
+                .ToList();
             return report.Cast<object>().ToList();
         }
     }
