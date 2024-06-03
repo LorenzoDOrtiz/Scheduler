@@ -2,6 +2,7 @@
 using Scheduler.Localization;
 using Scheduler.Logging;
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Scheduler.UI
@@ -51,6 +52,24 @@ namespace Scheduler.UI
                 MessageBox.Show(this, LocalizationManager.GetString("InvalidLoginPrompt"), "Invalid Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LoginLogging.LogUserLogin($"Failed login with the username: {username}");
 
+            }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string url = "https://www.linkedin.com/in/lorenzodortiz/";
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(LocalizationManager.GetString("UnableToOpenLink", ex.Message));
             }
         }
     }

@@ -16,6 +16,8 @@ namespace Scheduler.UI
             PopulateCustomerDataGridView();
             PopulateDayAppointmentsDataGridView();
             MonthCalendar_DateSelected(null, null);
+            currentTimeTimer_Tick(null, null); // Have to tick the timer once when initializing because if not, there's a one second delay.
+
 
         }
         private void SchedulerForm_Shown(object sender, EventArgs e)
@@ -300,6 +302,16 @@ namespace Scheduler.UI
         private void DGVCustomers_DataSourceChanged(object sender, EventArgs e)
         {
             DGVCustomers.ClearSelection();
+        }
+
+        private void currentTimeTimer_Tick(object sender, EventArgs e)
+        {
+            CurrentTimeLabel.Text = DateTime.Now.ToShortTimeString();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -131,6 +131,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Localization.resx</DependentUpon>
     </Compile>
+    <Compile Include="Localization\Localization.es.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localization.es.resx</DependentUpon>
+    </Compile>
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Logging\LoginLogging.cs" />
     <Compile Include="Models\AddressModel.cs" />
@@ -163,7 +168,7 @@
     <Compile Include="UI\CustomerModifyForm.Designer.cs">
       <DependentUpon>CustomerModifyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InputValidation.cs" />
+    <Compile Include="UI\Util\InputValidation.cs" />
     <Compile Include="UI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,7 +177,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\MaskedTextBoxBehavior.cs" />
+    <Compile Include="UI\Util\MaskedTextBoxBehavior.cs" />
     <Compile Include="UI\ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +193,7 @@
     <EmbeddedResource Include="Localization\Localization.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AppointmentAddForm.resx">
       <DependentUpon>AppointmentAddForm.cs</DependentUpon>
@@ -201,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CustomerModifyForm.resx">
       <DependentUpon>CustomerModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LoginForm.es.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -222,6 +231,11 @@
       <DependentUpon>SchedulerForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+    <EmbeddedResource Include="Localization\Localization.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.es.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

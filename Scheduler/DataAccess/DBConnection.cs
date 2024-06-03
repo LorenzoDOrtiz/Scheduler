@@ -16,7 +16,7 @@ namespace Scheduler.DataAccess
             try
             {
                 Conn.Open();
-                MessageBox.Show("Connection is open");
+                //MessageBox.Show("Connection is open");
             }
             catch (MySqlException ex)
             {

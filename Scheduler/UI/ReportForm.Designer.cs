@@ -52,7 +52,7 @@
             this.DGVReport.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.DGVReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVReport.ShowEditingIcon = false;
-            this.DGVReport.Size = new System.Drawing.Size(587, 221);
+            this.DGVReport.Size = new System.Drawing.Size(635, 221);
             this.DGVReport.TabIndex = 0;
             this.DGVReport.DataSourceChanged += new System.EventHandler(this.DGVReport_DataSourceChanged);
             this.DGVReport.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGVReport_CellFormatting);
@@ -62,7 +62,7 @@
             this.ReportSelectionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ReportSelectionComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReportSelectionComboBox.FormattingEnabled = true;
-            this.ReportSelectionComboBox.Location = new System.Drawing.Point(12, 52);
+            this.ReportSelectionComboBox.Location = new System.Drawing.Point(60, 52);
             this.ReportSelectionComboBox.Name = "ReportSelectionComboBox";
             this.ReportSelectionComboBox.Size = new System.Drawing.Size(338, 37);
             this.ReportSelectionComboBox.TabIndex = 1;
@@ -73,7 +73,7 @@
             this.UserComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.UserComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserComboBox.FormattingEnabled = true;
-            this.UserComboBox.Location = new System.Drawing.Point(356, 52);
+            this.UserComboBox.Location = new System.Drawing.Point(404, 52);
             this.UserComboBox.Name = "UserComboBox";
             this.UserComboBox.Size = new System.Drawing.Size(243, 37);
             this.UserComboBox.TabIndex = 2;
@@ -84,7 +84,7 @@
             this.ReportRefreshButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ReportRefreshButton.BackgroundImage")));
             this.ReportRefreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ReportRefreshButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ReportRefreshButton.Location = new System.Drawing.Point(12, 12);
+            this.ReportRefreshButton.Location = new System.Drawing.Point(12, 52);
             this.ReportRefreshButton.Name = "ReportRefreshButton";
             this.ReportRefreshButton.Size = new System.Drawing.Size(42, 34);
             this.ReportRefreshButton.TabIndex = 4;
@@ -96,7 +96,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(17)))), ((int)(((byte)(23)))));
-            this.ClientSize = new System.Drawing.Size(609, 328);
+            this.ClientSize = new System.Drawing.Size(657, 328);
             this.Controls.Add(this.ReportRefreshButton);
             this.Controls.Add(this.UserComboBox);
             this.Controls.Add(this.ReportSelectionComboBox);
