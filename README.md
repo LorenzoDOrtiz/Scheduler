@@ -1,13 +1,3 @@
-# Customer Appointment ManagementSystem
-This customer appointment management systems
-
-
-
-
-
-
-
-
 # Scheduling Desktop Application
 
 ## Introduction
