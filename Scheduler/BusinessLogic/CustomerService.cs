@@ -62,7 +62,7 @@ namespace Scheduler.BusinessLogic
             {
                 try
                 {
-                    if (existingAddressModel.CityId != newCityId)
+                    if (existingAddressModel.CityId != newCityId || existingAddressModel.Address != newAddressLine || existingAddressModel.PostalCode != newPostalCode || existingAddressModel.Phone != newPhoneNumber)
                     {
                         var newAddressModel = existingAddressModel;
 

@@ -78,6 +78,7 @@ namespace Scheduler.UI
             _appointmentModel.Description = AppointmentModifyDescriptionTextBox.Text;
             _appointmentModel.Location = AppointmentModifyLocationTextBox.Text;
 
+
             // Get the selected contact's CustomerModel
             if (AppointmentModifyContactComboxBox.SelectedItem is CustomerModel selectedCustomer)
             {
