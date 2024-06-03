@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Scheduler.UI
 {
-    public class InputValidation
+    public class AddressValidation
     {
         public static List<string> addressSuffixes = new List<string>
         {

@@ -76,7 +76,7 @@ namespace Scheduler.UI
                 MessageBox.Show(this, "Please enter a valid customer name.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (!InputValidation.IsAddressValid(CustomerModifyAddressTextBox.Text))
+            if (!AddressValidation.IsAddressValid(CustomerModifyAddressTextBox.Text))
             {
                 MessageBox.Show(this, "Please enter a valid address.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -143,7 +143,7 @@ namespace Scheduler.UI
 
         private void CustomerModifyAddressTextBox_Leave(object sender, EventArgs e)
         {
-            if (!InputValidation.IsAddressValid(CustomerModifyAddressTextBox.Text))
+            if (!AddressValidation.IsAddressValid(CustomerModifyAddressTextBox.Text))
             {
                 CustomerModifyAddressTextBox.BackColor = Color.DarkRed;
             }

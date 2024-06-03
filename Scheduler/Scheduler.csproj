@@ -168,7 +168,7 @@
     <Compile Include="UI\CustomerModifyForm.Designer.cs">
       <DependentUpon>CustomerModifyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Util\InputValidation.cs" />
+    <Compile Include="UI\Util\AddressValidation.cs" />
     <Compile Include="UI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
