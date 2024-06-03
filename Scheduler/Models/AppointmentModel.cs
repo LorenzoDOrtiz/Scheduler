@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scheduler.BusinessLogic;
+using System;
 
 namespace Scheduler.Models
 {
@@ -16,8 +17,8 @@ namespace Scheduler.Models
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now.ToUniversalTime();
-        public string CreatedBy { get; set; }
-        public string LastUpdateBy { get; set; }
+        public string CreatedBy { get; set; } = UserManager.GetCurrentUser().UserName;
+        public string LastUpdateBy { get; set; } = UserManager.GetCurrentUser().UserName;
         public string UserName { get; set; } // adding username property here to use it for the user appointment report
     }
 }

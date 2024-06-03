@@ -167,5 +167,28 @@ namespace Scheduler.BusinessLogic
             }
             return contactList;
         }
+
+        internal static List<CustomerModel> GetCustomerCountryListForReports()
+        {
+            var customerCountryDataTable = CustomerRepository.GetCustomerCountryDataTableForReports();
+            var customerCountryList = new List<CustomerModel>();
+
+            foreach (DataRow row in customerCountryDataTable.Rows)
+            {
+                var customer = new CustomerModel
+                {
+                    CustomerId = Convert.ToInt32(row["customerId"]),
+                    AddressId = Convert.ToInt32(row["addressId"]),
+                    CityId = Convert.ToInt32(row["cityId"]),
+                    CountryId = Convert.ToInt32(row["countryId"]),
+                    CountryName = row["country"].ToString()
+                };
+
+                customerCountryList.Add(customer);
+            }
+
+            return customerCountryList;
+        }
+
     }
 }

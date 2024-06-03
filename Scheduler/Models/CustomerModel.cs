@@ -12,6 +12,12 @@ namespace Scheduler.Models
         public DateTime CreateDate { get; set; } = DateTime.Now.ToUniversalTime();
         public string CreatedBy { get; set; } = UserManager.GetCurrentUser().UserName;
         public string LastUpdateBy { get; set; } = UserManager.GetCurrentUser().UserName;
+
+        // Below properties are for the customer count by country report
+
+        public int CityId { get; set; }
+        public int CountryId { get; set; }
+        public string CountryName { get; set; }
     }
 }
 

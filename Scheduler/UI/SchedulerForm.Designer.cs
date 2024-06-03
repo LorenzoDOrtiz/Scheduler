@@ -31,13 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SchedulerForm));
             this.CustomerAddButton = new System.Windows.Forms.Button();
             this.CustomerDeleteButton = new System.Windows.Forms.Button();
-            this.SearchPlaceholderLabel2 = new System.Windows.Forms.Label();
-            this.SearchPlaceholderLabel1 = new System.Windows.Forms.Label();
             this.WeeklyRadioButton = new System.Windows.Forms.RadioButton();
             this.MonthRadioButton = new System.Windows.Forms.RadioButton();
-            this.appointmentSearchTextBox = new System.Windows.Forms.TextBox();
             this.DGVCustomers = new System.Windows.Forms.DataGridView();
-            this.CustomerSearchTextBox = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.CustomerModifyButton = new System.Windows.Forms.Button();
             this.CustomerLabel = new System.Windows.Forms.Label();
@@ -46,7 +42,7 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.AppointmentModifyButton = new System.Windows.Forms.Button();
             this.AppointmentDeleteButton = new System.Windows.Forms.Button();
-            this.DGVCalendarandRadio = new System.Windows.Forms.DataGridView();
+            this.DGVCalendarAndRadio = new System.Windows.Forms.DataGridView();
             this.MonthCalendar = new System.Windows.Forms.MonthCalendar();
             this.CurrentTimeLabel = new System.Windows.Forms.Label();
             this.DGVAppointments = new System.Windows.Forms.DataGridView();
@@ -58,7 +54,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVCustomers)).BeginInit();
             this.flowLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGVCalendarandRadio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVCalendarAndRadio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAppointments)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -89,32 +85,6 @@
             this.CustomerDeleteButton.UseVisualStyleBackColor = false;
             this.CustomerDeleteButton.Click += new System.EventHandler(this.CustomerDeleteButton_Click);
             // 
-            // SearchPlaceholderLabel2
-            // 
-            this.SearchPlaceholderLabel2.AutoSize = true;
-            this.SearchPlaceholderLabel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(46)))), ((int)(((byte)(54)))));
-            this.SearchPlaceholderLabel2.Enabled = false;
-            this.SearchPlaceholderLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchPlaceholderLabel2.ForeColor = System.Drawing.SystemColors.Control;
-            this.SearchPlaceholderLabel2.Location = new System.Drawing.Point(838, 586);
-            this.SearchPlaceholderLabel2.Name = "SearchPlaceholderLabel2";
-            this.SearchPlaceholderLabel2.Size = new System.Drawing.Size(80, 25);
-            this.SearchPlaceholderLabel2.TabIndex = 118;
-            this.SearchPlaceholderLabel2.Text = "Search";
-            // 
-            // SearchPlaceholderLabel1
-            // 
-            this.SearchPlaceholderLabel1.AutoSize = true;
-            this.SearchPlaceholderLabel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(46)))), ((int)(((byte)(54)))));
-            this.SearchPlaceholderLabel1.Enabled = false;
-            this.SearchPlaceholderLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchPlaceholderLabel1.ForeColor = System.Drawing.SystemColors.Control;
-            this.SearchPlaceholderLabel1.Location = new System.Drawing.Point(838, 283);
-            this.SearchPlaceholderLabel1.Name = "SearchPlaceholderLabel1";
-            this.SearchPlaceholderLabel1.Size = new System.Drawing.Size(80, 25);
-            this.SearchPlaceholderLabel1.TabIndex = 117;
-            this.SearchPlaceholderLabel1.Text = "Search";
-            // 
             // WeeklyRadioButton
             // 
             this.WeeklyRadioButton.AutoSize = true;
@@ -141,20 +111,11 @@
             this.MonthRadioButton.UseVisualStyleBackColor = true;
             this.MonthRadioButton.CheckedChanged += new System.EventHandler(this.MonthRadioButton_CheckedChanged);
             // 
-            // appointmentSearchTextBox
-            // 
-            this.appointmentSearchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(46)))), ((int)(((byte)(54)))));
-            this.appointmentSearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.appointmentSearchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.appointmentSearchTextBox.ForeColor = System.Drawing.SystemColors.Control;
-            this.appointmentSearchTextBox.Location = new System.Drawing.Point(832, 276);
-            this.appointmentSearchTextBox.Multiline = true;
-            this.appointmentSearchTextBox.Name = "appointmentSearchTextBox";
-            this.appointmentSearchTextBox.Size = new System.Drawing.Size(214, 40);
-            this.appointmentSearchTextBox.TabIndex = 114;
-            // 
             // DGVCustomers
             // 
+            this.DGVCustomers.AllowUserToOrderColumns = true;
+            this.DGVCustomers.AllowUserToResizeColumns = false;
+            this.DGVCustomers.AllowUserToResizeRows = false;
             this.DGVCustomers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVCustomers.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
             this.DGVCustomers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -170,18 +131,7 @@
             this.DGVCustomers.Size = new System.Drawing.Size(1062, 188);
             this.DGVCustomers.TabIndex = 113;
             this.DGVCustomers.TabStop = false;
-            // 
-            // CustomerSearchTextBox
-            // 
-            this.CustomerSearchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(46)))), ((int)(((byte)(54)))));
-            this.CustomerSearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.CustomerSearchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CustomerSearchTextBox.ForeColor = System.Drawing.SystemColors.Control;
-            this.CustomerSearchTextBox.Location = new System.Drawing.Point(832, 578);
-            this.CustomerSearchTextBox.Multiline = true;
-            this.CustomerSearchTextBox.Name = "CustomerSearchTextBox";
-            this.CustomerSearchTextBox.Size = new System.Drawing.Size(214, 40);
-            this.CustomerSearchTextBox.TabIndex = 112;
+            this.DGVCustomers.DataSourceChanged += new System.EventHandler(this.DGVCustomers_DataSourceChanged);
             // 
             // flowLayoutPanel3
             // 
@@ -277,23 +227,27 @@
             this.AppointmentDeleteButton.UseVisualStyleBackColor = false;
             this.AppointmentDeleteButton.Click += new System.EventHandler(this.AppointmentDeleteButton_Click);
             // 
-            // DGVCalendarandRadio
+            // DGVCalendarAndRadio
             // 
-            this.DGVCalendarandRadio.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DGVCalendarandRadio.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.DGVCalendarandRadio.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DGVCalendarandRadio.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
-            this.DGVCalendarandRadio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVCalendarandRadio.Location = new System.Drawing.Point(245, 71);
-            this.DGVCalendarandRadio.MultiSelect = false;
-            this.DGVCalendarandRadio.Name = "DGVCalendarandRadio";
-            this.DGVCalendarandRadio.ReadOnly = true;
-            this.DGVCalendarandRadio.RowHeadersVisible = false;
-            this.DGVCalendarandRadio.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.DGVCalendarandRadio.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVCalendarandRadio.Size = new System.Drawing.Size(829, 162);
-            this.DGVCalendarandRadio.TabIndex = 107;
-            this.DGVCalendarandRadio.TabStop = false;
+            this.DGVCalendarAndRadio.AllowUserToOrderColumns = true;
+            this.DGVCalendarAndRadio.AllowUserToResizeColumns = false;
+            this.DGVCalendarAndRadio.AllowUserToResizeRows = false;
+            this.DGVCalendarAndRadio.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVCalendarAndRadio.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.DGVCalendarAndRadio.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DGVCalendarAndRadio.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
+            this.DGVCalendarAndRadio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVCalendarAndRadio.Location = new System.Drawing.Point(245, 71);
+            this.DGVCalendarAndRadio.MultiSelect = false;
+            this.DGVCalendarAndRadio.Name = "DGVCalendarAndRadio";
+            this.DGVCalendarAndRadio.ReadOnly = true;
+            this.DGVCalendarAndRadio.RowHeadersVisible = false;
+            this.DGVCalendarAndRadio.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.DGVCalendarAndRadio.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DGVCalendarAndRadio.Size = new System.Drawing.Size(829, 162);
+            this.DGVCalendarAndRadio.TabIndex = 107;
+            this.DGVCalendarAndRadio.TabStop = false;
+            this.DGVCalendarAndRadio.DataSourceChanged += new System.EventHandler(this.DGVCalendarAndRadio_DataSourceChanged);
             // 
             // MonthCalendar
             // 
@@ -321,6 +275,9 @@
             // 
             // DGVAppointments
             // 
+            this.DGVAppointments.AllowUserToOrderColumns = true;
+            this.DGVAppointments.AllowUserToResizeColumns = false;
+            this.DGVAppointments.AllowUserToResizeRows = false;
             this.DGVAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVAppointments.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
             this.DGVAppointments.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -336,6 +293,7 @@
             this.DGVAppointments.Size = new System.Drawing.Size(1065, 188);
             this.DGVAppointments.TabIndex = 105;
             this.DGVAppointments.TabStop = false;
+            this.DGVAppointments.DataSourceChanged += new System.EventHandler(this.DGVAppointments_DataSourceChanged);
             // 
             // menuStrip1
             // 
@@ -362,20 +320,20 @@
             // generateReportToolStripMenuItem
             // 
             this.generateReportToolStripMenuItem.Name = "generateReportToolStripMenuItem";
-            this.generateReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.generateReportToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.generateReportToolStripMenuItem.Text = "Generate Report";
             this.generateReportToolStripMenuItem.Click += new System.EventHandler(this.generateReportToolStripMenuItem_Click);
             // 
             // LogoutToolStripMenuItem
             // 
             this.LogoutToolStripMenuItem.Name = "LogoutToolStripMenuItem";
-            this.LogoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LogoutToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.LogoutToolStripMenuItem.Text = "Logout";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // SchedulerForm
@@ -384,18 +342,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(17)))), ((int)(((byte)(23)))));
             this.ClientSize = new System.Drawing.Size(1090, 882);
-            this.Controls.Add(this.SearchPlaceholderLabel2);
-            this.Controls.Add(this.SearchPlaceholderLabel1);
             this.Controls.Add(this.WeeklyRadioButton);
             this.Controls.Add(this.MonthRadioButton);
-            this.Controls.Add(this.appointmentSearchTextBox);
             this.Controls.Add(this.DGVCustomers);
-            this.Controls.Add(this.CustomerSearchTextBox);
             this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.CustomerLabel);
             this.Controls.Add(this.AppointmentLabel);
             this.Controls.Add(this.flowLayoutPanel2);
-            this.Controls.Add(this.DGVCalendarandRadio);
+            this.Controls.Add(this.DGVCalendarAndRadio);
             this.Controls.Add(this.MonthCalendar);
             this.Controls.Add(this.CurrentTimeLabel);
             this.Controls.Add(this.DGVAppointments);
@@ -410,7 +364,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVCustomers)).EndInit();
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DGVCalendarandRadio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVCalendarAndRadio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAppointments)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -423,13 +377,9 @@
 
         private System.Windows.Forms.Button CustomerAddButton;
         private System.Windows.Forms.Button CustomerDeleteButton;
-        private System.Windows.Forms.Label SearchPlaceholderLabel2;
-        private System.Windows.Forms.Label SearchPlaceholderLabel1;
         private System.Windows.Forms.RadioButton WeeklyRadioButton;
         private System.Windows.Forms.RadioButton MonthRadioButton;
-        private System.Windows.Forms.TextBox appointmentSearchTextBox;
         private System.Windows.Forms.DataGridView DGVCustomers;
-        private System.Windows.Forms.TextBox CustomerSearchTextBox;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Button CustomerModifyButton;
         private System.Windows.Forms.Label CustomerLabel;
@@ -438,7 +388,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Button AppointmentModifyButton;
         private System.Windows.Forms.Button AppointmentDeleteButton;
-        private System.Windows.Forms.DataGridView DGVCalendarandRadio;
+        private System.Windows.Forms.DataGridView DGVCalendarAndRadio;
         private System.Windows.Forms.MonthCalendar MonthCalendar;
         private System.Windows.Forms.Label CurrentTimeLabel;
         private System.Windows.Forms.DataGridView DGVAppointments;

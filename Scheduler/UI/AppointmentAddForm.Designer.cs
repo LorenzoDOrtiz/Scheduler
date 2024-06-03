@@ -47,7 +47,7 @@
             this.AppointmentAddStartDatePicker = new System.Windows.Forms.DateTimePicker();
             this.AppointmentAddURLTextBox = new System.Windows.Forms.TextBox();
             this.AppointmentAddTypeComboxBox = new System.Windows.Forms.ComboBox();
-            this.AppointmentAddContactComboxBox = new System.Windows.Forms.ComboBox();
+            this.AppointmentAddContactComboBox = new System.Windows.Forms.ComboBox();
             this.AppointmentAddLocationTextBox = new System.Windows.Forms.TextBox();
             this.AppointmentAddTitleTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -186,6 +186,7 @@
             this.AppointmentAddAddCustomerButton.TabIndex = 54;
             this.AppointmentAddAddCustomerButton.Text = "Add";
             this.AppointmentAddAddCustomerButton.UseVisualStyleBackColor = false;
+            this.AppointmentAddAddCustomerButton.Click += new System.EventHandler(this.AppointmentAddAddCustomerButton_Click);
             // 
             // AppointmentAddEndTimePicker
             // 
@@ -246,15 +247,16 @@
             this.AppointmentAddTypeComboxBox.Size = new System.Drawing.Size(173, 33);
             this.AppointmentAddTypeComboxBox.TabIndex = 48;
             // 
-            // AppointmentAddContactComboxBox
+            // AppointmentAddContactComboBox
             // 
-            this.AppointmentAddContactComboxBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AppointmentAddContactComboxBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AppointmentAddContactComboxBox.FormattingEnabled = true;
-            this.AppointmentAddContactComboxBox.Location = new System.Drawing.Point(145, 175);
-            this.AppointmentAddContactComboxBox.Name = "AppointmentAddContactComboxBox";
-            this.AppointmentAddContactComboxBox.Size = new System.Drawing.Size(173, 33);
-            this.AppointmentAddContactComboxBox.TabIndex = 47;
+            this.AppointmentAddContactComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AppointmentAddContactComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AppointmentAddContactComboBox.FormattingEnabled = true;
+            this.AppointmentAddContactComboBox.Location = new System.Drawing.Point(145, 175);
+            this.AppointmentAddContactComboBox.Name = "AppointmentAddContactComboBox";
+            this.AppointmentAddContactComboBox.Size = new System.Drawing.Size(173, 33);
+            this.AppointmentAddContactComboBox.TabIndex = 47;
+            this.AppointmentAddContactComboBox.DropDown += new System.EventHandler(this.AppointmentAddContactComboBox_DropDown);
             // 
             // AppointmentAddLocationTextBox
             // 
@@ -298,7 +300,7 @@
             this.Controls.Add(this.AppointmentAddStartDatePicker);
             this.Controls.Add(this.AppointmentAddURLTextBox);
             this.Controls.Add(this.AppointmentAddTypeComboxBox);
-            this.Controls.Add(this.AppointmentAddContactComboxBox);
+            this.Controls.Add(this.AppointmentAddContactComboBox);
             this.Controls.Add(this.AppointmentAddLocationTextBox);
             this.Controls.Add(this.AppointmentAddTitleTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -331,7 +333,7 @@
         private System.Windows.Forms.DateTimePicker AppointmentAddStartDatePicker;
         private System.Windows.Forms.TextBox AppointmentAddURLTextBox;
         private System.Windows.Forms.ComboBox AppointmentAddTypeComboxBox;
-        private System.Windows.Forms.ComboBox AppointmentAddContactComboxBox;
+        private System.Windows.Forms.ComboBox AppointmentAddContactComboBox;
         private System.Windows.Forms.TextBox AppointmentAddLocationTextBox;
         private System.Windows.Forms.TextBox AppointmentAddTitleTextBox;
     }

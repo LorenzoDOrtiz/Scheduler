@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Scheduler.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -163,5 +164,24 @@ namespace Scheduler.DataAccess
 
             return customerDataTable;
         }
+
+        internal static object GetUserAppointmentDataTableForReports()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static DataTable GetCustomerCountryDataTableForReports()
+        {
+            var query = @"SELECT customer.customerId, customer.addressId, address.cityId, city.countryId, country.country 
+                               FROM customer 
+                                  INNER JOIN address ON customer.addressId = address.addressId 
+                                  INNER JOIN city ON address.cityId = city.cityId 
+                                  INNER JOIN country ON city.countryId = country.countryId";
+
+            var customerCountryDataTable = MySQLCRUD.GetDataTable(query);
+
+            return customerCountryDataTable;
+        }
+
     }
 }

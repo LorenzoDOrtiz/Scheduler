@@ -211,7 +211,7 @@ namespace Scheduler.UI
 
             var dataTableLocalTimes = TimeManager.ConvertDataTableWithUtcTimesToLocalTime(dataTableUtcTimes);
 
-            DGVCalendarandRadio.DataSource = dataTableLocalTimes;
+            DGVCalendarAndRadio.DataSource = dataTableLocalTimes;
 
             // Uncheck the WeeklyRadioButton and MonthRadioButton
             WeeklyRadioButton.Checked = false;
@@ -240,7 +240,7 @@ namespace Scheduler.UI
                 var dataTableLocalTimes = TimeManager.ConvertDataTableWithUtcTimesToLocalTime(dataTableUtcTimes);
 
 
-                DGVCalendarandRadio.DataSource = dataTableLocalTimes;
+                DGVCalendarAndRadio.DataSource = dataTableLocalTimes;
             }
         }
 
@@ -277,7 +277,7 @@ namespace Scheduler.UI
 
                 var dataTableLocalTimes = TimeManager.ConvertDataTableWithUtcTimesToLocalTime(dataTableUtcTimes);
 
-                DGVCalendarandRadio.DataSource = dataTableLocalTimes;
+                DGVCalendarAndRadio.DataSource = dataTableLocalTimes;
             }
         }
 
@@ -285,6 +285,21 @@ namespace Scheduler.UI
         {
             var reportForm = new ReportForm();
             reportForm.Show();
+        }
+
+        private void DGVAppointments_DataSourceChanged(object sender, EventArgs e)
+        {
+            DGVAppointments.ClearSelection();
+        }
+
+        private void DGVCalendarAndRadio_DataSourceChanged(object sender, EventArgs e)
+        {
+            DGVCalendarAndRadio.ClearSelection();
+        }
+
+        private void DGVCustomers_DataSourceChanged(object sender, EventArgs e)
+        {
+            DGVCustomers.ClearSelection();
         }
     }
 }

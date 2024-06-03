@@ -186,6 +186,7 @@
             this.AppointmentModifyAddCustomerButton.TabIndex = 33;
             this.AppointmentModifyAddCustomerButton.Text = "Add";
             this.AppointmentModifyAddCustomerButton.UseVisualStyleBackColor = false;
+            this.AppointmentModifyAddCustomerButton.Click += new System.EventHandler(this.AppointmentModifyAddCustomerButton_Click);
             // 
             // AppointmentModifyEndTimePicker
             // 
@@ -306,6 +307,7 @@
             this.Name = "AppointmentModifyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AppointmentModifyForm";
+            this.Activated += new System.EventHandler(this.AppointmentModifyForm_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
 

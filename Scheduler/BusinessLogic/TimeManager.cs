@@ -7,7 +7,7 @@ namespace Scheduler.BusinessLogic
 {
     internal class TimeManager
     {
-        public static bool ValidAppointmentDateTime(DateTimePicker startDatePicker, DateTimePicker startTimePicker, DateTimePicker endDatePicker, DateTimePicker endTimePicker)
+        public static bool ValidAppointmentDateTime(DateTimePicker startDatePicker, DateTimePicker startTimePicker, DateTimePicker endDatePicker, DateTimePicker endTimePicker, int appointmentId = -1)
         {
             DateTime startDate = startDatePicker.Value;
             DateTime startTime = startTimePicker.Value;
@@ -22,7 +22,7 @@ namespace Scheduler.BusinessLogic
             DateTime startUtc = start.ToUniversalTime();
             DateTime endUtc = end.ToUniversalTime();
 
-            // Convert UTC times to Eastern Standard Time
+            // Convert local time to Eastern Standard Time
             TimeZoneInfo estTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             DateTime startEst = TimeZoneInfo.ConvertTimeFromUtc(startUtc, estTimeZone);
             DateTime endEst = TimeZoneInfo.ConvertTimeFromUtc(endUtc, estTimeZone);
@@ -47,7 +47,7 @@ namespace Scheduler.BusinessLogic
             try
             {
                 // Check for overlapping appointments
-                if (AppointmentRepository.HasOverlappingAppointments(startUtc, endUtc))
+                if (AppointmentRepository.HasOverlappingAppointments(appointmentId, startUtc, endUtc))
                 {
                     MessageBox.Show("There is already an appointment scheduled within the specified time range.", "Overlap Detected", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
@@ -61,6 +61,7 @@ namespace Scheduler.BusinessLogic
 
             return true;
         }
+
 
 
         public static DataTable ConvertDataTableWithUtcTimesToLocalTime(DataTable dataTableUtcTimes)

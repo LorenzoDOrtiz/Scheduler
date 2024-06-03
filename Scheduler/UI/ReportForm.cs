@@ -20,35 +20,41 @@ namespace Scheduler.UI
             UserComboBox.SelectedIndex = -1;
 
             // Populate report selection ComboBox
-            ReportSelectionComboBox.DataSource = new List<string> { "Appointment types by month", "User Schedule", "Customers by city", "Customers by country" };
+            ReportSelectionComboBox.DataSource = new List<string> { "Appointment types by month", "User Schedule", "Customers by country" };
             ReportSelectionComboBox.SelectedIndex = -1;
-
         }
 
-        private void ReportSelectionComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        private void RefreshReport()
         {
             switch (ReportSelectionComboBox.SelectedItem.ToString())
             {
                 case "Appointment types by month":
                     UserComboBox.Visible = false;
                     DGVReport.DataSource = ReportGenerator.GetAppointmentTypesByMonth();
+                    DGVReport.Columns["Count"].HeaderText = "Appointment Count";
                     break;
                 case "User Schedule":
                     UserComboBox.SelectedIndex = -1;
                     UserComboBox.Visible = true;
                     DGVReport.DataSource = null;
                     break;
-                // Handle other report types here
-                default:
+                case "Customers by country":
+                    UserComboBox.Visible = false;
+                    DGVReport.DataSource = ReportGenerator.GetCustomerCountByCountry();
+                    DGVReport.Columns["Count"].HeaderText = "Customer Count";
                     break;
             }
+        }
+
+        private void ReportSelectionComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            RefreshReport();
         }
 
         private void UserComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var userId = Convert.ToInt32(UserComboBox.SelectedValue);
             DGVReport.DataSource = ReportGenerator.GetUserSchedule(userId);
-
             DGVReport.Columns["UserName"].HeaderText = "User Name";
         }
 
@@ -71,5 +77,33 @@ namespace Scheduler.UI
             }
         }
 
+        private void ReportRefreshButton_Click(object sender, EventArgs e)
+        {
+            int? selectedUserId = null;
+
+            // Store the selected user ID if the "User Schedule" report is currently selected
+            if (ReportSelectionComboBox.SelectedItem.ToString() == "User Schedule" && UserComboBox.SelectedIndex != -1)
+            {
+                selectedUserId = Convert.ToInt32(UserComboBox.SelectedValue);
+            }
+
+            if (ReportSelectionComboBox.SelectedIndex != -1)
+            {
+                RefreshReport();
+            }
+
+            // Re-select the user if the "User Schedule" report is currently selected
+            if (selectedUserId.HasValue && ReportSelectionComboBox.SelectedItem.ToString() == "User Schedule")
+            {
+                UserComboBox.SelectedValue = selectedUserId.Value;
+                DGVReport.DataSource = ReportGenerator.GetUserSchedule(selectedUserId.Value);
+                DGVReport.Columns["UserName"].HeaderText = "User Name";
+            }
+        }
+
+        private void DGVReport_DataSourceChanged(object sender, EventArgs e)
+        {
+            DGVReport.ClearSelection();
+        }
     }
 }

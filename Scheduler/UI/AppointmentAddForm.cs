@@ -1,4 +1,5 @@
 ﻿using Scheduler.BusinessLogic;
+using Scheduler.UI;
 using System;
 using System.Windows.Forms;
 
@@ -15,12 +16,13 @@ namespace SchedulerUI.UI
 
         private void PopulateComboBoxes()
         {
-            AppointmentAddContactComboxBox.DataSource = CustomerService.GetCustomerTable();
+            var customerTable = CustomerService.GetCustomerTable();
+            AppointmentAddContactComboBox.DataSource = customerTable;
             AppointmentAddTypeComboxBox.DataSource = AppointmentService.GetAppointmentTypeTable();
         }
         private void ClearComboBoxSelection()
         {
-            AppointmentAddContactComboxBox.SelectedIndex = -1;
+            AppointmentAddContactComboBox.SelectedIndex = -1;
             AppointmentAddTypeComboxBox.SelectedIndex = -1;
         }
 
@@ -31,7 +33,7 @@ namespace SchedulerUI.UI
                 MessageBox.Show(this, "Please enter a valid title.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (AppointmentAddContactComboxBox.SelectedIndex == -1)
+            if (AppointmentAddContactComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show(this, "Please select a contact.", "Invalid form field", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -56,12 +58,12 @@ namespace SchedulerUI.UI
                 return;
             }
 
-            var customerId = AppointmentService.GetContactCustomerId(AppointmentAddContactComboxBox.Text);
+            var customerId = AppointmentService.GetContactCustomerId(AppointmentAddContactComboBox.Text);
             var userId = UserManager.GetCurrentUser().UserId;
             var title = AppointmentAddTitleTextBox.Text;
             var description = AppointmentAddDescriptionTextBox.Text;
             var location = AppointmentAddLocationTextBox.Text;
-            var contact = AppointmentAddContactComboxBox.Text;
+            var contact = AppointmentAddContactComboBox.Text;
             var type = AppointmentAddTypeComboxBox.Text;
             var url = AppointmentAddURLTextBox.Text;
             var startDate = AppointmentAddStartDatePicker.Value;
@@ -76,12 +78,25 @@ namespace SchedulerUI.UI
             DateTime endUtc = end.ToUniversalTime();
 
             AppointmentService.CreateAppointment(customerId, userId, title, description, location, contact, type, url, startUtc, endUtc);
+            MessageBox.Show(this, "Appointment added successfully!", "Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 
         private void AppointmentAddCancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void AppointmentAddAddCustomerButton_Click(object sender, EventArgs e)
+        {
+            var customerAddForm = new CustomerAddForm();
+            customerAddForm.ShowDialog(this);
+        }
+
+        private void AppointmentAddContactComboBox_DropDown(object sender, EventArgs e)
+        {
+            var customerTable = CustomerService.GetCustomerTable();
+            AppointmentAddContactComboBox.DataSource = customerTable;
         }
     }
 }

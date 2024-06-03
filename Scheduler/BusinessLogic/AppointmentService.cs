@@ -10,7 +10,7 @@ namespace Scheduler.BusinessLogic
 {
     internal class AppointmentService
     {
-        public static void CreateAppointment(int customerId, int userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end)
+        public static void CreateAppointment(int customerId, int userId, string title, string description, string location, string contact, string type, string url, DateTime startUtc, DateTime endUtc)
         {
             var appointment = new AppointmentModel
             {
@@ -22,18 +22,18 @@ namespace Scheduler.BusinessLogic
                 Contact = contact,
                 Type = type,
                 URL = url,
-                Start = start,
-                End = end
+                Start = startUtc,
+                End = endUtc
             };
 
             AppointmentRepository.InsertAppointment(appointment);
         }
 
-        public static void ModifyAppointment(AppointmentModel appointmentModel)
+        public static void ModifyAppointment(AppointmentModel appointmentModel, string contact)
         {
             try
             {
-                AppointmentRepository.UpdateAppointment(appointmentModel);
+                AppointmentRepository.UpdateAppointment(appointmentModel, contact);
                 MessageBox.Show("Appointment modified successfully!", "Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }

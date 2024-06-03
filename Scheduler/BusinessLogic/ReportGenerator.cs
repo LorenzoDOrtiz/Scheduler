@@ -1,18 +1,16 @@
-﻿using Scheduler.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Scheduler.BusinessLogic
 {
     public class ReportGenerator
     {
-        private static List<AppointmentModel> appointments = AppointmentService.GetUserAppointmentListForReports();
-        private static List<AppointmentModel> userAppointments = AppointmentService.GetUserAppointmentListForReports();
-
         // Report: Number of Appointment Types
         public static List<object> GetAppointmentTypesByMonth()
         {
-            var report = appointments
+            var usersAndAppointments = AppointmentService.GetUserAppointmentListForReports(); // Fetch fresh data
+
+            var report = usersAndAppointments
                 .GroupBy(a => new { a.Start.Year, a.Start.Month, a.Type })
                 .Select(g => new
                 {
@@ -28,7 +26,9 @@ namespace Scheduler.BusinessLogic
 
         public static List<object> GetUserSchedule(int userId)
         {
-            var report = userAppointments
+            var usersAndAppointments = AppointmentService.GetUserAppointmentListForReports(); // Fetch fresh data
+
+            var report = usersAndAppointments
                 .Where(a => a.UserId == userId)
                 .Select(g => new
                 {
@@ -38,9 +38,25 @@ namespace Scheduler.BusinessLogic
                     g.Type,
                     g.Start,
                     g.End
-
                 })
                 .ToList();
+
+            return report.Cast<object>().ToList();
+        }
+
+        public static List<object> GetCustomerCountByCountry()
+        {
+            var customersAndCountry = CustomerService.GetCustomerCountryListForReports(); // Fetch fresh data
+
+            var report = customersAndCountry
+                .GroupBy(c => c.CountryName)
+                .Select(g => new
+                {
+                    Country = g.Key,
+                    Count = g.Count()
+                })
+                .ToList();
+
             return report.Cast<object>().ToList();
         }
     }
