@@ -13,7 +13,6 @@ This README provides an overview of the project, including its features, require
 - [Setup Instructions](#setup-instructions)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Scenario
 I developed this application intended for a global consulting organization with multiple national offices. The application interacts with a provided MySQL database, pulling data without modifying the database structure. The goal was to create a user-friendly, multilingual application that meets specific business requirements.
