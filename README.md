@@ -40,13 +40,14 @@ The application is built in C# using the .NET Framework and Visual Studio IDE. I
 - **Validation**: Ensures fields are trimmed, non-empty, and phone numbers allow only digits and dashes.
 - **Exception Handling**: Handles errors during add, update, and delete operations.
 ![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/79d6fcb7-6803-4a2f-b65e-e5686ed4e4ef)
-![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/541fc858-2918-4806-8f10-d56ea0dcfb35)
+
 
 ### Appointment Management
 - **Add, Update, Delete**: Manage appointments linked to customer records.
 - **Validation**: Ensures appointments are scheduled during business hours (9:00 AM - 5:00 PM, Monday–Friday, EST) and prevents overlapping appointments.
 - **Exception Handling**: Handles errors during add, update, and delete operations.
 ![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/adb4a2c7-aed5-4ef2-a525-005a50c4ba08)
+![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/541fc858-2918-4806-8f10-d56ea0dcfb35)
 ![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/157e36c5-c6cd-46d8-92b4-1afec09b882a)
 ![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/7c5c6c4b-aa96-4cd3-bfee-6fc733ee9c3c)
 
