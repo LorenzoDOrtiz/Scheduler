@@ -132,6 +132,7 @@
       <DependentUpon>Localization.resx</DependentUpon>
     </Compile>
     <Compile Include="Localization\LocalizationManager.cs" />
+    <Compile Include="Logging\LoginLogging.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\AppointmentModel.cs" />
     <Compile Include="Models\CityModel.cs" />

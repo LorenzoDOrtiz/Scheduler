@@ -1,5 +1,6 @@
 ﻿using Scheduler.BusinessLogic;
 using Scheduler.Localization;
+using Scheduler.Logging;
 using System;
 using System.Windows.Forms;
 
@@ -40,14 +41,16 @@ namespace Scheduler.UI
                 // Set the dialog result to OK to indicate successful login
                 DialogResult = DialogResult.OK;
 
-                // Proceed with other post-login actions
                 UserManager.CreateUser(username, password);
                 UserManager.SetCurrentUserId(username, password);
+                LoginLogging.LogUserLogin($"Successful login with the username: {UserManager.GetCurrentUser().UserName}");
             }
             else
             {
                 // Failed login
                 MessageBox.Show(this, LocalizationManager.GetString("InvalidLoginPrompt"), "Invalid Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LoginLogging.LogUserLogin($"Failed login with the username: {username}");
+
             }
         }
     }
