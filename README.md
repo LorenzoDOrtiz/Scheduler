@@ -16,7 +16,7 @@ This README provides an overview of the project, including its features, require
 - [License](#license)
 
 ## Scenario
-I developed this application for a global consulting organization with offices in Phoenix, Arizona; New York, New York; and London, England. The application interacts with a provided MySQL database, pulling data without modifying the database structure. The goal was to create a user-friendly, multilingual application that meets specific business requirements.
+I developed this application intended for a global consulting organization with multiple national offices. The application interacts with a provided MySQL database, pulling data without modifying the database structure. The goal was to create a user-friendly, multilingual application that meets specific business requirements.
 
 ## Requirements
 The application is built in C# using the .NET Framework and Visual Studio IDE. It includes:
@@ -34,18 +34,21 @@ The application is built in C# using the .NET Framework and Visual Studio IDE. I
 - **Location Detection**: Determines the user's location.
 - **Multilingual Support**: Translates login and error messages into English and one additional language.
 - **Authentication**: Verifies username and password ("test" for both).
+- 
 ![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/24d4b137-5f44-4a1c-a705-769983d3b978)
+
 ### Customer Management
 - **Add, Update, Delete**: Manage customer records with name, address, and phone number fields.
 - **Validation**: Ensures fields are trimmed, non-empty, and phone numbers allow only digits and dashes.
 - **Exception Handling**: Handles errors during add, update, and delete operations.
+- 
 ![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/79d6fcb7-6803-4a2f-b65e-e5686ed4e4ef)
-
 
 ### Appointment Management
 - **Add, Update, Delete**: Manage appointments linked to customer records.
 - **Validation**: Ensures appointments are scheduled during business hours (9:00 AM - 5:00 PM, Monday–Friday, EST) and prevents overlapping appointments.
 - **Exception Handling**: Handles errors during add, update, and delete operations.
+  
 ![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/adb4a2c7-aed5-4ef2-a525-005a50c4ba08)
 
 ![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/157e36c5-c6cd-46d8-92b4-1afec09b882a)
@@ -70,7 +73,9 @@ The application is built in C# using the .NET Framework and Visual Studio IDE. I
   - Number of appointment types by month.
   - Schedule for each user.
   - An additional custom report.
+    
 ![image](https://github.com/LorenzoDOrtiz/Scheduler/assets/7910477/26d7178c-27e7-4b2d-9516-1850ad30ed2a)
+
 ### Logging
 - **Login History**: Records timestamps and usernames of logins in "Login_History.txt".
 
@@ -105,9 +110,6 @@ I welcome contributions! If you'd like to help improve this project, please foll
 3. Commit your changes.
 4. Push to the branch.
 5. Submit a pull request.
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
