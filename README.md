@@ -82,7 +82,7 @@ The application is built in C# using the .NET Framework and Visual Studio IDE. I
 ## Setup Instructions
 1. **Clone the Repository**: 
     ```bash
-    git clone https://github.com/yourusername/scheduling-desktop-app.git
+    git clone https://github.com/LorenzoDOrtiz/scheduling-desktop-app.git
     ```
 2. **Open in Visual Studio**: 
     - Open the solution file (.sln) in Visual Studio.
