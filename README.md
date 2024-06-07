@@ -10,9 +10,6 @@ This README provides an overview of the project, including its features, require
 - [Scenario](#scenario)
 - [Requirements](#requirements)
 - [Features](#features)
-- [Setup Instructions](#setup-instructions)
-- [Usage](#usage)
-- [Contributing](#contributing)
 
 ## Scenario
 I developed this application intended for a global consulting organization with multiple national offices. The application interacts with a provided MySQL database, pulling data without modifying the database structure. The goal was to create a user-friendly, multilingual application that meets specific business requirements.
@@ -77,38 +74,6 @@ The application is built in C# using the .NET Framework and Visual Studio IDE. I
 
 ### Logging
 - **Login History**: Records timestamps and usernames of logins in "Login_History.txt".
-
-## Setup Instructions
-1. **Clone the Repository**: 
-    ```bash
-    git clone https://github.com/LorenzoDOrtiz/scheduling-desktop-app.git
-    ```
-2. **Open in Visual Studio**: 
-    - Open the solution file (.sln) in Visual Studio.
-3. **Configure Database Connection**: 
-    - Update the database connection string in the configuration file.
-4. **Run the Application**: 
-    - Build and run the application from Visual Studio.
-
-## Usage
-1. **Login**: 
-    - Use "test" as both username and password.
-2. **Customer Management**: 
-    - Navigate to the customer management section to add, update, or delete customer records.
-3. **Appointment Management**: 
-    - Schedule, update, or cancel appointments linked to customer records.
-4. **Calendar View**: 
-    - View appointments by selecting dates from the calendar.
-5. **Generate Reports**: 
-    - Access the reports section to generate predefined and custom reports.
-
-## Contributing
-I welcome contributions! If you'd like to help improve this project, please follow these steps:
-1. Fork the repository.
-2. Create a new feature branch.
-3. Commit your changes.
-4. Push to the branch.
-5. Submit a pull request.
 
 ---
 
